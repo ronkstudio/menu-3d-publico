@@ -476,7 +476,7 @@
 
   /* ---------- secciones del administrador ----------
      Barra de arriba: #inicio, #locales, #cobros, #mensajes, #estadisticas, #difusion, #ajustes. La ficha de un local es #local/carpeta. */
-  var SECCIONES = [['inicio', '🏠 Inicio'], ['locales', '🍽 Locales'], ['cobros', '💳 Cobros'], ['mensajes', '📨 Mensajes'], ['estadisticas', '📊 Estadísticas'], ['difusion', '📣 Difusión'], ['ajustes', '⚙ Ajustes']];
+  var SECCIONES = [['inicio', '🏠 Inicio'], ['locales', '🍽 Locales'], ['cobros', '💳 Cobros'], ['mensajes', '🔔 Avisos'], ['estadisticas', '📊 Estadísticas'], ['difusion', '📣 Difusión'], ['ajustes', '⚙ Ajustes']];
   var seccion = 'inicio', fichaDe = null, buscar = '';
   var C = document.getElementById('contenido');
   function leerRuta() {
@@ -591,7 +591,7 @@
         (m && m.muestra ? '<div><dt></dt><dd class="suave">Datos de muestra, inventados.</dd></div>' : '') + '</dl></section>' +
       '<section class="caja panel-caja"><h3>💳 Plan y pagos</h3>' + (PLANES ? (x ? '<dl class="datos-local">' + dato('Plan', esc(x.nombre)) + dato('Forma de pago', esc(x.forma)) + dato('Cobro', pesos(x.cobro)) + dato('Próximo pago', vence(x)) + dato('Platos en 3D', esc(textoPlatos3d(l))) + '</dl>' : '<p class="suave">Sin plan cargado.</p>') +
         listaPagos(c) + '<div class="botones">' + (x ? boton('pago', c, 'Registrar pago', 'p') : '') + boton('plan', c, x ? 'Cambiar plan' : 'Cargar plan') + '</div>' : '<p class="suave">No se pudo leer el plan.</p>') + '</section>' +
-      '<section class="caja panel-caja"><h3>📨 Mensajes</h3><p class="suave nota-chica">Se abre su WhatsApp con el mensaje escrito y vos tocás enviar.</p><div class="lista">' +
+      '<section class="caja panel-caja"><h3>🔔 Avisos</h3><p class="suave nota-chica">Se abre su WhatsApp con el mensaje escrito y vos tocás enviar.</p><div class="lista">' +
         '<div class="pendiente"><span><b>Resumen del mes</b><small>Último: ' + esc(fechaISO(leerEnviado(c, 'resumen_enviado'))) + '</small></span>' + (incluyeResumen(l) ? boton('resumen', c, 'Preparar') : '<span class="suave nota-chica">No incluido en su plan</span>') + '</div>' +
         '<div class="pendiente"><span><b>Aviso de pago</b><small>Último: ' + esc(fechaISO(leerEnviado(c, 'aviso_enviado'))) + '</small></span>' + boton('aviso', c, 'Preparar') + '</div>' +
       '</div></section>' +
@@ -623,7 +623,7 @@
 
   /* --- Mensajes --- */
   function vistaMensajes() {
-    return '<div class="titulo-seccion"><h2>Mensajes</h2></div><p class="suave">Quedan listos para cada local: tocás, se abre su WhatsApp con el texto escrito y lo mandás.</p>' + cajaTareas() +
+    return '<div class="titulo-seccion"><h2>Avisos</h2></div><p class="suave">Avisos de pago y resúmenes del mes. Quedan listos para cada local: tocás, se abre su WhatsApp con el texto escrito y lo mandás.</p>' + cajaTareas() +
       tabla('mensajes', ['Local', 'WhatsApp', 'Último resumen', 'Último aviso de pago', ''], LOCS.map(function (l) {
         var tel = telDe(l), r = leerEnviado(l.carpeta, 'resumen_enviado'), a = leerEnviado(l.carpeta, 'aviso_enviado');
         return [linkLocal(l), tel ? celda(esc(telTexto(tel))) : celda(VACIO, ''), celda(esc(fechaISO(r)), r), celda(esc(fechaISO(a)), a),

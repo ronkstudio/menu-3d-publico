@@ -33,5 +33,7 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     var c = document.getElementById('vista-ctrl'); if (c) controles(c);
+    /* si los selectores están en un menú desplegable, se cierra al tocar afuera */
+    var d = c && c.closest('details'); if (d) document.addEventListener('click', function (e) { if (d.open && !d.contains(e.target)) d.open = false; });
   });
 })();

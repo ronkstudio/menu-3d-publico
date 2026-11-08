@@ -64,11 +64,39 @@
   function visibles() { return M.platos.filter(function (d) { return !d.oculto; }); }
 
   /* colores del local: cualquier clave de "claro"/"oscuro" pasa a ser una variable CSS (--acento, --fondo, …) */
+  /* ---------- que los colores del local se lean bien ----------
+     Si el color de los textos destacados (acento2) casi no se distingue del fondo, se oscurece (o se aclara en modo oscuro)
+     lo justo para que se lea. Lo mismo con el texto sobre los botones de color. El local sigue viendo "su" color. */
+  function rgb(h) {
+    h = String(h || '').replace('#', ''); if (h.length === 3) h = h.replace(/./g, '$&$&');
+    return /^[0-9a-f]{6}$/i.test(h) ? [0, 2, 4].map(function (i) { return parseInt(h.substr(i, 2), 16); }) : null;
+  }
+  function luz(c) { return c.map(function (v) { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }).reduce(function (a, v, i) { return a + v * [0.2126, 0.7152, 0.0722][i]; }, 0); }
+  function contraste(a, b) { var x = luz(a), y = luz(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); }
+  function hex(c) { return '#' + c.map(function (v) { return ('0' + Math.round(v).toString(16)).slice(-2); }).join(''); }
+  /* acerca el color al negro (o al blanco) hasta que se lea sobre el fondo */
+  function legible(color, fondo, hacia) {
+    var c = rgb(color), f = rgb(fondo); if (!c || !f) return null;
+    for (var i = 0; i < 20 && contraste(c, f) < 4.5; i++) c = c.map(function (v) { return v + (hacia - v) * 0.12; });
+    return hex(c);
+  }
+  function legibles(o, fondoBase, hacia) {
+    if (!o) return '';
+    var fondo = o.fondo || fondoBase, r = [];
+    var a2 = o.acento2 && rgb(o.acento2) && rgb(fondo) && contraste(rgb(o.acento2), rgb(fondo)) < 4.5 ? legible(o.acento2, fondo, hacia) : null;
+    if (a2) r.push('--acento2:' + a2);
+    if (o.acento && rgb(o.acento)) { /* texto de los botones de color: blanco o casi negro, el que mejor se lea */
+      var bl = contraste(rgb(o.acento), [255, 255, 255]), ne = contraste(rgb(o.acento), [27, 20, 16]);
+      r.push('--sobre-acento:' + (bl >= ne ? '#fff' : '#1b1410'));
+    }
+    return r.join(';');
+  }
   function colores(c) {
     if (!c) return;
     function vars(o) { return Object.keys(o || {}).map(function (k) { return '--' + k + ':' + o[k]; }).join(';'); }
-    var css = ':root{' + vars(c.claro) + '}';
-    if (c.oscuro) css += '@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){' + vars(c.oscuro) + '}}:root[data-theme="dark"]{' + vars(c.oscuro) + '}';
+    var css = ':root{' + vars(c.claro) + ';' + legibles(c.claro, '#faf6ee', 0) + '}';
+    var osc = c.oscuro && (vars(c.oscuro) + ';' + legibles(c.oscuro, '#17120e', 255));
+    if (osc) css += '@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){' + osc + '}}:root[data-theme="dark"]{' + osc + '}';
     var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
     if (c.claro && c.claro.acento) {
       var tc = document.querySelector('meta[name="theme-color"]');

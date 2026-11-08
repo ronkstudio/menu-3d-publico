@@ -325,3 +325,9 @@ body:has(.barra-admin) .wrap{max-width:1440px}
 /* los nombres largos bajan de renglón para que la columna no ocupe toda la pantalla */
 #grilla-dif td:first-child{white-space:normal;min-width:160px;max-width:230px}
 @media (max-width:640px){#grilla-dif td:first-child{min-width:120px;max-width:140px}#grilla-dif th:first-child,#grilla-dif td:first-child,#grilla-dif th:last-child,#grilla-dif td:last-child{padding-left:10px;padding-right:10px}}
+/* panel del local: los ajustes de pantalla (diseño y colores) quedan en un botón chico, no ocupan un renglón */
+.ajustes-vista{position:relative}
+.ajustes-vista summary{list-style:none;cursor:pointer;width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--linea);border-radius:12px;background:var(--tarjeta);font-size:1.15rem}
+.ajustes-vista summary::-webkit-details-marker{display:none}
+.ajustes-vista .vista{position:absolute;right:0;top:50px;z-index:20;flex-direction:column;background:var(--tarjeta);border:1px solid var(--linea);border-radius:12px;padding:10px;box-shadow:0 8px 24px rgba(0,0,0,.15);min-width:210px}
+.ajustes-vista .vista select{max-width:none;width:100%}

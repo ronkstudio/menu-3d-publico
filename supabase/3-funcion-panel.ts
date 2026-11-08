@@ -148,7 +148,21 @@ Deno.serve(async (req) => {
       if (total > MAX_BYTES) return responder(req, { error: 'Los archivos son demasiado grandes.' }, 413);
       /* un local no manda páginas: si cambió su menú, su página de entrada se arma acá (nombre al día al compartir) */
       const menu = archivos.find((a) => a.ruta === carpeta + '/menu.json');
-      if (!esAdmin && menu) archivos.push({ ruta: carpeta + '/index.html', texto: paginaLocal(JSON.parse(menu.texto ?? '{}'), carpeta) });
+      if (!esAdmin && menu) {
+        /* lo que incluye el plan lo decide el administrador: un local no lo puede cambiar al publicar,
+           ni pasarse de los platos en 3D de su plan (las bebidas no cuentan) */
+        const nuevo = JSON.parse(menu.texto ?? '{}');
+        const actual = await github('/contents/' + carpeta + '/menu.json?ref=' + RAMA).then((r) => JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(String(r.content).replace(/\n/g, '')), (c) => c.charCodeAt(0))))).catch(() => null);
+        if (actual?.incluye) nuevo.incluye = actual.incluye; else delete nuevo.incluye;
+        const limite = Number(nuevo.incluye?.platos3d) || 0;
+        if (limite) {
+          const bebida = (id: string) => (nuevo.categorias ?? []).some((c: { id?: string; nombre?: string }) => c.id === id && /bebida|trago|c[oó]ctel|vino|cerveza/i.test((c.nombre ?? '') + ' ' + (c.id ?? '')));
+          const con3d = (nuevo.platos ?? []).filter((p: { modelo?: unknown; categoria?: string }) => p.modelo && !bebida(String(p.categoria))).length;
+          if (con3d > limite) return responder(req, { error: 'Tu plan incluye hasta ' + limite + ' platos en 3D (sin contar bebidas) y tenés ' + con3d + '. Quitale el 3D a alguno para publicar.' }, 400);
+        }
+        menu.texto = JSON.stringify(nuevo, null, 2) + '\n';
+        archivos.push({ ruta: carpeta + '/index.html', texto: paginaLocal(nuevo, carpeta) });
+      }
       await publicar(archivos, String(cuerpo.mensaje ?? 'Actualiza el menú de ' + carpeta).slice(0, 120));
       return responder(req, { ok: true });
     }
