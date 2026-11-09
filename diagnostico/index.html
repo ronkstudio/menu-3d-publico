@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Diagnóstico gratis de tu carta · Menú 3D</title>
+<meta name="description" content="Mandanos tu carta y te devolvemos cinco mejoras concretas para que se lea mejor y ayude a vender. Sin costo y sin compromiso.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ronkstudio.github.io/menu-3d-publico/diagnostico/">
+<meta property="og:title" content="Diagnóstico gratis de tu carta">
+<meta property="og:description" content="Mandanos tu carta y te devolvemos cinco mejoras concretas. Sin costo y sin compromiso.">
+<meta property="og:image" content="https://ronkstudio.github.io/menu-3d-publico/brasa-y-grano/compartir.jpg">
+<meta name="theme-color" content="#b5832f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%8D%BD%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--fondo:#f6f3ee;--tarjeta:#fff;--texto:#221a14;--suave:#6f6257;--acento:#8f6420;--acento2:#8f6420;--linea:#e6ddd0;--sobre-acento:#fff;--mal:#b42318}
+@media (prefers-color-scheme:dark){:root{--fondo:#14110e;--tarjeta:#1f1a15;--texto:#f2eadf;--suave:#ab9d8c;--acento:#d6a24b;--acento2:#e6b863;--linea:#352c23;--sobre-acento:#1b1410;--mal:#f87171;color-scheme:dark}}
+*{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--fondo);color:var(--texto);font:16px/1.55 'DM Sans',system-ui,sans-serif}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:700;line-height:1.15;text-wrap:balance}
+a{color:var(--acento2)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--acento);outline-offset:2px}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+.portada{padding:56px 0 12px;text-align:center}
+.marca{display:inline-block;font:700 .8rem 'DM Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--acento2);margin-bottom:14px;text-decoration:none}
+.portada h1{font-size:clamp(2rem,6vw,3rem)}
+.portada p{color:var(--suave);font-size:1.08rem;max-width:560px;margin:14px auto 0}
+.b{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:11px 22px;border-radius:999px;border:1px solid var(--acento);background:var(--acento);color:var(--sobre-acento);font:700 1rem 'DM Sans',sans-serif;text-decoration:none;cursor:pointer}
+.portada .b{margin-top:24px}
+section{padding:34px 0 0}
+section>h2{font-size:clamp(1.4rem,4vw,1.8rem);text-align:center;margin-bottom:18px}
+.puntos{display:grid;gap:10px}
+.punto{display:grid;grid-template-columns:34px 1fr;gap:12px;background:var(--tarjeta);border:1px solid var(--linea);border-radius:16px;padding:16px}
+.punto i{font:700 1.1rem Fraunces,Georgia,serif;font-style:normal;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--acento);color:var(--sobre-acento)}
+.punto b{display:block}
+.punto span{color:var(--suave);font-size:.94rem}
+.pasos{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pasos li{background:var(--tarjeta);border:1px solid var(--linea);border-radius:16px;padding:16px;font-size:.95rem}
+.pasos b{display:block;font-family:Fraunces,Georgia,serif;font-size:1.05rem;margin-bottom:4px}
+@media (max-width:620px){.pasos{grid-template-columns:1fr}}
+form{display:grid;gap:14px;background:var(--tarjeta);border:1px solid var(--linea);border-radius:20px;padding:22px}
+label{display:grid;gap:5px;font-weight:600;font-size:.95rem}
+input{font:inherit;color:inherit;width:100%;min-height:48px;padding:10px 14px;border:1px solid var(--linea);border-radius:12px;background:var(--fondo)}
+.error{color:var(--mal);font-size:.9rem;font-weight:600}
+.error:empty{display:none}
+form .b{width:100%}
+.nota{color:var(--suave);font-size:.88rem;text-align:center}
+.listo{background:var(--tarjeta);border:2px solid var(--acento);border-radius:20px;padding:22px;text-align:center}
+.listo h3{font-size:1.25rem;margin-bottom:6px}
+.listo p{color:var(--suave)}
+[hidden]{display:none!important}
+footer{color:var(--suave);font-size:.88rem;text-align:center;padding:40px 16px 34px;display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <section class="portada">
+    <a class="marca" href="../precios/">Menú 3D</a>
+    <h1>Diagnóstico gratis de tu carta</h1>
+    <p>Mandanos una foto o el PDF de tu carta y te devolvemos cinco mejoras concretas para aplicar en tu local. Sin costo y sin compromiso.</p>
+    <a class="b" href="#pedir">Pedir mi diagnóstico</a>
+  </section>
+
+  <section>
+    <h2>Qué revisamos</h2>
+    <div class="puntos">
+      <div class="punto"><i>1</i><div><b>Lectura en el celular</b><span>Si los textos y precios se leen cómodos en una pantalla chica.</span></div></div>
+      <div class="punto"><i>2</i><div><b>Orden de la carta</b><span>Si los platos que más te conviene vender están donde se los ve primero.</span></div></div>
+      <div class="punto"><i>3</i><div><b>Turistas</b><span>Qué le falta a tu carta para que la entienda quien no habla español.</span></div></div>
+      <div class="punto"><i>4</i><div><b>Cambios de precios</b><span>Cómo actualizar tus precios sin volver a imprimir cada vez.</span></div></div>
+      <div class="punto"><i>5</i><div><b>Tu plato estrella</b><span>Cómo mostrarlo mejor, y cómo se vería en 3D sobre la mesa.</span></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Cómo funciona</h2>
+    <ol class="pasos">
+      <li><b>Completás tus datos</b>Se abre WhatsApp con el mensaje listo.</li>
+      <li><b>Nos mandás la carta</b>Una foto o un PDF, en ese mismo chat.</li>
+      <li><b>Recibís el diagnóstico</b>En 1 o 2 días hábiles. Te sirve aunque no nos contrates.</li>
+    </ol>
+  </section>
+
+  <section id="pedir">
+    <h2>Pedí el tuyo</h2>
+    <form id="form" novalidate>
+      <label>Nombre del local<input type="text" name="local" maxlength="80" autocomplete="organization"></label>
+      <label>Barrio<input type="text" name="barrio" maxlength="60"></label>
+      <label>Tu nombre<input type="text" name="nombre" maxlength="60" autocomplete="name"></label>
+      <p class="error" id="error" role="alert"></p>
+      <button class="b">Seguir por WhatsApp</button>
+      <p class="nota">Usamos tu carta y tus datos solo para hacerte el diagnóstico.</p>
+    </form>
+    <div class="listo" id="listo" hidden tabindex="-1">
+      <h3>Falta un paso: mandanos la carta</h3>
+      <p>En el chat de WhatsApp que se abrió, enviá el mensaje y adjuntá una foto o el PDF de tu carta.</p>
+      <p style="margin-top:14px"><a id="abrir" target="_blank" rel="noopener">Si no se abrió, tocá acá</a></p>
+    </div>
+  </section>
+</main>
+<footer>
+  <a href="../brasa-y-grano/" target="_blank" rel="noopener">Ver un menú de ejemplo</a>
+  <a href="../precios/">Planes y precios</a>
+  <a href="../privacidad/">Privacidad</a>
+</footer>
+<script src="../motor/planes.js"></script>
+<script>
+(function () {
+  'use strict';
+  /* no se guarda nada: el mensaje se escribe acá y sale desde el WhatsApp de quien lo pide */
+  var f = document.getElementById('form'), error = document.getElementById('error'), listo = document.getElementById('listo');
+  f.onsubmit = function (e) {
+    e.preventDefault();
+    var local = f.local.value.trim(), barrio = f.barrio.value.trim(), nombre = f.nombre.value.trim();
+    if (!local || !nombre) { error.textContent = 'Completá el nombre del local y tu nombre.'; (local ? f.nombre : f.local).focus(); return; }
+    error.textContent = '';
+    var texto = 'Hola, soy ' + nombre + ', de ' + local + (barrio ? ' (' + barrio + ')' : '') + '. Quiero el diagnóstico gratis de mi carta. Te la mando por acá.';
+    var url = 'https://wa.me/' + window.PRECIOS.whatsapp + '?text=' + encodeURIComponent(texto);
+    document.getElementById('abrir').href = url;
+    window.open(url, '_blank', 'noopener');
+    f.hidden = true; listo.hidden = false; listo.focus();
+  };
+})();
+</script>
+</body>
+</html>

@@ -7,7 +7,7 @@ window.NEGOCIO = {
   email: 'cocobbstudio@gmail.com', /* mail de contacto */
   whatsapp: '11 2312-1409',
   ciudad: 'la Ciudad Autónoma de Buenos Aires', /* para la jurisdicción, ej. 'la Ciudad Autónoma de Buenos Aires' */
-  actualizado: '6 de noviembre de 2026'
+  actualizado: '9 de noviembre de 2026'
 };
 /* completa los <span data-dato="..."> de la página */
 document.addEventListener('DOMContentLoaded', function () {
