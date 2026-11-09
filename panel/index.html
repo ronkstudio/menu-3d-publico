@@ -76,7 +76,7 @@
     <div class="caja" style="display:grid;gap:10px">
       <b>Modelo 3D</b>
       <div id="estado3d"></div>
-      <label>Fotos para el 3D<small>De 1 a 5 fotos. Recomendamos que una sea desde arriba; cuantas más fotos subas (sumando de costado), mejor queda el 3D.</small><input type="file" name="fotos3d" accept="image/*" multiple></label>
+      <label>Fotos para el 3D<small>De 1 a 5 fotos. La primera, desde arriba, nítida y con buena luz. Si sumás fotos de costado, mejora el 3D.</small><input type="file" name="fotos3d" accept="image/*" multiple></label>
       <div id="fotos3d-prev" class="gen-fotos"></div>
       <div><button type="button" class="b p" id="crear3d">Crear 3D</button></div>
     </div>
@@ -672,7 +672,7 @@
   F.fotos3d.onchange = function () {
     var max = Generador3D.MAX_FOTOS, archivos = [].slice.call(F.fotos3d.files);
     if (archivos.length > max) toast('Se usan las primeras ' + max + ' fotos (el máximo es ' + max + ')');
-    Promise.all(archivos.slice(0, max).map(function (f) { return achicar(f, 1600, .9); })).then(function (l) { fotos3d = l; previa3d(); });
+    Promise.all(archivos.slice(0, max).map(function (f) { return achicar(f, 2400, .92); })).then(function (l) { fotos3d = l; previa3d(); });
   };
   function previa3d() {
     $('#fotos3d-prev').innerHTML = fotos3d.map(function (d, i) {

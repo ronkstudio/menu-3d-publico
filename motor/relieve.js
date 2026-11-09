@@ -20,12 +20,24 @@ window.Menu3DRelieve = function (THREE, m, base) {
     var W = rel.naturalWidth, H = rel.naturalHeight, c = document.createElement('canvas');
     c.width = W; c.height = H;
     var g = c.getContext('2d'); g.drawImage(rel, 0, 0);
-    var px = g.getImageData(0, 0, W, H).data, alt = m.altura || .3, BASE = .015;
+    var px = g.getImageData(0, 0, W, H).data, alt = (m.altura || .3) * .7, BASE = .015;
+    /* el relieve se suaviza para que los bordes de la comida no se estiren como una pared */
+    var alto = new Float32Array(W * H), rad = Math.max(1, Math.round(W / 128));
+    for (var ip = 0; ip < W * H; ip++) alto[ip] = px[ip * 4] / 255;
+    function pasada(horizontal) {
+      var copia = alto.slice(), largo = horizontal ? W : H, otro = horizontal ? H : W;
+      for (var o = 0; o < otro; o++) for (var q = 0; q < largo; q++) {
+        var s = 0, n = 0;
+        for (var d = Math.max(0, q - rad); d <= Math.min(largo - 1, q + rad); d++) { s += copia[horizontal ? o * W + d : d * W + o]; n++; }
+        alto[horizontal ? o * W + q : q * W + o] = s / n;
+      }
+    }
+    for (var vuelta = 0; vuelta < 3; vuelta++) { pasada(true); pasada(false); }
     function h(x, z) { /* x, z entre -1 y 1 → altura con interpolación bilineal */
       var fx = (x + 1) / 2 * (W - 1), fz = (z + 1) / 2 * (H - 1);
       var x0 = Math.max(0, Math.min(W - 2, Math.floor(fx))), z0 = Math.max(0, Math.min(H - 2, Math.floor(fz)));
       var tx = fx - x0, tz = fz - z0;
-      function v(a, b) { return px[(b * W + a) * 4] / 255; }
+      function v(a, b) { return alto[b * W + a]; }
       return (v(x0, z0) * (1 - tx) + v(x0 + 1, z0) * tx) * (1 - tz) + (v(x0, z0 + 1) * (1 - tx) + v(x0 + 1, z0 + 1) * tx) * tz;
     }
     /* malla en anillos (borde redondo, sin dientes) + un faldón que baja hasta la mesa */

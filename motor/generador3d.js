@@ -90,7 +90,7 @@
         im.data[q * 4] = im.data[q * 4 + 1] = im.data[q * 4 + 2] = val; im.data[q * 4 + 3] = 255;
       }
       g.putImageData(im, 0, 0);
-      return { tipo: 'foto', textura: recorte(img, e, 768, .85), relieve: c.toDataURL('image/png'), altura: .3 };
+      return { tipo: 'foto', textura: recorte(img, e, Math.max(768, Math.min(1536, Math.round(Math.max(e.rx, e.ry) * 2))), .85), relieve: c.toDataURL('image/png'), altura: .3 };
     });
   }
   function resolver(S, B) { /* sistema 3x3 por Cramer */
@@ -129,9 +129,9 @@
         sc.add(new THREE.HemisphereLight(0xffffff, 0x8a7a68, 1.1));
         var sol = new THREE.DirectionalLight(0xfff2dc, 1.6); sol.position.set(2, 4, 3); sc.add(sol);
         var giro = new THREE.Group(); giro.add(grupo); sc.add(giro);
-        var elev = .7, ang = 0, arr = null;
+        var elev = .98, ang = 0, arr = null;
         cv.onpointerdown = function (e) { arr = [e.clientX, e.clientY]; cv.setPointerCapture(e.pointerId); };
-        cv.onpointermove = function (e) { if (!arr) return; ang += (e.clientX - arr[0]) * .01; elev = Math.max(.15, Math.min(1.45, elev + (e.clientY - arr[1]) * .01)); arr = [e.clientX, e.clientY]; };
+        cv.onpointermove = function (e) { if (!arr) return; ang += (e.clientX - arr[0]) * .01; elev = Math.max(.78, Math.min(1.45, elev + (e.clientY - arr[1]) * .01)); arr = [e.clientX, e.clientY]; };
         cv.onpointerup = function () { arr = null; };
         (function loop() {
           if (!vivo) { r.dispose(); return; }

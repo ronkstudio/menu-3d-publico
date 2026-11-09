@@ -174,7 +174,8 @@
 
   /* giro del plato: vuelta completa sobre su eje vertical, pero inclinación limitada
      (se puede acercar hacia vos para ver mejor, no dar vuelta hasta ver la parte de abajo) */
-  var INCL_MIN = -.12, INCL_MAX = .6;
+  var INCL_MIN = -.2, INCL_MAX = .5; /* con ELEV: nunca se ve tan de costado como para que se note que sale de una foto */
+  var ELEV = .98;
   function aplicarGiro() {
     var eje = S.eje.set(1, 0, 0).applyQuaternion(S.cam.quaternion); eje.y = 0;
     if (eje.lengthSq() < 1e-4) eje.set(1, 0, 0);
@@ -183,7 +184,7 @@
   }
 
   function resetView() {
-    S.elev = .55; S.holder.position.set(0, 0, 0); S.scale = 1; S.base = 1; S.holder.visible = true;
+    S.elev = ELEV; S.holder.position.set(0, 0, 0); S.scale = 1; S.base = 1; S.holder.visible = true;
     S.yaw = 0; S.incl = 0; S.auto = true; S.calib = true; applyScale();
   }
   function onResize() {
@@ -215,7 +216,7 @@
     spin.add(model); holder.add(spin); scene.add(holder);
     var ground = new THREE.Mesh(new THREE.PlaneGeometry(14, 14), new THREE.ShadowMaterial({ opacity: .38 }));
     ground.rotation.x = -Math.PI / 2; ground.position.y = -.001; ground.receiveShadow = true; holder.add(ground);
-    S = { renderer: r, scene: scene, cam: cam, holder: holder, spin: spin, elev: .55, dist: camDist(), scale: 1, auto: true, raf: 0, ptr: new Map(), sun: sun, qa: new THREE.Quaternion(), base: 1, placed: false, gyro: false, calib: true, qd: new THREE.Quaternion(), Y0: new THREE.Quaternion(), yaw: 0, incl: 0, qy: new THREE.Quaternion(), eje: new THREE.Vector3(), arriba: new THREE.Vector3(0, 1, 0) };
+    S = { renderer: r, scene: scene, cam: cam, holder: holder, spin: spin, elev: ELEV, dist: camDist(), scale: 1, auto: true, raf: 0, ptr: new Map(), sun: sun, qa: new THREE.Quaternion(), base: 1, placed: false, gyro: false, calib: true, qd: new THREE.Quaternion(), Y0: new THREE.Quaternion(), yaw: 0, incl: 0, qy: new THREE.Quaternion(), eje: new THREE.Vector3(), arriba: new THREE.Vector3(0, 1, 0) };
     resetView(); bindGestures();
     (function loop() {
       if (!S) return;
