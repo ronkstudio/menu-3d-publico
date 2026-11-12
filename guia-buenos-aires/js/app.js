@@ -708,7 +708,9 @@
 
   /* ── Mi viaje ── */
   const routeUrl = items => {
-    const pt = p => encodeURIComponent(p.ll ? p.ll.join(",") : (p.mapq || p.name + ", Buenos Aires"));
+    /* Se manda nombre y dirección, no coordenadas: con coordenadas Google pone el nombre del lugar más cercano que conoce
+       y aparecían paradas que no eran (por ejemplo, una obra social en vez del lugar elegido). */
+    const pt = p => encodeURIComponent(p.mapq || [p.name, p.address, p.inCity ? "Buenos Aires" : ""].filter(Boolean).join(", "));
     if (items.length === 1) return "https://www.google.com/maps/dir/?api=1&destination=" + pt(items[0]);
     const mid = items.slice(1, -1).slice(0, 9).map(pt).join("%7C");
     return "https://www.google.com/maps/dir/?api=1&origin=" + pt(items[0]) + "&destination=" + pt(items[items.length - 1]) + (mid ? "&waypoints=" + mid : "");
