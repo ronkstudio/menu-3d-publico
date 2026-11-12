@@ -484,7 +484,7 @@ window.CITY_DATA.caba = {
       desc: "Parrilla kosher tradicional del barrio de Once: carnes a las brasas y platos judíos.", tip: "Cierra viernes a la noche y sábados. La zona de Once, mejor de día.", tags: ["kosher", "carne", "parrilla"] },
     { cat: "comer", sub: "Cocinas del mundo", name: "Fukuro Noodle Bar", barrio: "Palermo", address: "Ángel J. Carranza 1940", price: 2,
       desc: "El bar de ramen que puso de moda los fideos japoneses en la ciudad, con barra y música fuerte.", tip: "No toma reservas: andá temprano.", tags: ["japonés", "ramen", "moderno"] },
-    { cat: "comer", sub: "Cocinas del mundo", name: "Osaka", barrio: "Palermo", address: "Soler 5608", price: 4,
+    { cat: "comer", sub: "Cocinas del mundo", name: "Osaka", barrio: "Palermo", address: "Concepción Arenal 2913 (Colegiales)", price: 4,
       desc: "Cocina nikkei, la fusión peruano-japonesa, en su versión más elegante: tiraditos, sushi y pescados.", tip: "Reservá. La barra es una buena opción sin tanta espera.", tags: ["nikkei", "pescado", "reserva", "elegante"] },
     { cat: "comer", sub: "Cocinas del mundo", name: "La Mar Cebichería", barrio: "Palermo", address: "Arévalo 2024", price: 3,
       desc: "La cebichería peruana de Gastón Acurio, en un galpón con patio. Cebiches, causas y pisco sour.", tip: "Al mediodía con sol, en el patio.", tags: ["peruano", "pescado", "compartir"] },

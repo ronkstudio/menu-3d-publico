@@ -20,7 +20,7 @@
     ["noche", "Para bailar", "Jet", "Palermo", "Av. Costanera Rafael Obligado 4801 (Costanera Norte)", 3, "Boliche frente al río en Costanera Norte, con electrónica, reggaetón y noches de música de los 80, 90 y 2000.", "Mayores de 18; algunos sábados piden más edad. Llevá documento.", ["boliche", "fiesta", "vista"]],
     ["noche", "Para bailar", "Mandarine Park", "Palermo", "Av. Costanera y Av. Sarmiento (Costanera Norte)", 3, "El espacio más grande de la Costanera: fiestas electrónicas enormes y noches de reggaetón. Ahí se hace la fiesta Bresh.", "Las fiestas cambian cada semana: mirá en sus redes cuál toca antes de ir.", ["boliche", "fiesta", "música"]],
     ["noche", "Para bailar", "Terrazas del Este", "Palermo", "Av. Costanera y Av. Sarmiento (Costanera Norte)", 2, "Terrazas al aire libre junto al río, con after office a mitad de semana y fiestas de fin de semana.", "El after office de los miércoles es la forma más tranquila de conocerlo.", ["boliche", "fiesta", "aire libre"]],
-    ["noche", "Para bailar", "BNN (ex Banana)", "Palermo", "Av. Costanera Rafael Obligado 6201 (Costanera Norte)", 2, "Uno de los boliches más concurridos de la Costanera, con pista grande, reggaetón y cachengue.", "Mayores de 18; algunos sábados piden más edad. Los viernes suele haber mejores promociones de entrada.", ["boliche", "fiesta"]],
+    ["noche", "Para bailar", "BNN Costanera", "Palermo", "Av. Costanera Rafael Obligado 6201 (Costanera Norte)", 2, "Uno de los boliches más concurridos de la Costanera, con pista grande, reggaetón y cachengue.", "Mayores de 18; algunos sábados piden más edad. Los viernes suele haber mejores promociones de entrada.", ["boliche", "fiesta"]],
     ["noche", "Para bailar", "Caix", "Palermo", "Av. Costanera Rafael Obligado 1221 (Costa Salguero)", 3, "Boliche de música electrónica en el complejo Costa Salguero, junto al río.", "Mayores de 18. Andá y volvé en taxi o app: la Costanera no es para caminar de noche.", ["boliche", "fiesta", "música"]],
     ["noche", "Para bailar", "Museum", "San Telmo", "Perú 535", 2, "Un boliche clásico en un edificio de ladrillo y hierro de San Telmo, famoso por su after office.", "De noche, llegá y salí en taxi o app.", ["boliche", "fiesta", "historia"]],
     ["noche", "Para bailar", "Tamarisco", "Recoleta", "J. E. Uriburu 1073", 2, "Boliche de Recoleta con espíritu de peña: folclore, cumbia y música para bailar en grupo.", "Los jueves hay peña folclórica.", ["boliche", "fiesta", "folclore"]],
@@ -39,7 +39,7 @@
     "jet": [-34.552, -58.4259],
     "mandarine-park": [-34.5652, -58.3988],
     "terrazas-del-este": [-34.5648, -58.3993],
-    "bnn-ex-banana": [-34.55, -58.4297], // aprox.
+    "bnn-costanera": [-34.55, -58.4297], // aprox.
     "caix": [-34.5689, -58.3954],
     "museum": [-34.6152, -58.3742], // aprox.
     "tamarisco": [-34.5945, -58.399], // aprox.
@@ -54,7 +54,7 @@
     "jet": [4, 5, 6],
     "mandarine-park": [5, 6],
     "terrazas-del-este": [3, 5, 6],
-    "bnn-ex-banana": [5, 6],
+    "bnn-costanera": [5, 6],
     "caix": [5, 6],
     "tamarisco": [4, 5, 6]
   });

@@ -338,7 +338,7 @@
 
   /* ── Filtros de Explorar ── */
   let f, zoneId = "", showHelp = false, focusHelp = null;
-  const DIETS = [["vegetariano", "🥬 Vegetariano"], ["vegano", "🌱 Vegano"], ["sin TACC", "🌾 Sin TACC"], ["kosher", "✡️ Kosher"]];
+  const DIETS = [["vegetariano", "🥬 Vegetariano"], ["vegano", "🌱 Vegano"], ["sin TACC", "🌾 Sin TACC"], ["kosher", "✡️ Kosher"], ["halal", "☪️ Halal"]];
   const resetFilters = next => { f = Object.assign({ cat: "todos", sub: "", barrio: "", prices: [], diets: [], today: false, q: "", sort: "rec", planDay: null }, next || {}); };
   resetFilters();
   const SYN = X.synonyms || {};

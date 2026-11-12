@@ -280,7 +280,18 @@
     ["comer", "Vegetariano", "Artemisia", "Palermo", "Costa Rica 5893", 3, "Cocina natural y orgánica, con muchas opciones vegetarianas.", "Lindo patio para almorzar.", ["vegetariano", "natural"]],
     ["comer", "De autor", "Las Pizarras", "Palermo", "Thames 2296", 3, "Un bistró chico donde la carta cambia todos los días y se escribe en pizarras.", "Reservá: tiene pocas mesas.", ["bistró", "autor"]],
     ["comer", "De autor", "Casa Cavia", "Palermo", "Cavia 2985", 4, "Una casona de 1927 con restaurante, bar, librería y jardín.", "Linda para un almuerzo o una merienda en el jardín.", ["autor", "jardín", "arquitectura"]],
-    ["comer", "Cocinas del mundo", "Kansas", "Palermo", "Av. del Libertador 4625", 3, "Parrilla de estilo estadounidense: costillas de cerdo y porciones grandes.", "No toma reservas; anotate en la lista al llegar.", ["americano", "costillas", "abundante"]]
+    ["comer", "Cocinas del mundo", "Kansas", "Palermo", "Av. del Libertador 4625", 3, "Parrilla de estilo estadounidense: costillas de cerdo y porciones grandes.", "No toma reservas; anotate en la lista al llegar.", ["americano", "costillas", "abundante"]],
+    /* Comer con una condición (pedido de Bautista, 12/11/2026). Solo con fuente, y la app avisa siempre que hay que confirmar en el local.
+       Sin TACC: TACCOFF según su propia web; Dulce Seminare según CeliMap (mapa de la comunidad celíaca).
+       Kosher: guía de restaurantes kosher de Time Out Buenos Aires (2026). Halal: no encontramos restaurantes con certificado; Al Rawshe figura como halal en reseñas. */
+    ["comer", "Sin TACC", "TACCOFF", "Palermo", "Nicaragua 5977", 2, "Restaurante y panadería 100 % sin gluten en Palermo Hollywood: platos, panes y pastelería.", "Según su web, todo lo que hacen es sin gluten. Confirmá igual en el local.", ["sin TACC", "celíacos", "panadería"]],
+    ["comer", "Sin TACC", "Dulce Seminare GF", "Almagro", "Bartolomé Mitre 4400", 1, "Panadería y pastelería sin TACC, marcada como 100 % libre de gluten en CeliMap.", "Ideal para llevarte pan y facturas sin gluten. Confirmá en el local.", ["sin TACC", "celíacos", "panadería", "dulce"]],
+    ["comer", "Kosher", "Agus Kitchen", "Palermo", "Maure 2196", 3, "Cocina kosher de autor en una casona: técnica cuidada y platos para compartir.", "Kosher con certificación, según Time Out. Cierra en shabat: confirmá días antes de ir.", ["kosher"]],
+    ["comer", "Kosher", "Forno Fettuccine", "Palermo", "Maure 2200", 2, "Pastas y cocina casera kosher, en la misma casona que Agus Kitchen.", "Cierra en shabat: confirmá días antes de ir.", ["kosher", "pastas"]],
+    ["comer", "Kosher", "Yum", "Almagro", "Tucumán 3099", 2, "Esquina moderna con cocina kosher certificada (Ajdut Kosher, Jalab Israel y Bishul Israel), según Time Out.", "Queda cerca del Abasto. Cierra en shabat.", ["kosher"]],
+    ["comer", "Kosher", "L'harmonie", "Palermo", "Av. del Libertador 3118", 2, "Café y pastelería kosher con varios locales; el de Libertador queda frente a los parques de Palermo.", "Lindo para un desayuno o merienda. Cierra en shabat.", ["kosher", "café", "dulce"]],
+    ["comer", "Kosher", "Bambina Pizza", "Palermo", "Cabello 3486", 2, "Pizzería kosher con onda, cálida y de barrio, en Palermo.", "Cierra en shabat: confirmá días antes de ir.", ["kosher", "pizza"]],
+    ["comer", "Cocinas del mundo", "Al Rawshe", "Palermo", "Av. Santa Fe 3870", 1, "Cocina libanesa casera: shawarma, falafel y kebab. En reseñas de viajeros aparece como uno de los pocos lugares halal de la ciudad.", "No encontramos un certificado halal: si lo necesitás, preguntá en el local. Suele aceptar solo efectivo.", ["halal", "árabe"]],
   ];
 
   /* Barrios que aparecen en el filtro de Explorar y del Mapa (tarjeta #56): los que más recorre un turista.
@@ -296,6 +307,14 @@
 
   /* Ubicaciones [latitud, longitud] de estos lugares. */
   const coords = {
+  "taccoff": [-34.57862, -58.43724],
+  "dulce-seminare-gf": [-34.61077, -58.42872],
+  "agus-kitchen": [-34.57007, -58.43990],
+  "yum": [-34.60078, -58.40896],
+  "l-harmonie": [-34.57657, -58.41239],
+  "bambina-pizza": [-34.58117, -58.40955],
+  "forno-fettuccine": [-34.57009, -58.43993],
+  "al-rawshe": [-34.58391, -58.41797],
     "iglesia-de-san-ignacio-y-manzana-de-las-luces": [-34.61056, -58.37356],
     "basilica-de-san-francisco": [-34.61021, -58.37173],
     "basilica-y-convento-de-santo-domingo": [-34.6126,-58.3714], // aprox.

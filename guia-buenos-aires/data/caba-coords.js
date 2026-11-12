@@ -193,7 +193,7 @@ window.CITY_COORDS.caba = {
   "mcdonald-s-kosher-del-abasto": [-34.60295, -58.41069],
   "al-galope": [-34.60185, -58.404],
   "fukuro-noodle-bar": [-34.58075, -58.43641],
-  "osaka": [-34.58082, -58.43281],
+  "osaka": [-34.57846, -58.44174],   // se mudó a Colegiales (Michelin, revisado 12/11/2026)
   "la-mar-cebicheria": [-34.57827, -58.43757],
   "chan-chan": [-34.61001, -58.38589],
   "una-cancion-coreana": [-34.64174, -58.44584],
