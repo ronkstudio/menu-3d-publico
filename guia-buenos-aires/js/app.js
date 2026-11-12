@@ -713,18 +713,100 @@
       { t: "Aeropuertos", d: "Ezeiza es para casi todos los vuelos internacionales; Aeroparque, para los de cabotaje y algunos a países vecinos. Fijate bien cuál es el tuyo." }
     ] }, true) + "</div>";
 
-  /* Recién llegado (tarjeta #77): las primeras horas en la ciudad, paso a paso. Cada paso lleva a la parte de la guía que lo explica. */
-  const LLEGADA = [
-    ["🚕", "Salí del aeropuerto", "Tomá un taxi o remís en los mostradores oficiales de adentro del aeropuerto, o pedí un auto por app. No aceptes ofertas de gente que se te acerque en el hall.", "#/info/moverse", "Cómo llegar al centro"],
-    ["📶", "Conseguí internet", "Comprá un chip prepago de Personal, Claro o Movistar, o activá una eSIM antes de viajar. Con eso tenés mapas y apps desde el primer minuto.", "#/info/practica", "Ver datos útiles"],
-    ["💳", "Resolvé la plata", "Pagar con tarjeta extranjera suele convenir. No cambies dinero con gente en la calle.", "#/info/practica", "Ver dinero y pagos"],
-    ["🚇", "Prepará el transporte", "Comprá y cargá una tarjeta SUBE. En el subte y en muchos colectivos también podés pagar acercando tu tarjeta sin contacto.", "#/info/moverse", "Ver cómo moverte"],
-    ["🆘", "Guardá los teléfonos útiles", "Anotá los de emergencia y la dirección de tu alojamiento, por si te quedás sin batería.", "#/info/ayuda", "Ver dónde pedir ayuda"],
-    ["🧭", "Armá tu primer día", "Elegí qué te gusta y la guía te arma un recorrido.", "#/armar", "Armar mi viaje"]
-  ];
-  const llegadaHtml = () =>
-    '<p class="hint">Lo que conviene hacer en tus primeras horas en Buenos Aires.</p><ol class="arrive">' +
-    LLEGADA.map(s => '<li class="arrive-step"><span class="arrive-n" aria-hidden="true">' + s[0] + "</span><div><b>" + s[1] + "</b><p>" + s[2] + '</p><a class="link" href="' + s[3] + '">' + s[4] + " →</a></div></li>").join("") + "</ol>";
+  /* Recién llegado (tarjetas #77 y #79): las primeras horas en la ciudad, paso a paso.
+     Cada paso se abre y se cierra, se puede marcar como hecho (queda guardado en el celular) y trae botones que resuelven
+     esa necesidad: cómo llegar desde el aeropuerto a tu alojamiento, comprar chip, cajeros cerca, dónde cargar la SUBE, llamar a emergencias.
+     Las direcciones de las webs (SUBE, Personal, Claro, Movistar, Uber, Cabify, DiDi, Tienda León) se revisaron el 12/11/2026. */
+  const LLEG_KEY = "guia.llegada";
+  const llegEstado = () => store.get(LLEG_KEY, { hecho: [], aloja: "" });
+  const gmDir = (from, to, mode) => "https://www.google.com/maps/dir/?api=1" + (from ? "&origin=" + encodeURIComponent(from) : "") + "&destination=" + encodeURIComponent(to) + "&travelmode=" + (mode || "driving");
+  const gmBuscar = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
+  const act = (icon, label, href, sub) => {
+    const ext = /^https?:/.test(href);
+    return '<a class="act" href="' + esc(href) + '"' + (ext ? ' target="_blank" rel="noopener"' : "") + '><em aria-hidden="true">' + icon + "</em><span><b>" + label + "</b>" + (sub ? "<small>" + sub + "</small>" : "") + "</span></a>";
+  };
+  const tips = arr => '<ul class="lleg-tips">' + arr.map(t => "<li>" + t + "</li>").join("") + "</ul>";
+  const llegPasos = st => {
+    const destino = st.aloja ? st.aloja + ", Buenos Aires" : "Obelisco, Buenos Aires";
+    const aDonde = st.aloja ? "Hasta tu alojamiento" : "Hasta el centro (Obelisco)";
+    const uber = "https://m.uber.com/ul/?action=setPickup&pickup=my_location" + (st.aloja ? "&dropoff[formatted_address]=" + encodeURIComponent(destino) : "");
+    const alojaForm = '<label class="lleg-aloja"><span>¿Dónde te alojás?</span><input id="lleg-aloja" type="text" autocomplete="street-address" placeholder="Dirección o nombre del hotel" value="' + esc(st.aloja) + '"></label>';
+    return [
+      { id: "aeropuerto", icon: "🛬", t: "Salí del aeropuerto", s: "Llegá a tu alojamiento sin vueltas",
+        body: alojaForm +
+          '<div class="acts">' +
+          act("🗺️", "Desde Ezeiza", gmDir("Aeropuerto Internacional Ezeiza", destino), aDonde) +
+          act("🗺️", "Desde Aeroparque", gmDir("Aeroparque Jorge Newbery", destino), aDonde) +
+          act("🚗", "Pedir un Uber", uber, st.aloja ? "Con tu alojamiento ya cargado" : "") +
+          act("🚕", "Cabify", "https://cabify.com/ar") +
+          act("🚖", "DiDi", "https://web.didiglobal.com/ar/") +
+          act("🚌", "Micro al centro", "https://www.tiendaleon.com/", "Tienda León, desde Ezeiza") +
+          "</div>" +
+          tips(["Taxis y remises: contratalos en los mostradores oficiales de adentro del aeropuerto.",
+            "No aceptes ofertas de gente que se te acerque en el hall.",
+            "Ezeiza queda lejos del centro: contá con un buen rato de viaje."]) },
+      { id: "internet", icon: "📶", t: "Conseguí internet", s: "Chip prepago o eSIM",
+        body: '<div class="acts">' +
+          act("📱", "Personal", "https://www.personal.com.ar/prepago", "Chip prepago") +
+          act("📱", "Claro", "https://www.claro.com.ar/personas/elegi-prepago", "Chip prepago") +
+          act("✨", "Claro eSIM", "https://simple.claro.com.ar/esimple", "Sin chip físico") +
+          act("📱", "Movistar", "https://www.movistar.com.ar/prepago", "Chip prepago") +
+          act("📍", "Tiendas cerca", gmBuscar("tienda Personal Claro Movistar"), "En el mapa") +
+          "</div>" +
+          tips(["Para comprar un chip te pueden pedir el pasaporte.",
+            "Si tu celular acepta eSIM, podés activarla antes de viajar.",
+            "Muchos bares y cafés tienen Wi-Fi gratis: pedí la clave."]) },
+      { id: "plata", icon: "💳", t: "Resolvé la plata", s: "Cambio, cajeros y cómo pagar",
+        body: convHtml() +
+          '<div class="acts">' +
+          act("🏧", "Cajeros cerca", gmBuscar("cajero automático"), "En el mapa") +
+          act("💱", "Casas de cambio", gmBuscar("casa de cambio"), "Oficiales, en el mapa") +
+          act("💵", "Más sobre pagos", "#/info/practica", "Tarjetas, propina y cubierto") +
+          "</div>" +
+          tips(["Pagar con tarjeta extranjera suele convenir.",
+            "Tené algo de efectivo en billetes chicos para propinas y kioscos.",
+            "No cambies dinero con gente en la calle."]) },
+      { id: "sube", icon: "🚇", t: "Prepará el transporte", s: "Tarjeta SUBE y cómo moverte",
+        body: '<div class="acts">' +
+          act("📍", "Dónde comprar y cargar", "https://tarjetasube.sube.gob.ar/SubeWeb/WebForms/admin/views/mapa-sube.aspx?id=1", "Mapa oficial de puntos SUBE") +
+          act("📲", "App SUBE", "https://www.argentina.gob.ar/sube/nuestras-apps", "Mirá tu saldo") +
+          act("🚇", "Líneas de subte", "#/info/moverse", "Recorridos y consejos") +
+          "</div>" +
+          '<form class="route" id="route-form"><label for="route-to">¿A dónde querés ir?</label><div class="search"><input id="route-to" name="to" required placeholder="Ej.: Teatro Colón, Caminito…" autocomplete="off"><button>Cómo llegar</button></div></form>' +
+          tips(["La SUBE se compra en kioscos, estaciones de subte y puntos SUBE.",
+            "En el subte y en muchos colectivos también podés pagar con tu tarjeta sin contacto."]) },
+      { id: "ayuda", icon: "🆘", t: "Guardá los teléfonos útiles", s: "Tocá un número para llamar",
+        body: sosHtml() +
+          '<div class="acts">' +
+          (st.aloja ? act("🏠", "Volver a mi alojamiento", gmDir("", destino, "transit"), st.aloja) : "") +
+          act("🏥", "Farmacias cerca", gmBuscar("farmacia"), "En el mapa") +
+          act("🛟", "Más ayuda", "#/info/ayuda", "Turismo, hospitales, consulados") +
+          "</div>" +
+          tips(["Sacale una captura a esta pantalla por si te quedás sin batería o sin internet."]) },
+      { id: "dia", icon: "🧭", t: "Armá tu primer día", s: "Ideas para arrancar",
+        body: '<div class="acts">' +
+          act("✨", "Armar mi viaje", "#/armar", "Elegí qué te gusta") +
+          act("⚡", "Buenos Aires en 1 día", "#/itinerario/1-dia", "Lo imperdible") +
+          act("📅", "Qué hay hoy", "#/", "Eventos y ferias del día") +
+          act("🗺️", "Ver el mapa", "#/mapa", "Lugares cerca tuyo") +
+          "</div>" }
+    ];
+  };
+  const llegadaHtml = () => {
+    const st = llegEstado(), pasos = llegPasos(st);
+    const n = pasos.filter(p => st.hecho.indexOf(p.id) > -1).length;
+    const abierto = (pasos.find(p => st.hecho.indexOf(p.id) < 0) || {}).id;
+    return '<div class="lleg-head"><div><b>Tus primeras horas en Buenos Aires</b><span>Abrí cada paso y marcalo cuando lo tengas listo.</span></div>' +
+      '<div class="lleg-prog" role="progressbar" aria-valuemin="0" aria-valuemax="' + pasos.length + '" aria-valuenow="' + n + '"><i style="width:' + Math.round(n / pasos.length * 100) + '%"></i></div>' +
+      '<small class="lleg-cuenta">' + (n === pasos.length ? "¡Todo listo! Disfrutá Buenos Aires." : "<span>Pasos listos</span> <b>" + n + "/" + pasos.length + "</b>") + "</small></div>" +
+      '<div class="lleg">' + pasos.map((p, i) => {
+        const ok = st.hecho.indexOf(p.id) > -1;
+        return '<details class="lleg-paso' + (ok ? " ok" : "") + '" name="lleg"' + (p.id === abierto ? " open" : "") + ">" +
+          '<summary><span class="lleg-ico" aria-hidden="true">' + (ok ? "✓" : p.icon) + "</span><span class=\"lleg-tit\"><b>" + p.t + "</b><small>" + p.s + "</small></span><i aria-hidden=\"true\">⌄</i></summary>" +
+          '<div class="lleg-body">' + p.body +
+          '<button type="button" class="lleg-done" data-lleg-done="' + p.id + '">' + (ok ? "↺ Marcar como pendiente" : "✓ Listo, siguiente paso") + "</button></div></details>";
+      }).join("") + "</div>";
+  };
 
   /* Frases para decir (tarjeta #77). La frase queda en castellano (data-notr) y abajo se explica para qué sirve, en el idioma elegido. */
   const FRASES = [
@@ -1225,6 +1307,16 @@
 
   /* ── Eventos ── */
   document.addEventListener("click", e => {
+    const ld = e.target.closest("[data-lleg-done]");
+    if (ld) {
+      const st = llegEstado(), id = ld.getAttribute("data-lleg-done"), i = st.hecho.indexOf(id);
+      if (i > -1) st.hecho.splice(i, 1); else st.hecho.push(id);
+      store.set(LLEG_KEY, st);
+      rerender();
+      const abierto = document.querySelector(".lleg-paso[open]");
+      if (abierto) abierto.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      return;
+    }
     if (e.target.closest("#ci-abrir")) {
       const p = document.getElementById("ci-panel"), b = document.getElementById("ci-abrir");
       p.hidden = !p.hidden;
@@ -1360,6 +1452,13 @@
     if (e.target.id === "tp-total" || e.target.id === "tp-n") paintTip();
   });
   document.addEventListener("change", e => {
+    if (e.target.id === "lleg-aloja") {
+      const st = llegEstado();
+      st.aloja = e.target.value.trim();
+      store.set(LLEG_KEY, st);
+      rerender();
+      return;
+    }
     const t = e.target;
     if (t.id === "f-barrio") { f.barrio = t.value; t.classList.toggle("on", !!t.value); paintResults(); }
     if (t.id === "f-sort") {
