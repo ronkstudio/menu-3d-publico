@@ -452,16 +452,36 @@
       if (!o || seen[p.id] || o.indexOf(dow) < 0) return;
       add({ franja: p.cat === "noche" ? "noche" : "dia", p });
     });
+    const iso = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+    const hoyIso = iso(base);
+    (X.destacados || []).forEach(d => {   // elegidos a mano de agendas y redes (data/caba-hoy.js)
+      if (!d.url || hoyIso < d.desde || hoyIso > (d.hasta || d.desde)) return;
+      add({ franja: d.franja || "noche", dest: d, rango: 0 });
+    });
+    const evs = [];
     (liveHoy || []).forEach(e => {
       const ini = new Date(e.ini);
-      if (isNaN(ini) || Date.now() > ini.getTime() + 2 * 3600e3) return;   // ya pasó
+      if (isNaN(ini)) return;
+      const fin = e.fin ? new Date(e.fin).getTime() : ini.getTime() + (e.serie ? 3 : 1) * 3600e3;
+      if (Date.now() > fin) return;   // ya empezó hace rato o ya terminó: no se muestra
       let local;
       try { local = new Date(ini.toLocaleString("en-US", { timeZone: X.tz || "America/Argentina/Buenos_Aires" })); } catch (err) { local = ini; }
       const lb = new Date(local);
       if (local.getHours() < 6) lb.setDate(lb.getDate() - 1);
       if (ymd(lb) !== ymd(base)) return;
       const lh = local.getHours();
-      add({ franja: lh >= 19 || lh < 6 ? "noche" : "dia", ev: e, hora: lh + ":" + String(local.getMinutes()).padStart(2, "0"), orden: local.getTime() });
+      evs.push({ franja: lh >= 19 || lh < 6 ? "noche" : "dia", ev: e, hora: lh + ":" + String(local.getMinutes()).padStart(2, "0"), orden: local.getTime(), rango: e.serie ? 3 : 2 });
+    });
+    /* Un mismo evento repartido en muchos lugares ("MALBA | La Noche de los Museos"): una sola fila. */
+    const grupos = {};
+    evs.forEach(it => { const m = /^(.+?)\s*\|\s*(.+)$/.exec(it.ev.t); const k = (m ? m[2] : it.ev.t).trim().toLowerCase(); (grupos[k] = grupos[k] || []).push(it); });
+    Object.keys(grupos).forEach(k => {
+      const g = grupos[k];
+      const nLug = new Set(g.map(it => it.ev.lugar)).size;
+      if (nLug < 3) { g.forEach(add); return; }
+      const madre = g.find(it => it.ev.t.trim().toLowerCase() === k) || g[0];
+      const nombre = (/^(.+?)\s*\|\s*(.+)$/.exec(madre.ev.t) || [0, 0, madre.ev.t])[2];
+      add(Object.assign({}, madre, { rango: 0.5, lugares: nLug, ev: Object.assign({}, madre.ev, { t: nombre, lugar: "", barrio: "" }) }));
     });
     return out;
   };
@@ -471,24 +491,38 @@
       return '<button class="event hoy-it" data-open="' + p.id + '"><em aria-hidden="true">' + iconOf(p) + "</em><span><b>" + esc(it.que || p.name) + "</b><span>" +
         (it.que ? '<i data-notr>' + esc(p.name) + "</i> · " + esc(p.barrio) : esc(p.sub) + " · " + esc(p.barrio)) + "</span></span></button>";
     }
+    if (it.dest) {
+      const d = it.dest;
+      return '<a class="event hoy-it hoy-dest" href="' + esc(d.url) + '" target="_blank" rel="noopener"><em aria-hidden="true">⭐</em><span><b data-notr>' + esc(d.t) + "</b><span>" +
+        (d.lugar ? '<i data-notr>' + esc(d.lugar) + "</i>" : "") + (d.barrio ? " · " + esc(d.barrio) : "") + (d.gratis ? " · Gratis" : "") + "</span></span></a>";
+    }
     const e = it.ev;
-    return '<a class="event hoy-it" href="' + esc(e.url) + '" target="_blank" rel="noopener"><em aria-hidden="true">📅</em><span><b data-notr>' + esc(e.t) + "</b><span>" +
-      esc(it.hora) + (e.lugar ? ' · <i data-notr>' + esc(e.lugar) + "</i>" : "") + (e.barrio ? " · " + esc(e.barrio) : "") + (e.gratis ? " · Gratis" : "") + "</span></span></a>";
+    return '<a class="event hoy-it" href="' + esc(e.url) + '" target="_blank" rel="noopener"><em aria-hidden="true">' + (it.lugares ? "🎉" : e.serie ? "🖼️" : "📅") + '</em><span><b data-notr>' + esc(e.t) + "</b><span>" +
+      (it.lugares ? "<span>En muchos lugares</span> <span>(" + it.lugares + ")</span>" : esc(it.hora) + (e.lugar ? ' · <i data-notr>' + esc(e.lugar) + "</i>" : "") + (e.barrio ? " · " + esc(e.barrio) : "")) +
+      (e.gratis ? " · Gratis" : "") + "</span></span></a>";
   };
+  /* Más agendas para buscar planes (revisadas el 12/11/2026). Instagram no se puede leer automáticamente; lo que se ve ahí se suma a mano en data/caba-hoy.js. */
+  const MAS_AGENDAS = [
+    ["🏛️", "Agenda de la Ciudad", "https://linda.buenosaires.gob.ar/agenda"],
+    ["📰", "Time Out: qué hacer esta semana", "https://www.timeout.com/es/buenos-aires/agenda-semana"],
+    ["🎭", "Alternativa Teatral: cartelera", "https://www.alternativateatral.com/cartelera.asp"],
+    ["🎧", "Resident Advisor: fiestas electrónicas", "https://ra.co/events/ar/buenosaires"]
+  ];
   const hoyHtml = () => {
     const items = hoyItems();
-    if (!items.length) return "";
     const grp = (title, arr) => {
       if (!arr.length) return "";
-      arr.sort((a, b) => (a.ev ? 1 : 0) - (b.ev ? 1 : 0) || (a.orden || 0) - (b.orden || 0));
-      const first = arr.slice(0, 3), rest = arr.slice(3);
+      arr.sort((a, b) => (a.rango === undefined ? 1 : a.rango) - (b.rango === undefined ? 1 : b.rango) || (a.orden || 0) - (b.orden || 0));
+      const first = arr.slice(0, 4), rest = arr.slice(4);
       return '<h3 class="hoy-h">' + title + '</h3><div class="events">' + first.map(hoyRow).join("") + "</div>" +
         (rest.length ? '<details class="hoy-mas"><summary>Ver más <span>(' + rest.length + ')</span></summary><div class="events">' + rest.map(hoyRow).join("") + "</div></details>" : "");
     };
     return '<section class="section" id="hoy">' + head("Hoy en Buenos Aires") +
-      grp("De día", items.filter(i => i.franja === "dia")) + grp("A la noche", items.filter(i => i.franja === "noche")) +
-      (items.some(i => i.ev) ? '<p class="hint hoy-nota">Los eventos con 📅 son de la agenda oficial de la Ciudad. Confirmá en su página antes de ir.</p>' : "") +
-      "</section>";
+      (items.length ? grp("De día", items.filter(i => i.franja === "dia")) + grp("A la noche", items.filter(i => i.franja === "noche")) : '<p class="hint">Por ahora no hay nada cargado para hoy. Mirá estas agendas.</p>') +
+      (items.some(i => i.ev || i.dest) ? '<p class="hint hoy-nota">⭐ Destacados de la semana. 📅 Agenda oficial de la Ciudad. 🖼️ Muestras y ciclos. Confirmá en su página antes de ir.</p>' : "") +
+      '<details class="hoy-mas hoy-agendas"><summary>Buscar más planes</summary><div class="acts">' +
+      MAS_AGENDAS.map(a => '<a class="act" href="' + a[2] + '" target="_blank" rel="noopener"><em aria-hidden="true">' + a[0] + "</em><span><b>" + a[1] + "</b></span></a>").join("") +
+      "</div></details></section>";
   };
 
   /* ── Vistas ── */
@@ -1281,6 +1315,30 @@
     }).catch(() => { /* sin conexión: queda la agenda fija */ });
   };
   loadHoy();
+
+  /* Aviso de bienvenida (pedido de Bautista, 12/11/2026): la primera vez que alguien abre la guía le sugerimos pasar por "Info",
+     donde está lo importante para no tener problemas. Sale una sola vez por celular; se cierra con el botón, la X, tocando afuera o con Escape. */
+  const AVISO_KEY = "guia.avisoInfo";
+  const mostrarAviso = () => {
+    if (store.get(AVISO_KEY, 0) || /^#\/info/.test(location.hash)) return;
+    const w = document.createElement("div");
+    w.className = "aviso-fondo";
+    w.innerHTML = '<div class="aviso" role="dialog" aria-modal="true" aria-labelledby="aviso-t">' +
+      '<button type="button" class="aviso-x" data-aviso="no" aria-label="Cerrar">✕</button>' +
+      '<div class="aviso-ico" aria-hidden="true">🧭</div>' +
+      '<h2 id="aviso-t">¡Bienvenido a Buenos Aires!</h2>' +
+      "<p>Antes de salir a recorrer, tomate 5 minutos para leer Info. Ahí está lo que te ahorra problemas.</p>" +
+      '<ul><li>🛬 Cómo salir del aeropuerto y llegar a tu alojamiento</li><li>💳 Cómo pagar y dónde cambiar plata</li><li>🚇 La tarjeta SUBE y cómo moverte</li><li>⚠️ Las estafas más comunes y cómo evitarlas</li><li>🆘 Teléfonos de emergencia, para tocar y llamar</li></ul>' +
+      '<div class="aviso-bot"><a class="btn aviso-si" href="#/info/llegada" data-aviso="si">Ir a Info</a><button type="button" class="aviso-no" data-aviso="no">Ahora no</button></div>' +
+      '<small>Lo encontrás siempre en el botón Info de abajo.</small></div>';
+    const cerrar = () => { store.set(AVISO_KEY, 1); w.remove(); document.removeEventListener("keydown", esc_); };
+    const esc_ = ev => { if (ev.key === "Escape") cerrar(); };
+    w.addEventListener("click", ev => { if (ev.target === w || ev.target.closest("[data-aviso]")) cerrar(); });
+    document.addEventListener("keydown", esc_);
+    document.body.appendChild(w);
+    const si = w.querySelector(".aviso-si"); if (si) si.focus();
+  };
+  setTimeout(mostrarAviso, 600);
 
   /* Copiar al portapapeles con aviso. Si el navegador no deja (sin permiso, o abierto como archivo), lo dice (tarjeta #52). */
   const copyText = (text, okMsg) => {

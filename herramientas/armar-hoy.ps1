@@ -5,7 +5,7 @@
 #   powershell -ExecutionPolicy Bypass -File herramientas/armar-hoy.ps1 -out app/data/hoy.json
 #
 # Qué deja afuera:
-# - Muestras y actividades largas (más de 10 fechas): no son "algo de hoy", son de todos los días.
+# - (Desde la tarjeta de la agenda ampliada) las muestras y ciclos con muchas fechas SÍ entran, marcados con "serie", y la guía los muestra después de los eventos puntuales.
 # - Eventos sin coordenadas o fuera de la Ciudad.
 # Qué guarda de cada evento: título, fecha y hora, lugar, dirección, barrio, ubicación, si es gratis y el enlace a la página oficial.
 # No guarda descripciones ni fotos: la página oficial es la fuente, y cada evento enlaza ahí.
@@ -14,7 +14,7 @@ $ErrorActionPreference = "Stop"
 try { [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 } catch {}
 
 $base = "https://linda.buenosaires.gob.ar"
-$resp = Invoke-WebRequest -Uri "$base/api/frontend/events/filter?page=1&limit=50" -UseBasicParsing -TimeoutSec 90 -Headers @{ Accept = "application/json" }
+$resp = Invoke-WebRequest -Uri "$base/api/frontend/events/filter?page=1&limit=500" -UseBasicParsing -TimeoutSec 90 -Headers @{ Accept = "application/json" }
 $texto = [Text.Encoding]::UTF8.GetString($resp.RawContentStream.ToArray())
 $datos = $texto | ConvertFrom-Json
 if (-not $datos.events) { throw "La agenda no devolvió eventos." }
@@ -44,7 +44,10 @@ $lista = New-Object System.Collections.ArrayList
 foreach ($e in $datos.events) {
   $fechas = @($e.fechasDelEvento | Where-Object { $_ })
   if ($fechas.Count -eq 0 -and $e.fechaInicio) { $fechas = @($e.fechaInicio) }
-  if ($fechas.Count -eq 0 -or $fechas.Count -gt $maxFechas) { continue }
+  if ($fechas.Count -eq 0) { continue }
+  $serie = $fechas.Count -gt $maxFechas   # muestras y ciclos: se muestran, pero después de los eventos puntuales
+  $dur = 0
+  if ($e.fechaInicio -and $e.fechaFin) { try { $dur = ([DateTime]::Parse([string]$e.fechaFin, [Globalization.CultureInfo]::InvariantCulture) - [DateTime]::Parse([string]$e.fechaInicio, [Globalization.CultureInfo]::InvariantCulture)).TotalMinutes } catch { $dur = 0 } }
   $u = $e.ubicacion
   if (-not $u -or -not $u.latitud -or -not $u.longitud) { continue }
   $lat = [double]$u.latitud; $lng = [double]$u.longitud
@@ -63,6 +66,8 @@ foreach ($e in $datos.events) {
       ll = @([Math]::Round($lat, 5), [Math]::Round($lng, 5))
       url = Enlace $e
       gratis = ($e.acceso -eq "sin_costo")
+      fin = $(if ($dur -gt 0 -and $dur -le 720) { $ini.AddMinutes($dur).ToString("yyyy-MM-ddTHH:mm:ssZ") } else { "" })
+      serie = $serie
     })
   }
 }

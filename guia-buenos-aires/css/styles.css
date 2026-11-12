@@ -654,3 +654,20 @@ h1, h2, .page-title, .section-head h2, .hero h1, .sheet h2 { font-family: var(--
 .lleg-aloja input { width: 100%; padding: 11px 13px; border: 1px solid var(--line); border-radius: 12px; font-size: 16px; background: var(--bg); color: var(--ink); }
 .lleg-done { justify-self: start; border: 0; border-radius: 999px; padding: 10px 18px; font-weight: 700; background: var(--accent); color: var(--accent-ink); }
 .lleg-paso.ok .lleg-done { background: var(--surface-2); color: var(--ink-2); }
+
+/* Aviso de bienvenida que lleva a Info */
+.aviso-fondo { position: fixed; inset: 0; z-index: 2000; background: rgba(20, 14, 8, .55); display: flex; align-items: center; justify-content: center; padding: 16px; animation: aviso-in .25s ease; }
+.aviso { position: relative; width: 100%; max-width: 400px; max-height: calc(100vh - 32px); overflow: auto; background: var(--surface); color: var(--ink); border-radius: 22px; padding: 26px 22px 18px; box-shadow: 0 20px 60px rgba(0,0,0,.35); text-align: center; border-top: 6px solid var(--accent); }
+.aviso h2 { font-family: var(--serif, Georgia, serif); font-size: 22px; margin: 6px 0 8px; }
+.aviso p { color: var(--ink-2); font-size: 15px; margin: 0 0 10px; }
+.aviso ul { list-style: none; padding: 0; margin: 0 0 16px; text-align: left; display: grid; gap: 6px; }
+.aviso li { background: var(--surface-2); border-radius: 12px; padding: 8px 12px; font-size: 14px; }
+.aviso-ico { font-size: 40px; line-height: 1; }
+.aviso-x { position: absolute; top: 10px; right: 10px; width: 34px; height: 34px; border-radius: 50%; border: 0; background: var(--surface-2); color: var(--ink-2); font-size: 15px; cursor: pointer; }
+.aviso-bot { display: grid; gap: 8px; }
+.aviso-si { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-size: 16px; padding: 13px; text-decoration: none; }
+.aviso-no { border: 0; background: none; color: var(--ink-3); font: inherit; font-weight: 600; padding: 8px; cursor: pointer; }
+.aviso small { display: block; margin-top: 6px; color: var(--ink-3); font-size: 12.5px; }
+@keyframes aviso-in { from { opacity: 0; } to { opacity: 1; } }
+.hoy-dest { border-color: var(--sun, #f2a93b); background: linear-gradient(90deg, rgba(242,169,59,.12), var(--surface) 60%); }
+.hoy-agendas .acts { margin-top: 8px; }
