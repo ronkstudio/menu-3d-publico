@@ -12,6 +12,6 @@
   "pie.creditos": "Fotos: Wikimedia Commons · Mapas e metrô: © OpenStreetMap · Clima: Open-Meteo · Câmbio: open.er-api.com",
   "idioma.titulo": "Idioma",
   "idioma.abrir": "Mudar idioma",
-  "idioma.nota": "O aplicativo está em português; as descrições dos lugares ainda estão em espanhol. Tradução ainda não revisada por um falante nativo.",
+  "idioma.nota": "Tradução ainda não revisada por um falante nativo.",
   "idioma.cerrar": "Fechar"
 };

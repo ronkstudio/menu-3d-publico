@@ -1,0 +1,534 @@
+1|O coração político e histórico do país. Ao redor da praça ficam a Casa Rosada, a Catedral Metropolitana, o Cabildo e a Pirâmide de Maio.
+2|O símbolo da cidade, no cruzamento da avenida mais larga com a rua que nunca dorme: teatros, livrarias e pizzarias clássicas.
+3|Um dos teatros líricos com melhor acústica do mundo. Dá para conhecer em visita guiada ou assistindo a uma ópera, balé ou concerto.
+4|Um labirinto de mausoléus e esculturas onde descansam Evita e boa parte da história argentina. Um dos cemitérios mais bonitos do mundo.
+5|Uma livraria dentro de um antigo teatro de 1919: camarotes com estantes, cúpula pintada e um café no palco.
+6|A rua-museu de cortiços de chapa colorida, artistas de rua e tango na calçada. O cartão-postal clássico de Buenos Aires.
+7|O bairro mais antigo: paralelepípedos, antiquários e bares históricos. Aos domingos a rua Defensa se enche de barracas, músicos e dançarinos de tango.
+8|As antigas docas recicladas em restaurantes e escritórios, com a ponte giratória de Calatrava. É uma das áreas mais seguras para caminhar.
+9|350 hectares de área úmida e trilhas à beira do Rio da Prata, a passos dos arranha-céus. Ideal para caminhar, correr ou pedalar.
+10|O grande pulmão verde: lagos com pedalinhos, o Rosedal com milhares de roseiras e quilômetros para correr ou pedalar.
+11|Um dos maiores jardins japoneses fora do Japão: pontes vermelhas, carpas koi, bonsais e casa de chá.
+12|Museu de Arte Latino-Americana: Frida Kahlo, Diego Rivera, Tarsila do Amaral, Berni e exposições temporárias de primeira linha.
+13|A coleção de arte mais importante do país: de Goya, Rembrandt e Van Gogh aos grandes mestres argentinos.
+14|A flor gigante de aço de 20 metros que abre e fecha com a luz do dia.
+15|Edifício de 1923 inspirado na Divina Comédia. A visita guiada sobe até o farol, com uma das melhores vistas da cidade.
+16|Dez quadras de arquitetura europeia que ligam a Casa Rosada ao Congresso. No caminho: Café Tortoni, Palacio Barolo e cúpulas para olhar para cima.
+17|O palácio legislativo e sua cúpula verde de 80 metros, em frente à Plaza del Congreso e ao Quilômetro Zero.
+18|O antigo Correio Central transformado em um dos maiores centros culturais da América Latina, com a sala sinfônica conhecida como Baleia Azul.
+19|Quatro quadras de supermercados orientais, comida de rua, bazares e restaurantes. Muito animado nos fins de semana.
+20|O mítico estádio do Boca Juniors. O museu inclui visita às arquibancadas e ao gramado quando não há jogo.
+21|O maior estádio da América do Sul, casa do River Plate e da seleção. Museu e tour pelo estádio.
+22|Sete hectares de árvores do mundo todo, estufas e esculturas em plena Plaza Italia.
+23|O antigo zoológico reconvertido em parque de conservação, com edifícios históricos e animais soltos como maras e pavões.
+24|A cúpula futurista dos Bosques de Palermo, com sessões imersivas de astronomia.
+25|Arte contemporânea internacional em frente ao Riachuelo, com um café no terraço e ótima vista.
+26|Uma antiga usina elétrica de tijolos transformada em centro cultural com concertos e exposições gratuitas.
+27|A vida de Eva Perón contada com objetos, vestidos e vídeos em um casarão de 1920.
+28|Arte argentina e internacional dos séculos XX e XXI em uma antiga fábrica de tabaco de tijolos.
+29|Um palácio francês do início do século XX que mostra como vivia a aristocracia portenha.
+30|Túneis e cisternas da Buenos Aires colonial descobertos sob um casarão restaurado.
+31|Mercado de 1897 com estrutura de ferro: antiguidades, hortifrútis e dezenas de bancas de comida.
+32|O maior cemitério da cidade, com os túmulos de Carlos Gardel e Gustavo Cerati.
+33|A parrilla mais premiada do país e presença habitual nas listas de melhores restaurantes do mundo. Carnes de pasto e uma adega enorme.
+34|Cortes enormes servidos com um desfile de acompanhamentos. Muito popular entre visitantes.
+35|Parrilla de bairro sem frescura: boa carne, empanada de cortesia e preços razoáveis. Favorita dos portenhos.
+36|Parrilla com clima de futebol onde cortam a carne com colher para mostrar como é macia.
+37|Parrilla popular e barulhenta na rua Defensa. Choripán, vacío e preços amigáveis.
+38|Parrilla moderna e pequena, com cortes defumados e porções fartas.
+39|Parrilla com toque uruguaio e paredes cheias de camisas de futebol. Famosa pelo pamplona e pelas mollejas.
+40|Desde 1932, a pizza de forma mais famosa da avenida Corrientes. Muçarela grossa e fainá.
+41|Pizzaria de 1934 com paredes forradas de boxe e futebol. Fugazzeta recheada memorável.
+42|Outra histórica da Corrientes: pizza de forma alta e generosa.
+43|Sem mesas: come-se em pé. Para muitos, a melhor fugazzeta recheada de Buenos Aires.
+44|A pizzaria que diz ter inventado a fugazza com queijo, fundada por imigrantes genoveses.
+45|Pizza napolitana autêntica em forno a lenha, uma das pioneiras do estilo na cidade.
+46|Armazém e bodegón de 1952 recuperado pela equipe do Don Julio. Milanesas, tortilha e frios de produção própria.
+47|Bodegón histórico de 1954 com flâmulas de futebol e pratos fartos. Por aqui passaram Bono e meio mundo.
+48|O templo da milanesa: dezenas de variedades, enormes, em um salão cheio de memorabilia de rock.
+49|Rotisseria e bodegón de 1950: rabada, caracóis, coelho e vinhos da casa.
+50|Cantina familiar clássica: massas caseiras, pizza na grelha e porções para compartilhar.
+51|Empanadas, locro, tamales e humita em um salão rústico. Clássico econômico em plena Recoleta.
+52|Caçarolas, empanadas e pratos do norte feitos em forno de barro, a preços muito amigáveis.
+53|Lugar minúsculo de empanadas de Catamarca. A Pikachu (queijo, cebola e pimenta) é cultuada.
+54|O café mais antigo do país (1858). Por suas mesas de mármore passaram Borges, Gardel e Alfonsina Storni.
+55|Confeitaria de 1884 com vitrais e mármores. Seu chá completo é uma instituição.
+56|Café em frente ao cemitério, à sombra de uma seringueira gigante. Em uma mesa esperam Borges e Bioy Casares.
+57|Bar histórico de 1930 restaurado com cuidado: café de dia, vermute e pratos portenhos à noite.
+58|Bar de 1864 com um balcão de madeira entalhada espetacular. Tábuas de frios e sanduíches.
+59|Casa de especiarias e chás de 1927 com aroma inconfundível e salão de café.
+60|Confeitaria de 1912 reaberta após uma restauração completa: vitrais, lustres e confeitaria clássica.
+61|Sorveteria artesanal de família italiana, na Corrientes desde 1957. Seu doce de leite está entre os melhores do mundo.
+62|Chocolateria e sorveteria de Bariloche. Famosa pelas framboesas cobertas de chocolate (FraNuí).
+63|Sorvete artesanal desde 1938, com receitas da família fundadora.
+64|Rede de sorvete artesanal com lojas modernas e picolés com formatos.
+65|Menu degustação de alta gastronomia argentina; o restaurante mais distinguido pelo Guia Michelin no país.
+66|Cozinha judaica de imigrantes reinterpretada com técnica e muita festa. O pastrami é lendário.
+67|Produtos argentinos tratados com obsessão: peixes de rio, carnes, queijos e um ótimo bar de vinhos.
+68|Restaurante pequeno de cozinha de produto, criativo e preciso.
+69|Pratinhos para compartilhar que cruzam Índia, sudeste asiático e América Latina. Explosão de sabor a bom preço.
+70|Tudo sai de um forno a lenha em uma antiga oficina mecânica: vegetais, carnes e um pudim memorável.
+71|O restaurante de Narda Lepes, onde os vegetais são protagonistas.
+72|Parrilla asiática com estética pop: luzes vermelhas, aquários e um katsu sando famoso.
+73|Cozinha armênia e do Oriente Médio farta e econômica. Um clássico sempre cheio.
+74|O choripán levado a outro nível: linguiças caseiras, pães especiais e molhos.
+75|As barracas de grelha clássicas: choripán e sanduíche de bondiola com vista para o rio, como comem os portenhos.
+76|Atrás da geladeira de uma floricultura se esconde um dos melhores bares do mundo, com coquetéis inspirados na imigração.
+77|Bar pequeno, barulhento e divertido, premiado entre os melhores do mundo.
+78|Coquetelaria autoral com espírito franco-vietnamita, da reconhecida bartender Inés de los Santos.
+79|Bar elegante em um palacete de Recoleta, com um balcão imponente.
+80|Speakeasy escondido atrás de um café, com estética industrial vitoriana.
+81|Milonga boêmia em um galpão enorme. Aulas para iniciantes e clima descontraído, sem etiqueta.
+82|Uma das milongas tradicionais mais importantes, com pista de parquê e orquestras ao vivo.
+83|Milonga popular no subsolo da Associação Armênia, com aulas de tango, rock e salsa.
+84|Jantar com show em um edifício histórico que percorre a história do tango.
+85|Café histórico de 1890 com um dos shows de tango mais produzidos.
+86|Show intimista estilo cabaré no Faena. O mais exclusivo da cidade.
+87|Show de percussão improvisada que transforma as segundas em festa. Um clássico de viajantes.
+88|O clube de jazz de referência da cidade.
+89|Casa de shows e festas, base da cena de Palermo Hollywood.
+90|A Broadway portenha: comédias, musicais, o Teatro San Martín e o Paseo La Plaza.
+91|Ópera, balé ou concerto em uma das grandes salas do mundo.
+92|Passeios a pé de 2 a 3 horas com guias locais, em espanhol e inglês. Não têm preço fixo: paga-se o que cada um achar justo no final.
+93|O Governo da Cidade organiza passeios guiados gratuitos por bairros e circuitos temáticos, com inscrição prévia.
+94|Ônibus abertos com sistema de subir e descer à vontade, e audioguia em vários idiomas. Cobre de La Boca a Belgrano.
+95|50 minutos pelo foyer, o Salão Dourado e a sala principal.
+96|Percurso pelo Inferno, o Purgatório e o Paraíso do edifício, com subida ao farol.
+97|Com guia se entendem as histórias por trás dos jazigos: Evita, Rufina Cambaceres, Liliana Crociati.
+98|Quando estão disponíveis, as visitas percorrem salões, pátios e a famosa sacada.
+99|Buenos Aires é uma capital mundial da arte de rua. Os tours percorrem murais e explicam os artistas.
+100|A cidade é plana e tem mais de 250 km de ciclovias. Circuitos guiados pelo sul, pelo norte ou pelos parques.
+101|Passeios a pé por parrillas, bodegones e sorveterias com guia: choripán, empanadas, carne e vinho.
+102|Jantares a portas fechadas onde se aprende a fazer empanadas, prova-se o asado passo a passo e prepara-se o mate.
+103|Antes de cada milonga há aulas em grupo para todos os níveis, sem precisar de par.
+104|Ingressos de futebol são difíceis de conseguir para não sócios. Agências especializadas oferecem ingresso, traslado e acompanhamento.
+105|Navegações curtas para ver a costa e o skyline a partir do rio, algumas com chegada a Tigre.
+106|Para um passeio privado e sob medida, contrate guias credenciados: têm credencial oficial do Ente de Turismo.
+107|Um labirinto de rios e ilhas. Passeio de lancha coletiva ou catamarã, Puerto de Frutos e Museu de Arte Tigre.
+108|Centro histórico português declarado Patrimônio da Humanidade, do outro lado do rio. Dá para percorrer a pé em um dia.
+109|O berço da tradição gaúcha: pulperias, ourives de prata, o Museu Ricardo Güiraldes e estâncias.
+110|Churrasco, cavalgada, destrezas gaúchas e piscina em uma estância do pampa. Costuma incluir traslado.
+111|A capital provincial, com sua catedral neogótica, o Museu de Ciências Naturais e a Casa Curutchet de Le Corbusier.
+112|A imponente basílica neogótica, principal centro de peregrinação do país, e o complexo museográfico.
+113|Centro histórico com catedral, quintas coloniais, feira de artesãos e orla do rio.
+114|Reserva natural e ilha histórica no meio do Rio da Prata, antigo presídio de presidentes.
+115|Bioparque com grandes ambientes, aquário e aviário. Um dos melhores da América Latina.
+116|A capital uruguaia: Ciudad Vieja, Mercado del Puerto e a rambla.
+117|Cidadezinha tranquila ao redor de uma lagoa enorme: pesca de peixe-rei, bicicleta e pores do sol.
+118|Primeiro povoado histórico da província, com casarões, armazéns de campo e voos de balão.
+119|O grande hotel clássico de Buenos Aires desde 1932, estilo Belle Époque.
+120|Um palácio de 1934 unido a uma torre moderna por jardins em terraços.
+121|Torre moderna mais uma mansão da Belle Époque, com piscina ao ar livre.
+122|Design teatral de Philippe Starck em um antigo silo de tijolos.
+123|Hotel boutique pioneiro de Palermo Hollywood, com jardim, piscina e spa.
+124|Boutique em pleno Palermo Soho com pátio e piscina.
+125|Quartos amplos, terraço com piscina e boa proposta gastronômica.
+126|Cada quarto homenageia um personagem argentino, de Borges a Gardel.
+127|Hotel elegante em frente à Plaza Dorrego, o coração de San Telmo.
+128|Hotel moderno com terraço e piscina, a passos da Plaza San Martín e da rua Florida.
+129|Hotel contemporâneo na área mais tranquila e segura da cidade.
+130|Grande hotel de rede sobre as docas, com piscina no terraço.
+131|Opção econômica e confiável na Corrientes, entre teatros e pizzarias.
+132|O hostel festeiro por excelência, com atividades todos os dias.
+133|Hostel limpo e bem projetado, com quartos privativos e compartilhados.
+134|De uma rede latino-americana de hostels, com piscina, bar e atividades.
+135|Hostel em Palermo Soho, perto de bares e da Plaza Italia.
+136|Mistura de hostel e hotel com piscina no pátio.
+137|Para estadias de mais de 4 ou 5 noites ou grupos, um apartamento costuma compensar mais que um hotel.
+138|A feira mais autêntica: artesanato, comidas regionais, folclore ao vivo e destrezas gaúchas como a corrida de argolinha.
+139|Feira de artesãos de fim de semana nas barrancas ao lado do cemitério.
+140|Designers independentes e artesãos no centro de Palermo Soho, cercados de bares.
+141|Galpão enorme de móveis antigos, lustres, sifões e objetos vintage.
+142|Centro comercial em um edifício de 1889 com uma cúpula de murais pintados por grandes artistas argentinos.
+143|O shopping mais elegante, em uma antiga casa de leilões de gado.
+144|Lojas de design argentino autoral: roupas, sapatos, decoração e livrarias, entre cafés especiais.
+145|As grandes marcas argentinas têm seus outlets nestas quadras, com bons descontos.
+146|O calçadão comercial mais famoso: galerias, lojas e muito movimento de dia.
+147|Quilômetros de vitrines, galerias e livrarias onde os portenhos compram.
+148|Buenos Aires é uma das cidades com mais livrarias por habitante: aqui há usados, saldos e raridades até a meia-noite.
+149|Um colosso de concreto brutalista elevado sobre pilares, com salas de leitura com vista para o rio e exposições gratuitas.
+150|Esculturas contemporâneas e um monumento às vítimas do terrorismo de Estado, à beira do Rio da Prata. Silencioso e comovente.
+151|Três quadras de casas cobertas de mosaicos e murais coloridos, obra do artista Marino Santa María.
+152|Dinossauros patagônicos, um aquário e salas de fauna argentina no Parque Centenario. Favorito das crianças.
+153|Arte argentina e internacional (Berni, Xul Solar, Warhol, Turner) em um edifício de vidro sobre a doca.
+154|As oficinas do Teatro Colón abertas ao público: cenários gigantes, figurinos e adereços de óperas e balés.
+155|A torre com relógio de 1916 em frente à estação Retiro. Sobe-se ao mirante para ver o porto e a Plaza San Martín.
+156|Um dos pioneiros do café especial na cidade, com torrefação própria e balcão de métodos.
+157|Café especial muito querido em Palermo Soho, com confeitaria caseira e calçada ao sol.
+158|Sorvetes e sobremesas autorais com ingredientes da estação, de um renomado confeiteiro.
+159|Alta gastronomia 100% vegetal em um salão elegante, com boa coquetelaria.
+160|Um lugar pequeno e cultuado dedicado aos cogumelos: tudo vegano e cheio de sabor.
+161|Mercado gastronômico com bancas de massas, parrilla, cozinha asiática, vinhos e confeitaria sob o mesmo teto.
+162|Mercado de bairro de 1891 renovado: bancas de produtos frescos e balcões para comer rapidinho.
+163|Fábrica de cerveja artesanal com torneiras próprias, mesas compridas e comida para compartilhar.
+164|Bar e restaurante no 19º andar do edifício Comega, com vista aberta para o rio e Puerto Madero.
+165|O terraço do Palacio Barolo: drinques com a cúpula do Congresso ao fundo.
+166|A Catedral do Polo: aqui se joga o Aberto Argentino, o torneio mais importante do mundo, com os melhores jogadores do planeta.
+167|Um hipódromo de 1876 com tribuna de estilo francês. A entrada nas corridas é gratuita e o clima é bem portenho.
+168|A catedral do tênis argentino, em saibro. Sede do Argentina Open, o torneio ATP da cidade.
+169|A arena coberta mais moderna da cidade: shows internacionais, basquete e eventos esportivos.
+170|O Templo do Rock e quadra histórica do basquete argentino.
+171|O estádio do Argentinos Juniors, onde Maradona estreou. Ao redor, murais e um bairro que o lembra em cada esquina.
+172|O Palácio do Huracán: um estádio art déco de 1949 com uma torre que é monumento histórico.
+173|O estádio do Vélez Sarsfield, que também recebe Los Pumas e grandes shows.
+174|O autódromo da cidade, sede histórica da Fórmula 1 e hoje do Turismo Carretera.
+175|O circuito preferido dos portenhos: voltas ao lago do Rosedal, sem carros nos fins de semana.
+176|Cerca de 12 km planos e quase sem carros: as docas, a Costanera Sur e as trilhas da Reserva até o rio.
+177|Um velódromo aberto ao público para ciclismo, patins e corrida, com quadras e piscina no verão.
+178|Um campo público de 18 buracos dentro dos Bosques de Palermo.
+179|Remar entre ilhas, riachos e casas sobre palafitas é a melhor forma de conhecer o Delta. Há saídas guiadas para iniciantes.
+180|Um clube de praia no Rio da Prata com windsurf, kitesurf, stand up paddle, parede de escalada e skate.
+181|Ver uma partida, fazer uma aula mesmo que você nunca tenha montado e fechar com um churrasco. Costuma incluir traslado.
+182|Restaurante com cozinha totalmente sem glúten: massas, pizzas, hambúrgueres e confeitaria que não parecem 'sem'.
+183|Padaria, café e empório 100% sem glúten, com várias unidades.
+184|Pioneiro da cozinha vegetariana, vegana e sem glúten da cidade, com muitos pratos crus.
+185|Uma parrilla portenha de bairro, mas toda vegana: 'choripán', 'vacío' e milanesas de seitan.
+186|Uma raridade mundial: um McDonald's kosher fora de Israel, na praça de alimentação do Abasto.
+187|Parrilla kosher tradicional do bairro de Once: carnes na brasa e pratos judaicos.
+188|O bar de lámen que colocou o macarrão japonês na moda na cidade, com balcão e música alta.
+189|Cozinha nikkei, a fusão peruano-japonesa, em sua versão mais elegante: tiraditos, sushi e peixes.
+190|A cevicheria peruana de Gastón Acurio, em um galpão com pátio. Ceviches, causas e pisco sour.
+191|Peruano popular, saboroso e barato a passos do Congresso. Sempre cheio de gente de escritório.
+192|O restaurante mais conhecido do Bairro Coreano: grelha na mesa, bibimbap e dezenas de pratinhos.
+193|Menu degustação de vanguarda para poucos comensais, diante de uma cozinha aberta.
+194|Peixes e frutos do mar argentinos tratados com muito cuidado, com um balcão de ostras.
+195|Os pratos de bodegón de sempre, repensados em formato pequeno: empanadas, arrozes, milanesa.
+196|Cozinha autoral descontraída com influências de todo lado, uma das favoritas dos cozinheiros.
+197|Um bistrô iluminado na avenida mais bonita de San Telmo, com cozinha simples e bem-feita.
+198|Trattoria de bairro com massas caseiras, focaccias e boa confeitaria.
+199|Uma velha padaria de bairro transformada em restaurante, com cozinha do mundo e ótimo pão.
+200|Balcão de peixes e frutos do mar com muita criatividade.
+201|Parrilla de bairro aberta 24 horas, todos os dias do ano. Um clássico da madrugada.
+202|Parrilla popular enorme ao lado dos trilhos, famosa pelas porções gigantes e pelos preços.
+203|Um balcão minúsculo colado ao mercado, com um dos choripanes mais famosos da cidade.
+204|Um balcão em forma de U onde os sanduíches chegam deslizando pelo tampo. Cartão-postal do Microcentro.
+205|Padaria de fermentação natural com medialunas, sanduíches e café, em um galpão.
+206|A marca de alfajores mais conhecida do país. Seus cafés são uma parada certa para prová-los.
+207|Mais de 140 vinhos argentinos em taça, servidos em máquinas onde você escolhe quanto provar.
+208|Loja de vinhos pequena com pão de fermentação natural, queijos e vinhos de pequenas vinícolas.
+209|Entra-se por uma estação de metrô de Nova York recriada em detalhes, até um bar enorme.
+210|Café, bar e livraria LGBT+, com clima descontraído desde a tarde.
+211|Um dos bares LGBT+ mais concorridos da cidade, com música pop e pista.
+212|Peças, concertos e jantares em escuridão total, guiados por artistas cegos. Uma experiência única.
+213|A catedral em frente à Plaza de Mayo, com fachada de templo grego. Guarda o mausoléu do General San Martín e foi a igreja do papa Francisco.
+214|O edifício colonial onde começou a Revolução de Maio de 1810. Hoje é museu.
+215|Um antigo convento com exposições, música e pátios coloridos, colado a uma das igrejas mais antigas da cidade (1732).
+216|Um palácio coberto com 300.000 peças de cerâmica inglesa, construído só para esconder tanques de água. Um dos edifícios mais bonitos da cidade.
+217|A confeitaria art nouveau em frente ao Congresso, fechada por 25 anos e recuperada. Tem pás de moinho na cúpula.
+218|Uma galeria de 1915 com cúpulas de vitrais. No 14º andar há um mirante com vista de 360 graus do Microcentro.
+219|A casa e as obras de Xul Solar, pintor e inventor amigo de Borges. Um museu pequeno e fascinante.
+220|Prataria, pintura e móveis coloniais em um palácio neocolonial com um jardim andaluz.
+221|A casa onde Gardel viveu com a mãe, no coração do Abasto. Na quadra, as fachadas são pintadas com fileteado portenho.
+222|Mafalda sentada em um banco com Susanita e Manolito, e um percurso de esculturas de personagens dos quadrinhos argentinos.
+223|As barrancas onde se acredita que a cidade foi fundada, com um museu que guarda o sabre de San Martín.
+224|A praça mais elegante da cidade, cercada de palácios e do edifício Kavanagh. Em novembro se enche de jacarandás.
+225|A maior mesquita da América do Sul, com dois minaretes de 50 metros.
+226|A primeira sinagoga da cidade, em frente à Plaza Lavalle, com um museu da imigração judaica.
+227|Uma cidade em miniatura onde as crianças brincam de ser médicos, jornalistas ou caixas. Para menores de 12 anos.
+228|Degustações guiadas para entender o Malbec, o Torrontés e as regiões do vinho argentino.
+229|Os lugares da vida de Jorge Bergoglio antes de ser o papa Francisco: sua casa natal, sua paróquia e seu colégio.
+230|Um dos shoppings mais visitados da cidade, dentro do enorme mercado art déco onde cresceu Carlos Gardel. Cinemas, praça de alimentação e o Museu das Crianças.
+231|O grande shopping do norte da cidade, junto à General Paz: marcas internacionais, cinemas, praça de alimentação e brinquedos para crianças.
+232|O maior shopping da Argentina, na zona norte da Grande Buenos Aires: centenas de lojas, cinemas e uma praça de alimentação enorme.
+233|Um clássico na avenida Santa Fe, com as principais marcas argentinas de roupa.
+234|Shopping tranquilo e elegante, com marcas de design e uma boa praça de alimentação.
+235|Um outlet de grandes marcas a céu aberto, montado sob os arcos da velha ferrovia.
+236|Em frente ao cemitério da Recoleta: cinemas, lojas e um terraço com vista para os jazigos.
+237|Um shopping pequeno e charmoso em uma antiga fábrica de Las Cañitas.
+238|Centro comercial prático, com supermercado grande e lojas.
+239|O shopping do bairro de Caballito, na avenida Rivadavia.
+240|Shopping de bairro com cinemas, na zona residencial de Villa Devoto.
+241|Shopping de bairro em Liniers, perto da estação de trem.
+242|O maior centro comercial popular: tecidos, bijuterias, brinquedos, fantasias e eletrônicos, no atacado e no varejo.
+243|Quadras e quadras de roupa no atacado a preços muito baixos, onde compram comerciantes de todo o país.
+244|A avenida comercial de Belgrano: galerias, lojas e cinemas.
+245|O centro comercial a céu aberto de Villa del Parque, com a praça do bairro a duas quadras.
+246|Livros usados todos os dias e, nos fins de semana, uma feira enorme de antiguidades, roupas e artesanato ao redor do lago.
+247|O paraíso dos colecionadores: livros, discos, revistas, selos e moedas.
+248|Um mercado de bairro de 1889 que continua funcionando: açougues, hortifrútis, queijos e frios de primeira.
+249|Quatro quadras cheias de restaurantes, parrillas e bares, coladas ao Campo de Polo.
+250|O novo polo gastronômico do norte da cidade: cervejarias, parrillas e cafés em um corredor verde.
+251|A praça de Devoto, cercada de restaurantes, sorveterias e casarões. Um dos bairros mais bonitos e arborizados.
+252|Bar de 1927 com mesas de bilhar e paredes cheias de lembranças. Sua tábua de frios é famosa em toda a cidade.
+253|Um bar histórico de 1904 onde nasceu o sanduíche de peru em escabeche.
+254|Um bar de esquina de 1906 recuperado, com pratos caseiros e clima de bairro.
+255|A esquina de San Juan e Boedo, a do tango 'Sur', com jantar e show todas as noites.
+256|A casa do cinema argentino, em frente à Plaza del Congreso: estreias nacionais a um preço muito baixo.
+257|Um cinema à moda antiga na Corrientes, dedicado ao cinema de autor e independente.
+258|Complexo de cinemas com estreias comerciais, muitas no idioma original com legendas.
+259|O único teatro nacional do país, com uma fachada que copia a Universidade de Alcalá de Henares.
+260|A maior sala da rua Corrientes: 3.200 poltronas para shows e grandes espetáculos.
+261|O teatro independente mais famoso da cidade, nascido nos fundos de uma 'casa chorizo'.
+262|Sala de teatro independente com bar, uma das mais queridas do circuito.
+263|Um cine-teatro de 1929 recuperado pelos vizinhos, com cinema, música e teatro a preços baixos.
+264|Um museu de ciência para tocar, brincar e experimentar, no Polo Científico.
+265|O museu participativo de ciências: aqui tudo se toca, se empurra e se testa.
+266|Um parque aquático com piscinas enormes e tobogãs, em frente ao rio. O programa de verão dos portenhos.
+267|Uma megaexposição de ciência, tecnologia e arte, com dinossauros, jogos e espetáculos.
+268|O maior parque de diversões da região, à beira do rio em Tigre.
+269|Uma cidade em miniatura de 1951, com palácios, bancos e trenzinho em escala infantil.
+270|Jogos em equipe de uma hora para resolver enigmas e sair de uma sala. Há dezenas, de todos os temas.
+271|O maior centro clandestino de detenção da última ditadura, hoje museu e lugar de memória. Uma visita forte e necessária para entender a Argentina.
+272|A obra do pintor que deu suas cores a La Boca, com terraços cheios de esculturas e vista para o Riachuelo.
+273|Um parque em declive projetado por Thays, com um coreto onde se dança tango, e um museu com o jardim andaluz mais bonito da cidade.
+274|O passeio à beira do Rio da Prata: pescadores, carrinhos de choripán e aviões pousando no Aeroparque a metros da sua cabeça.
+275|Uma antiga chácara transformada em museu da vida portenha do século XIX, dentro de um parque grande e tranquilo.
+276|Um complexo esportivo público de 70 hectares: pistas, quadras, piscinas no verão e muito verde.
+277|O único bairro da cidade com ruas circulares, com nomes de capitais europeias. É famoso porque todo mundo se perde.
+278|Uma estação de trem inglesa de 1891, cercada de casas de estilo britânico e ruas tranquilas.
+279|Um campus universitário enorme e arborizado, com hortas e animais de fazenda. Parece campo em plena cidade.
+280|A casa onde foi filmada a comédia mais querida do cinema argentino. Os fãs vêm tirar foto na porta.
+281|O estádio do All Boys, um clube de bairro com muita identidade. Futebol das divisões de acesso com torcida local.
+282|O santuário do padroeiro do pão e do trabalho. Todo 7 de agosto é visitado por centenas de milhares de pessoas.
+283|Um museu gaúcho sob a arcada do velho Mercado de Hacienda, com pulperia incluída.
+284|Um dos maiores parques da cidade, com um casarão do século XIX, viveiro e um trenzinho histórico.
+285|O parque do bairro, com roseiral, pista de atletismo e centro cultural.
+286|Um parque projetado por Carlos Thays no bairro que hoje é o polo tecnológico da cidade.
+287|O edifício colonial mais bem conservado da cidade, de 1795, com claustros e pátios intactos.
+288|Um museu de tango de bairro, montado por um morador na esquina citada no tango 'Manoblanca'.
+289|Uma reserva natural ao redor de um lago, no sul da cidade.
+290|Uma praça de bairro erguida onde ficavam as oficinas Vasena, cenário da Semana Trágica de 1919.
+291|A praça principal de Floresta. Não é uma atração turística: é para ver como se vive longe do centro.
+292|Praça de um bairro de casas baixas e ruas tranquilas. Não é uma atração turística: é vida de bairro.
+293|A praça de um dos bairros menores e mais tranquilos da cidade, no limite oeste.
+294|A praça do bairro, a poucas quadras do estádio do All Boys.
+295|Praça de um bairro residencial do oeste, perto do estádio do Vélez.
+296|Por mais de um século foi o único bairro portenho sem praça. Esta é a que os moradores conquistaram.
+297|A igreja mais antiga que continua de pé na cidade, dos jesuítas, colada à Manzana de las Luces e seus túneis coloniais.
+298|Templo franciscano do século XVIII com fachada barroca alemã e, ao lado, a capela de San Roque.
+299|Convento colonial que guarda bandeiras tomadas nas Invasões Inglesas e o mausoléu de Manuel Belgrano no átrio.
+300|Uma das igrejas mais antigas do centro, com um convento de pátio colonial ao lado.
+301|O templo não católico mais antigo da América do Sul, de 1831, com frente de colunas neoclássicas.
+302|Igreja do fim do século XIX a metros do Congresso, com um interior muito decorado.
+303|A paróquia que deu nome ao bairro. Tem o santuário de Santo Expedito, muito visitado no dia 19 de cada mês.
+304|Grande templo jesuíta do século XIX junto ao colégio de mesmo nome.
+305|Uma das igrejas mais luxuosas da cidade, feita com mármores e bronzes trazidos da França.
+306|Templo da década de 1930 na avenida Santa Fe. Na igreja original a bandeira foi hasteada pela primeira vez na cidade.
+307|A igreja que deu nome ao bairro, iniciada pelos jesuítas em 1734, em frente à Plaza Dorrego.
+308|Cinco cúpulas azuis com estrelas em frente ao Parque Lezama. A primeira igreja ortodoxa da América do Sul.
+309|Uma igreja luterana de tijolo vermelho e estilo neogótico nórdico, inesperada em pleno San Telmo.
+310|Templo de 1876 erguido em memória de Felicitas Guerrero, com uma das histórias de amor mais trágicas da cidade.
+311|Basílica neogótica do início do século XX, a maior do sul da cidade.
+312|Uma basílica enorme e colorida onde o papa Francisco foi batizado e Carlos Gardel cantou quando menino.
+313|Duas torres de estilo românico em frente à Plaza Güemes, coração da área que chamam de Villa Freud.
+314|A catedral da comunidade sírio-libanesa, com ícones e cúpula bizantina.
+315|O centro da comunidade armênia, na rua que leva seu nome e concentra seus restaurantes.
+316|A igreja circular com cúpula que é o símbolo de Belgrano, em frente à praça e sua feira.
+317|Templo budista da comunidade taiwanesa, com casa de chá e atividades abertas.
+318|A igreja onde Jorge Bergoglio sentiu sua vocação, em frente à praça do bairro.
+319|Uma das cúpulas mais altas da cidade, em frente à arborizada Plaza Arenales.
+320|Templo neogótico dedicado à Virgem do Buen Ayre, a que deu nome à cidade.
+321|A igreja neogótica citada nos tangos de Homero Manzi, coração do bairro.
+322|Santuário de tijolo aparente com uma torre muito alta, na beira do Parque Chacabuco.
+323|Museu da UBA com peças dos povos originários da Argentina e de outros continentes.
+324|A casa onde viveu Bartolomé Mitre, com móveis, biblioteca e mapas de época.
+325|Atrás da Casa Rosada, nas galerias da velha Alfândega: história argentina e um mural de Siqueiros.
+326|Um percurso cuidadoso pela Shoá e sua relação com a Argentina.
+327|Prataria criolla, ponchos, cuias de mate e artesanato de todo o país.
+328|Arte argentina em frente ao Rosedal, com um jardim de esculturas e café.
+329|Museu de arte contemporânea dedicado à abstração geométrica, ao lado do Museu de Arte Moderna.
+330|O edifício onde funcionou o governo nacional em 1880, hoje dedicado a Sarmiento.
+331|A casa-ateliê do escultor Rogelio Yrurtia, com um jardim lindo.
+332|Casa-museu com centenas de esculturas, muitas inspiradas nos povos andinos.
+333|O antigo Hotel de Imigrantes, onde milhões de recém-chegados passaram seus primeiros dias.
+334|Coleção de armas e armaduras dentro do Palacio Paz, em frente à Plaza San Martín.
+335|Um navio-escola de 1897 atracado em Puerto Madero que se visita por dentro.
+336|O navio mais antigo da Marinha que continua flutuando, famoso por um resgate na Antártida em 1903.
+337|Quadrinhos e humor gráfico argentino na velha cervejaria Munich da Costanera Sur.
+338|O gigante de ferro de 1914 sobre o Riachuelo, uma das poucas pontes transportadoras que restam no mundo.
+339|A primeira casa própria de Diego Maradona, conservada como em 1980.
+340|Bondes restaurados que dão uma volta pelo bairro, a cargo de uma associação de voluntários.
+341|Um edifício de conto de fadas com um píer que avança sobre o Rio da Prata, em frente ao Aeroparque.
+342|Apresenta-se como o restaurante mais antigo da cidade (1860). Cozinha espanhola e portenha.
+343|Bodegón espanhol da Avenida de Mayo com porções enormes.
+344|Outro clássico espanhol com mais de um século, famoso pelo puchero.
+345|Toalhas de papel, vermicelli com molho de tomate e pesto e preços amigáveis há décadas.
+346|Parrilla e massas em um salão tradicional a uma quadra da Corrientes.
+347|Pizza de forma como as de antigamente, no trecho da Corrientes perto do Bajo.
+348|Pizzaria histórica com as paredes cheias de fotos de Gardel e figuras do tango.
+349|O lugar do chocolate quente com churros da rua Corrientes.
+350|A confeitaria onde Cortázar ambientou seu romance Os Prêmios.
+351|Bar histórico de 1894 com mesas de bilhar no subsolo e shows de tango.
+352|Bodegón de bairro em plena Recoleta: milanesas, massas e garçons de uma vida inteira.
+353|Brasas de campo e de mar: carnes e peixes na grelha em um salão elegante.
+354|Cozinha autoral com peixes muito bons, em uma esquina tranquila da Recoleta.
+355|Mesas de madeira entalhadas com nomes e janelas para a praça mais antiga do bairro.
+356|Bar histórico com passado literário, tábuas generosas e sanduíches.
+357|Em frente ao Parque Lezama, aberto quase o dia todo, com ar de outra época.
+358|O outro bar histórico da esquina do Parque Lezama, com frios pendurados e vermute.
+359|Um velho açougue transformado em parrilla, com boa carne e preços razoáveis para a região.
+360|Empanadas, hambúrgueres e tacos rápidos e gostosos, com clima jovem.
+361|Um casarão colonial com armazém, pátio e cozinha criolla.
+362|Parrilla com pátio dentro de um cortiço, a uma quadra do Caminito.
+363|Massas caseiras do norte da Itália, das melhores da cidade.
+364|A parrilla mais famosa de Puerto Madero, com carne de cabanha própria e vista para a doca.
+365|Rodízio de parrilla: você come toda a carne e saladas que quiser por um preço fixo.
+366|Assador criollo à vista e ambientação de estância em frente à doca.
+367|Cozinha na brasa e grande adega em um salão moderno do Bajo Belgrano.
+368|Pizzaria de balcão de 1932, famosa pela fugazzeta recheada.
+369|Bodegón de porções gigantes: as milanesas saem do prato.
+370|Em frente à estação Federico Lacroze, pizza de forma desde 1947.
+371|Bar histórico enorme com mesas de sinuca, bilhar e pingue-pongue que abre até tarde.
+372|Padaria e brunch em uma casa antiga com pátio.
+373|Bar histórico de 1929 com as paredes forradas de flâmulas de futebol.
+374|Cantina italiana de 1909 onde comia Astor Piazzolla.
+375|Pizzaria de bairro famosa pela fugazzeta recheada.
+376|Cantina italiana de 1926 com fusiles (massa feita à mão) e molhos de panela.
+377|Bar histórico em frente ao Parque Rivadavia, ponto de encontro de colecionadores de moedas e selos.
+378|A confeitaria de Damián Betular: tortas e macarons de vitrine.
+379|Bar histórico em frente ao velho Mercado de Hacienda, ponto de encontro de tropeiros e vizinhos.
+380|Um velho armazém com balcão de bebidas de 1915, com presuntos pendurados e prateleiras até o teto.
+381|Bar histórico de 1893 com noites de tango e milonga de bairro.
+382|Casa de tango histórica em uma esquina colonial, com orquestra ao vivo e poucos lugares.
+383|Um bar pequenininho onde o tango é tocado e dançado a um metro da sua mesa.
+384|Jantar com show em um cortiço reciclado, com tango e folclore.
+385|Grande show de tango em um antigo cinema, ao lado do Obelisco.
+386|Jantar com show no Abasto, onde Gardel costumava ficar.
+387|Uma milonga tradicional e pequena, das mais respeitadas pelos dançarinos.
+388|A milonga dos sábados em uma quadra de basquete de clube de bairro: tango autêntico de Villa Urquiza.
+389|Chamam de catedral do tango: um clube centenário com milongas e aulas.
+390|Clube de jazz com mesas, boa acústica e shows quase todas as noites.
+391|Loja de discos, bar e sala de jazz com jardim nos fundos.
+392|Casa clássica de shows médios: rock, tango, folclore e humor.
+393|Um velho cinema transformado em casa de rock.
+394|Uma fábrica de óleo reciclada com shows, teatro e festas no pátio.
+395|Um bar minúsculo de 1893 onde se canta tango noite adentro.
+396|Um dos primeiros bares a portas fechadas da cidade; coquetelaria séria.
+397|Coquetelaria inspirada nos romances de Júlio Verne.
+398|Bar especializado em martinis e coquetéis clássicos.
+399|Bar em uma mansão do início do século XX, com escadaria de mármore e jardim.
+400|Pub inglês com sinuca nos fundos, curry e chope.
+401|Hotel art déco a uma quadra da Plaza de Mayo, com piscina no terraço.
+402|Hotel temático de tango em um edifício histórico da Avenida de Mayo.
+403|Hotel clássico na Diagonal Norte, com piscina no terraço e vista para o Obelisco.
+404|Em frente ao Obelisco e ao Teatro Colón, com spa e piscina no último andar.
+405|Hotel histórico de 1910 a uma quadra do Congresso.
+406|Edifício histórico de estilo neocolonial espanhol no Bajo.
+407|Torre em frente à Torre Monumental e à estação Retiro, com piscina e quadras.
+408|Hotel clássico com jardim e piscina coberta, perto de Retiro e da Recoleta.
+409|Torre moderna da família do Alvear, com piscina nas alturas.
+410|Hotel de luxo em uma das quadras mais elegantes, perto do Patio Bullrich.
+411|Hotel moderno a poucas quadras do Cemitério da Recoleta.
+412|Poucos quartos no edifício de um clube centenário, com restaurante francês.
+413|Hotel boutique de luxo com atendimento muito personalizado.
+414|Uma das torres mais altas da cidade, com bar e piscina nos últimos andares.
+415|A casa onde se hospedava Francis Ford Coppola, com um jardim tropical e poucas suítes.
+416|Um antigo convento transformado em hotel boutique, a meia quadra da Plaza Serrano.
+417|Casarão reciclado com terraço, perto da Plaza Italia e do metrô.
+418|O grande teatro público da cidade: três salas, cinema, fotogaleria e ingressos acessíveis.
+419|A catedral do teatro de revista portenho, hoje com musicais e comédias.
+420|Sala art déco de 1936 com um céu estrelado no teto.
+421|Uma passagem a céu aberto com várias salas de teatro, bares e stand-up.
+422|Cinema da universidade com mostras, clássicos e estreias independentes.
+423|A cinemateca do Teatro San Martín: mostras de autor e retrospectivas.
+424|Exposições, teatro, música e cinema a preços baixos, atrás do Teatro San Martín.
+425|Exposições de arte e espetáculos em cima das Galerías Pacífico.
+426|Teatro público doado por Quinquela Martín, com seus murais no hall.
+427|Um parque temático religioso que recria Jerusalém, ao lado do rio. Curioso e único.
+428|Um parque grande à beira do rio com brinquedos, areia e guarda-sóis no verão.
+429|O Nuevo Gasómetro, o estádio do San Lorenzo, um dos cinco grandes.
+430|O estádio do Ferro Carril Oeste, com arquibancadas de madeira centenárias.
+431|O estádio do Torito de Mataderos, verde e preto como o bairro inteiro.
+432|Um mercado enorme à beira do rio: vime, móveis, plantas, decoração e bancas de comida.
+433|Um palácio de 1912 à beira do rio Luján, com arte argentina e um terraço de cinema.
+434|A orla de Tigre: clubes de remo centenários, restaurantes e sombra para caminhar.
+435|Maquetes, navios e aviões que contam a história naval argentina.
+436|As lanchas de madeira que os ilhéus usam como ônibus. A forma mais barata e autêntica de entrar no Delta.
+437|Passeios de uma ou duas horas pelos rios principais, com guia a bordo.
+438|O povoado ilhéu mais fácil de visitar: trilhas e pontes entre casas sobre palafitas, e restaurantes à beira d'água.
+439|A casa de madeira onde Sarmiento passava seus dias na ilha, protegida dentro de uma caixa de vidro.
+440|Passar o dia em uma ilha com piscina, praia de rio, almoço e espreguiçadeiras. Há opções familiares e outras só para adultos.
+441|Um trem turístico que margeia o rio e para em estações recicladas com antiquários e cafés.
+442|A mansão de Victoria Ocampo, onde se hospedaram Borges, Tagore e Camus. Hoje é da UNESCO.
+443|Uma cidadezinha uruguaia tranquila com praias de rio, vinícolas e vinhedos, à qual se chega cruzando o Delta.
+444|Você salta preso a um instrutor de cerca de 3.000 metros, sem experiência prévia. Lobos é a região clássica do paraquedismo perto da cidade.
+445|Um voo ao amanhecer sobre o campo de Buenos Aires, com brinde ao pousar.
+446|Passeios a cavalo de uma hora ou de dia inteiro, adequados para quem nunca montou.
+447|Escolas com lancha ou cabo que dão aulas para iniciantes.
+448|Um sobrevoo curto pelo rio, Puerto Madero, o Obelisco e os estádios.
+449|Cidade do interior com lagoa para pescar e remar, e o museu na casa natal de Perón.
+450|Um vilarejo de 1890 com praça octogonal, cervejaria artesanal, queijos e frios do campo.
+451|Um vilarejo minúsculo que é um polo gastronômico: almoços longos de massas, frios e churrasco.
+452|Uma velha estação de trem cercada de restaurantes de campo e feira de artesãos.
+453|Um castelo de estilo francês no meio do campo, com parque projetado por Carlos Thays.
+454|A clássica Festa Gaúcha: churrasco, folclore, corridas de argolinha e passeio de carruagem.
+455|Uma estância de 1880 com dia de campo: cavalgada, churrasco e doma indígena.
+456|O parque nacional mais próximo da cidade: trilhas entre áreas úmidas, capinzais e barrancas.
+457|Uma reserva pequena à beira do rio, com passarelas entre juncos e muitas aves.
+458|A cidade da cerveja mais famosa do país, com orla sobre o rio e parque cervejeiro.
+459|Parrilla clássica de Puerto Madero, com salão amplo e mesas em frente à doca.
+460|Uma das parrillas com mais história da cidade, hoje em frente à doca.
+461|Parrilla tradicional com terraço sobre a doca.
+462|Rodízio com parrilla, massas e mesa de sobremesas por um preço fixo.
+463|Restaurante italiano elegante: massas, risotos e peixes.
+464|Cozinha italiana com peixes e frutos do mar, de uma rede portenha conhecida.
+465|Um clássico portenho de peixes e frutos do mar, com unidade em frente à doca.
+466|Peixes, frutos do mar e massas em um salão envidraçado sobre a doca.
+467|Cozinha mexicana com tacos, guacamole e margaritas.
+468|O restaurante do Hotel Madero: cozinha moderna em um ambiente tranquilo.
+469|Parrilla de bairro com as paredes escritas pelos clientes.
+470|Parrilla tradicional em frente ao Parque Lezama, bem de vizinhos.
+471|Bodegón de bairro com milanesas, massas e porções generosas.
+472|Um bar-armazém pequeno com lousa de pratos do dia, frios e vinhos.
+473|Uma esquina antiga muito bonita, com café, pratos de bistrô e vinhos.
+474|Cozinha natural com muitas opções vegetarianas, no bulevar Caseros.
+475|Um restaurante italiano dentro de um antiquário enorme: você come cercado de carros, estátuas e lustres.
+476|Cozinha basca: balcão de pintxos e carnes na grelha.
+477|Uma brasserie francesa clássica: sopa de cebola, steak tartare e crème brûlée.
+478|Cozinha vietnamita de rua: pho, bánh mì e rolls.
+479|Tacos e cozinha mexicana caseira.
+480|Um pátio grande cheio de plantas com bar e restaurante.
+481|Cervejaria com dezenas de torneiras de cerveja artesanal e pátio.
+482|Café histórico de 1887, a duas quadras da Plaza de Mayo.
+483|Confeitaria de estilo francês em frente à praça Lavalle, ao lado do Teatro Colón.
+484|Bar de bilhar e sinuca que quase não fecha, clássico de estudantes e notívagos.
+485|A casa de empanadas mais tradicional da região do Congresso, também com pizza.
+486|Bodegón em um subsolo do Microcentro, cheio de gente de escritório ao meio-dia.
+487|Restaurante alemão com quase um século no Microcentro: salsichas, chucrute e goulash.
+488|Trattoria italiana tradicional do centro.
+489|Assador criollo à vista no calçadão Lavalle, com décadas recebendo turistas.
+490|Um dos restaurantes coreanos mais antigos da cidade, em Once.
+491|Parrilla simples e muito procurada pelo preço, perto da avenida 9 de Julio.
+492|Parrilla e cozinha espanhola a uma quadra da rua Florida.
+493|Um bistrô pequenininho e colorido com balcão e pratos autorais.
+494|Pizzas finas e cozinha italiana em um salão com arte.
+495|Café histórico dos anos 60, ponto de encontro de artistas, no calçadão Florida.
+496|Café e almoços leves na rua Arroyo, a das galerias de arte.
+497|Bar e restaurante elegante em um subsolo, com coquetelaria caprichada.
+498|Parrilla tradicional em La Recova de Posadas, sob o viaduto.
+499|A parrilla de um grupo gastronômico clássico de La Recova.
+500|A parrilla do Four Seasons, em um pavilhão envidraçado no jardim do hotel.
+501|O restaurante do Four Seasons: carnes maturadas, charcutaria e sorvetes próprios.
+502|Cozinha espanhola com peixes muito bons e uma adega importante.
+503|Cozinha indiana com forno tandoor: curries, pães naan e pratos vegetarianos.
+504|Parrilla e pratos fartos a bom preço, muito escolhida por viajantes.
+505|Sorveteria autoral conhecida pelo doce de leite e pelos chocolates.
+506|Gelato de estilo italiano e cafeteria em um casarão da Recoleta.
+507|Sorveteria artesanal com sabores originais além dos clássicos.
+508|Em frente à Bombonera. Não há cardápio: o dono vai trazendo pratos conforme o que houver no dia.
+509|Bar histórico em frente à Vuelta de Rocha, a metros do Caminito, com fotos de visitantes ilustres.
+510|Bar histórico e bodegón de 1905, em frente à praça Solís.
+511|Bodegón clássico perto do Abasto: massas caseiras, carnes e garçons de ofício.
+512|Bodegón espanhol tradicional em uma esquina de Almagro.
+513|Parrilla tradicional de bairro, há muitos anos na mesma esquina.
+514|Bufê livre vegetariano de cozinha chinesa, perto do Abasto.
+515|Café, livraria e música em uma esquina tranquila de Almagro.
+516|Bar de esquina com tábuas de frios, cerveja e mesas na calçada, a metros de vários teatros.
+517|Parrilla de bairro muito querida, longe do circuito turístico.
+518|Parrilla farta em frente ao Parque Centenario, famosa pela pamplona de porco.
+519|Tapas, tortilha e vermute em um salão sempre cheio.
+520|Parrilla de esquina com história, hoje renovada, em Palermo Soho.
+521|Parrilla e cozinha do norte em Las Cañitas, a preços acessíveis.
+522|A casa que reivindica a pizza canchera: de forma, sem queijo e com muito molho.
+523|Café de bairro sem retoques, famoso pelos desenhos na espuma do cortado.
+524|Sorveteria de receitas italianas em Palermo Soho.
+525|Sorveteria artesanal com sabores autorais e bom chocolate.
+526|Hamburgueria de paredes rabiscadas que foi uma das primeiras da onda.
+527|Cozinha vietnamita e coquetelaria, um clássico de Palermo Hollywood.
+528|Mexicano informal e econômico, muito concorrido.
+529|Trattoria com arte nas paredes e massas caseiras.
+530|Mercado e trattoria do cozinheiro Donato De Santis.
+531|Cozinha natural e orgânica, com muitas opções vegetarianas.
+532|Um bistrô pequeno onde o cardápio muda todos os dias e é escrito em lousas.
+533|Um casarão de 1927 com restaurante, bar, livraria e jardim.
+534|Parrilla de estilo americano: costelas de porco e porções grandes.
