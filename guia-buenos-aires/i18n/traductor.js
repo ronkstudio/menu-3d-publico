@@ -46,7 +46,11 @@
   };
 
   /* Lista de días o cosas separadas por comas e "y": se traduce cada parte. */
-  const lista = s => s.split(/, | y /).map(x => (Object.prototype.hasOwnProperty.call(D, x) ? D[x] : x)).join(", ");
+  /* Si la lista termina con punto ("jueves, viernes, sábados."), el punto se separa para poder traducir el último día. */
+  const lista = s => {
+    const fin = /\.$/.test(s) ? "." : "";
+    return s.replace(/\.$/, "").split(/, | y /).map(x => (Object.prototype.hasOwnProperty.call(D, x) ? D[x] : x)).join(", ") + fin;
+  };
   const uno = s => {
     if (Object.prototype.hasOwnProperty.call(D, s)) return D[s];
     for (let i = 0; i < RE.length; i++) {

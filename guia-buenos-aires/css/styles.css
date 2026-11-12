@@ -114,11 +114,12 @@ main:focus { outline: none; }
 .today .link { color: inherit; text-decoration: underline; font-size: inherit; }
 
 /* ── Tarjetas de acceso ── */
-.cats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.cats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 .cat { display: flex; align-items: center; gap: 12px; text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; box-shadow: var(--shadow); transition: border-color .15s, transform .15s; }
 .cat:hover { border-color: var(--c); transform: translateY(-1px); }
 .ico { flex: none; width: 42px; height: 42px; border-radius: 12px; background: color-mix(in srgb, var(--c) 16%, transparent); display: grid; place-items: center; font-size: 21px; }
-.cat b { display: block; font-size: 15px; line-height: 1.25; }
+.cat b { display: block; font-size: 15px; line-height: 1.25; hyphens: auto; overflow-wrap: break-word; }
+.cat > span { min-width: 0; }
 .cat span span { display: block; font-size: 12.5px; color: var(--ink-3); line-height: 1.3; margin-top: 1px; }
 .cta { display: flex; align-items: center; gap: 12px; background: linear-gradient(135deg, #f4b400, #f59f00); color: #3d2a00; border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); }
 .cta > span { flex: 1; }
@@ -415,7 +416,7 @@ a.event:hover { border-color: var(--accent); }
 
 /* ── Pantallas grandes ── */
 @media (min-width: 720px) {
-  .cats { grid-template-columns: repeat(3, 1fr); }
+  .cats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .list, .barrios, .blocks, .events { grid-template-columns: repeat(2, 1fr); align-items: start; }
   .sos { grid-template-columns: repeat(3, 1fr); }
   .nearby { grid-template-columns: repeat(5, 1fr); }
@@ -438,7 +439,7 @@ a.event:hover { border-color: var(--accent); }
   .nav a.on { color: #fff; background: rgba(255, 255, 255, .16); }
   .nav-ico { font-size: 16px; filter: none; opacity: 1; }
   .badge { position: static; }
-  .cats { grid-template-columns: repeat(5, 1fr); }
+  .cats { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .list { grid-template-columns: repeat(2, 1fr); }
   .toast { bottom: 24px; }
   #view { padding-top: 24px; }
@@ -534,3 +535,12 @@ a.event:hover { border-color: var(--accent); }
 .mv button { width: 28px; height: 22px; border: 1px solid var(--line); background: var(--surface-2); border-radius: 6px; font-size: 11px; line-height: 1; color: var(--ink-2); padding: 0; }
 .mv button:disabled { opacity: .3; }
 @media print { .wz-bar, .trip-main, .trip-more, .mv { display: none !important; } }
+
+/* Hoy en Buenos Aires (tarjeta #64) */
+.hoy-h { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); margin: 14px 0 8px; }
+.hoy-it { width: 100%; text-align: left; font: inherit; color: inherit; cursor: pointer; text-decoration: none; }
+.hoy-it:hover { border-color: var(--ink-3); }
+.hoy-it i { font-style: normal; }
+.hoy-mas { margin-top: 8px; }
+.hoy-mas summary { cursor: pointer; color: var(--accent, #1c7ed6); font-weight: 600; font-size: 14px; padding: 6px 0; }
+.hoy-nota { margin: 10px 0 0; }

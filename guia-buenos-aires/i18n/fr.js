@@ -12,6 +12,6 @@
   "pie.creditos": "Photos : Wikimedia Commons · Cartes et métro : © OpenStreetMap · Météo : Open-Meteo · Taux de change : open.er-api.com",
   "idioma.titulo": "Langue",
   "idioma.abrir": "Changer de langue",
-  "idioma.nota": "Pour l'instant, seul le menu est traduit ; le reste du guide est en espagnol. Traduction automatique, pas encore relue par un locuteur natif.",
+  "idioma.nota": "Traduction automatique, pas encore relue par un locuteur natif.",
   "idioma.cerrar": "Fermer"
 };

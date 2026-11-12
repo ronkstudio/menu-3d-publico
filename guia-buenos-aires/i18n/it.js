@@ -12,6 +12,6 @@
   "pie.creditos": "Foto: Wikimedia Commons · Mappe e metropolitana: © OpenStreetMap · Meteo: Open-Meteo · Cambio: open.er-api.com",
   "idioma.titulo": "Lingua",
   "idioma.abrir": "Cambia lingua",
-  "idioma.nota": "Per ora è tradotto solo il menu; il resto della guida è in spagnolo. Traduzione automatica, non ancora rivista da un madrelingua.",
+  "idioma.nota": "Traduzione automatica, non ancora rivista da un madrelingua.",
   "idioma.cerrar": "Chiudi"
 };
