@@ -544,3 +544,18 @@ a.event:hover { border-color: var(--accent); }
 .hoy-mas { margin-top: 8px; }
 .hoy-mas summary { cursor: pointer; color: var(--accent, #1c7ed6); font-weight: 600; font-size: 14px; padding: 6px 0; }
 .hoy-nota { margin: 10px 0 0; }
+
+/* Check-in del vuelo */
+.ci-big { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin-top: 6px; padding: 18px 20px; border: 0; border-radius: 16px;
+  background: linear-gradient(135deg, #5f3dc4, #1a73c8); color: #fff; font-size: 19px; font-weight: 800; letter-spacing: .01em;
+  box-shadow: 0 8px 22px color-mix(in srgb, #5f3dc4 35%, transparent); cursor: pointer; transition: transform .12s ease, box-shadow .12s ease; }
+.ci-big:hover { transform: translateY(-1px); box-shadow: 0 10px 26px color-mix(in srgb, #5f3dc4 45%, transparent); }
+.ci-big:active { transform: translateY(1px); }
+.ci-panel { margin-top: 12px; padding: 14px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+.ci-panel label { display: block; font-weight: 700; margin-bottom: 8px; }
+.ci-panel input { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; font-size: 16px; background: var(--bg, #fff); color: inherit; }
+.ci-list { margin-top: 10px; max-height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; }
+.ci-item { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; text-decoration: none; color: inherit; font-weight: 600; }
+.ci-item b { color: var(--accent); font-size: 13.5px; white-space: nowrap; }
+.ci-item:hover { border-color: var(--accent); }
+.ci-otra { justify-content: flex-start; gap: 4px; }

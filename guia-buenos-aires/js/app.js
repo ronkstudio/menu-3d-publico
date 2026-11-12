@@ -571,7 +571,7 @@
         linkCard("#/info/moverse", "#1c7ed6", "🚇", "Cómo moverte", "SUBE, subte, aeropuertos") +
         linkCard("#/info/seguridad", "#e8590c", "⚠️", "Qué evitar", "Estafas y cuidados") +
         linkCard("#/info/practica", "#0c8599", "💵", "Info práctica", "Dinero, horarios, checklist") +
-        linkCard("#/info/vuelo", "#5f3dc4", "✈️", "Check-in del vuelo", "Tu aerolínea en un toque") +
+        linkCard("#/info/vuelo", "#5f3dc4", "✈️", "Hacé tu check-in", "Elegí tu aerolínea y listo") +
         linkCard("#/viaje", "#d6336c", "♥", "Mi viaje", "Tus lugares, día por día") +
       "</div></section>" +
 
@@ -666,23 +666,47 @@
       '<section class="section">' + head("Ayuda a distancia") + channels + "</section>" +
       '<section class="section">' + head("Dónde pedir ayuda en persona", hasMap ? '<button class="link" data-go="' + attr({ cat: "ninguno", help: true, mode: "mapa" }) + '">Ver en el mapa</button>' : "") + '<div class="help-groups">' + groups + "</div></section>";
   };
-  /* Check-in del vuelo (tarjeta #73). La guía no puede hacer el check-in: cada aerolínea lo hace solo en su web o app.
-     Por eso hay un botón por aerolínea (va a su página de check-in, o a su inicio si esa página cambia seguido) y un buscador para las demás. */
+  /* Check-in del vuelo (tarjetas #73 y #75). La guía no puede hacer el check-in: cada aerolínea lo hace solo en su web o app.
+     Un botón grande abre un buscador de aerolíneas; al elegir una, se abre directo la pantalla de check-in de esa aerolínea
+     (donde se pone el código de reserva y el apellido). Cada dirección se abrió y se revisó el 12/11/2026.
+     Si la aerolínea no está en la lista, se busca su check-in en Google. */
   const AEROLINEAS = [
-    ["Aerolíneas Argentinas", "https://www.aerolineas.com.ar/"], ["Flybondi", "https://flybondi.com/"], ["JetSMART", "https://jetsmart.com/ar/es/"],
-    ["LATAM", "https://www.latamairlines.com/"], ["GOL", "https://www.gol.com.br/"], ["Sky", "https://www.skyairline.com/argentina/check-in"],
-    ["Copa", "https://www.copaair.com/"], ["Avianca", "https://www.avianca.com/"], ["American Airlines", "https://www.aa.com/check-in"],
-    ["United", "https://www.united.com/"], ["Delta", "https://www.delta.com/"], ["Iberia", "https://www.iberia.com/"],
-    ["Air Europa", "https://www.aireuropa.com/ar/es/check-in"], ["Air France", "https://www.airfrance.com/"], ["KLM", "https://www.klm.com/"],
-    ["Lufthansa", "https://www.lufthansa.com/"], ["ITA Airways", "https://www.ita-airways.com/"], ["British Airways", "https://www.britishairways.com/"],
-    ["Turkish Airlines", "https://www.turkishairlines.com/"], ["Emirates", "https://www.emirates.com/ar/spanish/manage-booking/online-check-in/"],
-    ["Qatar Airways", "https://www.qatarairways.com/"]
+    ["Aerolíneas Argentinas", "https://www.aerolineas.com.ar/?activeTab=checkIn"],
+    ["Flybondi", "https://reserva.flybondi.com/booking/widget?carrier=fo&module=webcheckin"],
+    ["JetSMART", "https://jetsmart.com/ar/es/minisitios/checkin"],
+    ["LATAM", "https://www.latamairlines.com/ar/es/check-in"],
+    ["GOL", "https://b2c.voegol.com.br/check-in/"],
+    ["Sky Airline", "https://www.skyairline.com/argentina/check-in"],
+    ["Copa Airlines", "https://checkin.copaair.com/"],
+    ["Avianca", "https://www.avianca.com/es/mi-reserva/servicios/check-in-online"],
+    ["American Airlines", "https://www.aa.com/check-in"],
+    ["United", "https://www.united.com/es/ar/checkin"],
+    ["Delta", "https://oci.delta.com/index.html"],
+    ["Iberia", "https://www.iberia.com/ar/autocheckin-online/"],
+    ["Air Europa", "https://www.aireuropa.com/ar/es/check-in"],
+    ["Air France", "https://wwws.airfrance.com.ar/check-in"],
+    ["KLM", "https://www.klm.com.ar/check-in"],
+    ["Lufthansa", "https://www.lufthansa.com/ar/es/online-check-in"],
+    ["ITA Airways", "https://www.ita-airways.com/ar/es/manage-my-bookings/manage/check-in"],
+    ["British Airways", "https://www.britishairways.com/travel/olcilandingpageauthreq/public/es_ar"],
+    ["Turkish Airlines", "https://www.turkishairlines.com/es-ar/flights/manage-booking/"],
+    ["Emirates", "https://www.emirates.com/ar/spanish/manage-booking/online-check-in/"],
+    ["Qatar Airways", "https://cki.qatarairways.com/cki-web/pages/autocheckin.xhtml"]
   ];
+  const sinTilde = s => s.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+  const ciLista = q => {
+    const n = sinTilde(q.trim());
+    const hay = AEROLINEAS.filter(a => !n || sinTilde(a[0]).indexOf(n) > -1);
+    return hay.map(a => '<a class="ci-item" data-notr href="' + a[1] + '" target="_blank" rel="noopener"><span>✈️ ' + esc(a[0]) + "</span><b>Check-in →</b></a>").join("") +
+      (n ? '<a class="ci-item ci-otra" href="https://www.google.com/search?q=' + encodeURIComponent(q.trim() + " web check-in") + '" target="_blank" rel="noopener"><span>🔎 Buscar en internet: </span><b data-notr>' + esc(q.trim()) + "</b></a>" : "");
+  };
   const vueloHtml = () =>
-    '<p class="hint">El check-in se hace en la web o la app de tu aerolínea. Tocá la tuya y buscá "Check-in". Vas a necesitar el código de reserva y tu apellido.</p>' +
-    '<div class="chips" style="flex-wrap:wrap">' + AEROLINEAS.map(a => '<a class="chip" data-notr href="' + a[1] + '" target="_blank" rel="noopener">✈️ ' + esc(a[0]) + "</a>").join("") + "</div>" +
-    '<form class="route" id="checkin-form" style="margin-top:16px"><label for="checkin-al">¿Tu aerolínea no está?</label><div class="search"><input id="checkin-al" name="al" required placeholder="Nombre de la aerolínea" autocomplete="off"><button>Buscar check-in</button></div></form>' +
-    '<div class="blocks" style="margin-top:16px">' + blockHtml({ icon: "🧳", title: "Consejos para el vuelo", items: [
+    '<button class="ci-big" id="ci-abrir" type="button" aria-expanded="false" aria-controls="ci-panel">✈️ Hacé tu check-in</button>' +
+    '<div class="ci-panel" id="ci-panel" hidden><label for="ci-q">Elegí o buscá tu aerolínea</label>' +
+    '<input id="ci-q" type="search" placeholder="Ej.: Aerolíneas, LATAM, Iberia…" autocomplete="off">' +
+    '<div class="ci-list" id="ci-list">' + ciLista("") + "</div>" +
+    '<p class="hint">Se abre la pantalla de check-in de tu aerolínea. Tené a mano el código de reserva y tu apellido.</p></div>' +
+    '<div class="blocks" style="margin-top:20px">' + blockHtml({ icon: "🧳", title: "Consejos para el vuelo", items: [
       { t: "Cuándo hacerlo", d: "Suele abrir uno o dos días antes del vuelo. Hacelo apenas abra: elegís mejor asiento." },
       { t: "Tarjeta de embarque", d: "Guardala en el celular o sacale una captura, por si no tenés internet en el aeropuerto." },
       { t: "Aeropuertos", d: "Ezeiza es para casi todos los vuelos internacionales; Aeroparque, para los de cabotaje y algunos a países vecinos. Fijate bien cuál es el tuyo." }
@@ -1167,6 +1191,12 @@
 
   /* ── Eventos ── */
   document.addEventListener("click", e => {
+    if (e.target.closest("#ci-abrir")) {
+      const p = document.getElementById("ci-panel"), b = document.getElementById("ci-abrir");
+      p.hidden = !p.hidden;
+      b.setAttribute("aria-expanded", String(!p.hidden));
+      if (!p.hidden) document.getElementById("ci-q").focus();
+    }
     const t = e.target;
     let el;
     if (t.closest("select")) return;
@@ -1282,11 +1312,6 @@
         rerender();
       });
     }
-    if (e.target.id === "checkin-form") {
-      e.preventDefault();
-      const al = e.target.al.value.trim();
-      if (al) window.open("https://www.google.com/search?q=" + encodeURIComponent(al + " web check-in"), "_blank", "noopener");
-    }
     if (e.target.id === "route-form") {
       e.preventDefault();
       const to = e.target.to.value.trim();
@@ -1295,6 +1320,7 @@
   });
   document.addEventListener("input", e => {
     if (e.target.id === "q") { f.q = e.target.value; f.planDay = null; paintResults(); }
+    if (e.target.id === "ci-q") document.getElementById("ci-list").innerHTML = ciLista(e.target.value);
     if (e.target.id === "cv-a") paintConv("a");
     if (e.target.id === "cv-b") paintConv("b");
     if (e.target.id === "tp-total" || e.target.id === "tp-n") paintTip();
