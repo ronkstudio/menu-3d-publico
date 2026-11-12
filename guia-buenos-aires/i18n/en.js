@@ -11,7 +11,6 @@
   "pie.aviso": "For guidance only: prices, opening hours and days change. Check before you go.",
   "pie.creditos": "Photos: Wikimedia Commons · Maps and subway: © OpenStreetMap · Weather: Open-Meteo · Exchange rate: open.er-api.com",
   "idioma.titulo": "Language",
-  "idioma.abrir": "Change language",
-  "idioma.nota": "For now only the menu is translated; the rest of the guide is in Spanish. Machine translation, not yet reviewed by a native speaker.",
+  "idioma.abrir": "Change language"
   "idioma.cerrar": "Close"
 };

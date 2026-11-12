@@ -469,7 +469,7 @@
       (() => {   // hoy en tu viaje: lo agendado para hoy, o cuántos días faltan (tarjeta #37)
         const td = tripToday();
         if (td === null) return "";
-        if (td < 1) return '<div class="today"><b>Faltan ' + (1 - td) + (1 - td === 1 ? " día" : " días") + ' para tu viaje.</b> <a class="link" href="#/info/practica">Repasá la lista para no olvidarte de nada</a></div>';
+        if (td < 1) return '<div class="today"><b>' + (1 - td === 1 ? "Falta 1 día" : "Faltan " + (1 - td) + " días") + ' para tu viaje.</b> <a class="link" href="#/info/practica">Repasá la lista para no olvidarte de nada</a></div>';
         const mineToday = plan.filter(x => x.day === td).map(x => byId[x.id]);
         if (!mineToday.length) return "";
         return '<section class="section" style="margin-top:18px">' + head("Hoy en tu viaje · Día " + td, '<a class="link" href="#/viaje">Ver todo</a>') + '<div class="rail">' + mineToday.map(tile).join("") + "</div></section>";
@@ -653,11 +653,12 @@
     const mid = items.slice(1, -1).slice(0, 9).map(pt).join("%7C");
     return "https://www.google.com/maps/dir/?api=1&origin=" + pt(items[0]) + "&destination=" + pt(items[items.length - 1]) + (mid ? "&waypoints=" + mid : "");
   };
-  const planRow = (p, i, days, dow) => {
+  const planRow = (p, i, days, dow, n) => {
     const item = planOf(p.id), s = dow == null ? null : dayStatus(p, dow);
     return '<div class="row" data-open="' + p.id + '" tabindex="0" role="button" aria-label="Ver ' + esc(p.name) + '">' +
       '<span class="num' + (prefs.visited[p.id] ? " done" : "") + '" style="--c:' + cats[p.cat].color + '"' + (prefs.visited[p.id] ? ' title="Ya fuiste"' : "") + ">" + (prefs.visited[p.id] ? "✓" : i + 1) + "</span>" +
       '<span class="row-body"><b>' + esc(p.name) + "</b><span>" + [cats[p.cat].icon + " " + esc(p.sub), esc(p.barrio), priceHtml(p)].filter(Boolean).join(" · ") + (s && !s.ok ? ' · <span class="no-t">' + esc(s.text) + "</span>" : "") + "</span></span>" +
+      '<span class="mv"><button data-move="' + p.id + ':-1" aria-label="Subir"' + (i === 0 ? " disabled" : "") + '>▲</button><button data-move="' + p.id + ':1" aria-label="Bajar"' + (i >= n - 1 ? " disabled" : "") + '>▼</button></span>' +
       '<select data-day="' + p.id + '" aria-label="Día para ' + esc(p.name) + '"><option value="0"' + (item.day === 0 ? " selected" : "") + ">Sin día</option>" +
       Array.from({ length: days }, (_, d) => '<option value="' + (d + 1) + '"' + (item.day === d + 1 ? " selected" : "") + ">Día " + (d + 1) + "</option>").join("") + "</select>" +
       '<button class="rm" data-fav="' + p.id + '" aria-label="Quitar ' + esc(p.name) + '">✕</button></div>';
@@ -669,7 +670,8 @@
         '<p class="plan-actions"><a class="btn primary" href="#/armar">✨ Armar mi viaje automático</a><button class="btn" data-go="' + attr({}) + '">Explorar lugares</button></p></div>';
     }
     const days = nDays();
-    html += '<p class="plan-actions"><a class="btn" href="#/armar">✨ Armar automático</a><a class="btn" href="#/pasaporte">🛂 Pasaporte</a><button class="btn" data-shareplan>Compartir</button><button class="btn" data-print>Imprimir / PDF</button><button class="btn" data-addday>＋ Día</button><button class="btn danger" data-clearplan>Vaciar</button></p>' +
+    html += '<p class="trip-main"><a class="btn primary" href="#/armar">✨ Armar automático</a><button class="btn" data-shareplan>Compartir</button></p>' +
+      '<p class="trip-more"><button class="link" data-addday>＋ Agregar un día</button><button class="link" data-print>Imprimir / PDF</button><a class="link" href="#/pasaporte">🛂 Pasaporte</a><button class="link danger" data-clearplan>Vaciar</button></p>' +
       '<label class="trip-date"><span>¿Qué día llegás?</span><input type="date" id="trip-start" value="' + esc(prefs.start) + '"></label>' +
       '<p class="hint" style="margin-top:6px">' + (prefs.start ? "Te avisamos en rojo si un lugar suele cerrar el día que lo agendaste." : "Con la fecha te avisamos si algún lugar cierra el día que lo agendaste.") + "</p>";
     for (let d = 1; d <= days; d++) {
@@ -677,6 +679,7 @@
       const dt = dayDate(d), dow = dt ? dt.getDay() : null;
       const sub = [dt ? DOW[dow] + " " + dt.getDate() + "/" + (dt.getMonth() + 1) : "", prefs.names[d] || ""].filter(Boolean).join(" · ");
       html += '<section class="day"><div class="day-head"><h2>Día ' + d + (sub ? " <span>" + esc(sub) + "</span>" : "") + "</h2>" +
+        (items.length ? '<p class="day-count"><b>' + items.length + '</b> <span>' + (items.length === 1 ? "parada" : "paradas") + '</span></p>' : "") +
         (items.length ? '<span class="day-tools">' +
           (items.length > 2 ? '<button class="link" data-optimize="' + d + '">Ordenar recorrido</button>' : "") +
           (hasMap ? '<button class="link" data-planmap="' + d + '">Ver en mapa</button>' : "") +
@@ -688,10 +691,10 @@
           return '<p class="day-fc">' + WX(w[0])[0] + " " + WX(w[0])[1] + " · máx " + w[1] + "° / mín " + w[2] + "°" + (w[3] >= 30 ? " · lluvia " + w[3] + " %" : "") + "</p>" +
             (rainy ? '<p class="status no" style="margin-bottom:8px">Ese día puede llover y tenés varios planes al aire libre. <button class="link" data-go="' + attr({ q: "lluvia" }) + '">Ver planes bajo techo</button></p>' : "");
         })() +
-        (items.length ? items.map((p, i) => planRow(p, i, days, dow)).join("") : '<p class="hint">Sin lugares todavía. Asignales este día desde la lista de abajo.</p>') + "</section>";
+        (items.length ? items.map((p, i) => planRow(p, i, days, dow, items.length)).join("") : '<p class="hint">Sin lugares todavía. Asignales este día desde la lista de abajo.</p>') + "</section>";
     }
     const loose = plan.filter(x => x.day === 0).map(x => byId[x.id]);
-    if (loose.length) html += '<section class="day"><div class="day-head"><h2>Sin día asignado</h2></div>' + loose.map((p, i) => planRow(p, i, days, null)).join("") + "</section>";
+    if (loose.length) html += '<section class="day"><div class="day-head"><h2>Sin día asignado</h2></div>' + loose.map((p, i) => planRow(p, i, days, null, loose.length)).join("") + "</section>";
     return html;
   };
   const nearestOrder = items => {
@@ -729,17 +732,23 @@
     futbol: p => p.sub === "Fútbol",
     chicos: p => (p.tags || []).indexOf("chicos") > -1
   };
+  /* Armá tu viaje, rediseñado: pasos numerados, botones grandes y un botón fijo abajo con el resumen. */
   const viewWizard = () => {
-    const chip = (key, val, label, on) => '<button class="chip' + (on ? " on" : "") + '" data-wiz="' + key + ":" + val + '" aria-pressed="' + on + '">' + label + "</button>";
-    return '<p><a class="link" href="#/viaje">← Mi viaje</a></p><h1 class="page-title">✨ Armá tu viaje</h1><p class="page-sub">Elegí tres cosas y te dejamos un recorrido por zonas, con dónde comer en cada una. Después lo ajustás como quieras.</p>' +
-      '<div class="wiz"><h2>¿Cuántos días?</h2><div class="chips wrap">' + [1, 2, 3, 4, 5, 6, 7].map(n => chip("days", n, n + (n === 1 ? " día" : " días"), wiz.days === n)).join("") + "</div>" +
-      '<h2>¿Qué te interesa?</h2><div class="chips wrap">' + INTERESTS.map(i => chip("interests", i[0], i[1], wiz.interests.indexOf(i[0]) > -1)).join("") + "</div>" +
-      '<h2>¿Qué presupuesto para comer?</h2><div class="chips wrap">' + [[1, "$ Económico"], [2, "$$ Medio"], [3, "$$$ Sin mirar mucho"], [4, "$$$$ Lo mejor de lo mejor"]].map(o => chip("budget", o[0], o[1], wiz.budget === o[0])).join("") + "</div>" +
-      '<h2>¿A qué ritmo?</h2><div class="chips wrap">' + [[3, "Tranquilo"], [4, "Normal"], [5, "Quiero ver todo"]].map(o => chip("pace", o[0], o[1], wiz.pace === o[0])).join("") + "</div>" +
-      '<h2>¿Qué día llegás? <small>(opcional)</small></h2><label class="trip-date"><input type="date" id="trip-start" value="' + esc(prefs.start) + '" aria-label="Fecha de llegada"></label>' +
-      '<p class="hint" style="margin:0">Con la fecha evitamos agendarte museos el día que cierran.</p>' +
-      '<p class="plan-actions"><button class="btn primary big" data-build>Armar mi viaje</button></p>' +
-      (plan.length ? '<p class="hint">Vas a reemplazar tu viaje actual (' + plan.length + " lugares guardados).</p>" : "") + "</div>";
+    const d = wiz.days, ni = wiz.interests.length;
+    const tile = (key, val, icon, label, on, extra) => '<button class="wz-tile' + (on ? " on" : "") + '" data-wiz="' + key + ":" + val + '" aria-pressed="' + on + '"><span class="wz-ico" aria-hidden="true">' + icon + "</span><b>" + label + "</b>" + (extra ? "<small>" + extra + "</small>" : "") + "</button>";
+    const step = (n, title, hint, body) => '<section class="wz-step"><h2><i aria-hidden="true">' + n + "</i><span>" + title + "</span></h2>" + (hint ? '<p class="wz-hint">' + hint + "</p>" : "") + body + "</section>";
+    const BUD = [[1, "$", "Económico"], [2, "$$", "Medio"], [3, "$$$", "Sin mirar mucho"], [4, "$$$$", "Lo mejor"]];
+    const PACE = [[3, "🚶", "Tranquilo", "3 visitas por día"], [4, "🙂", "Normal", "4 visitas por día"], [5, "⚡", "Quiero ver todo", "5 visitas por día"]];
+    return '<p><a class="link" href="#/viaje">← Mi viaje</a></p><h1 class="page-title">✨ Armá tu viaje</h1><p class="page-sub">Respondé cinco preguntas y te dejamos un recorrido por zonas, con dónde comer en cada una. Después lo ajustás como quieras.</p>' +
+      '<div class="wz">' +
+      step(1, "¿Cuántos días te quedás?", "", '<div class="wz-stepper"><button class="wz-pm" data-wiz="days:' + Math.max(1, d - 1) + '" aria-label="Un día menos"' + (d <= 1 ? " disabled" : "") + '>−</button><div class="wz-count"><b>' + d + "</b><span>" + (d === 1 ? "día" : "días") + '</span></div><button class="wz-pm" data-wiz="days:' + Math.min(7, d + 1) + '" aria-label="Un día más"' + (d >= 7 ? " disabled" : "") + ">+</button></div>") +
+      step(2, "¿Qué te interesa?", "Elegí todo lo que quieras.", '<div class="wz-grid">' + INTERESTS.map(i => { const sp = i[1].indexOf(" "); return tile("interests", i[0], i[1].slice(0, sp), i[1].slice(sp + 1), wiz.interests.indexOf(i[0]) > -1); }).join("") + "</div>") +
+      step(3, "¿Cuánto querés gastar en comer?", "", '<div class="wz-grid four">' + BUD.map(o => tile("budget", o[0], o[1], o[2], wiz.budget === o[0])).join("") + "</div>") +
+      step(4, "¿A qué ritmo?", "", '<div class="wz-grid three">' + PACE.map(o => tile("pace", o[0], o[1], o[2], wiz.pace === o[0], o[3])).join("") + "</div>") +
+      step(5, "¿Qué día llegás?", "Opcional. Con la fecha no te agendamos museos el día que cierran.", '<label class="trip-date"><input type="date" id="trip-start" value="' + esc(prefs.start) + '" aria-label="Fecha de llegada"></label>') +
+      "</div>" +
+      (plan.length ? '<p class="wz-warn">Vas a reemplazar tu viaje actual.</p>' : "") +
+      '<div class="wz-bar"><p class="wz-sum"><b>' + d + "</b> <span>" + (d === 1 ? "día" : "días") + "</span> · <b>" + ni + "</b> <span>" + (ni === 1 ? "interés" : "intereses") + "</span> · <b>" + "$$$$".slice(0, wiz.budget) + '</b></p><button class="btn primary big" data-build>✨ Armar mi viaje</button></div>';
   };
   const buildPlan = () => {
     const Z = X.zones || [];
@@ -1079,6 +1088,12 @@
       const text = planText();
       if (navigator.share) navigator.share({ title: "Mi viaje a " + city.name, text }).catch(() => {});
       else copyText(text, "Viaje copiado: pegalo donde quieras");
+      return;
+    }
+    if ((el = t.closest("[data-move]"))) {   // sube o baja un lugar dentro de su día
+      const mv = el.getAttribute("data-move").split(":"), it = planOf(mv[0]);
+      const same = plan.filter(x => x.day === it.day), k = same.indexOf(it), other = same[k + (+mv[1])];
+      if (other) { const a = plan.indexOf(it), b = plan.indexOf(other); plan[a] = other; plan[b] = it; savePlan(); rerender(); }
       return;
     }
     if (t.closest("[data-addday]")) { prefs.days = nDays() + 1; savePrefs(); rerender(); return; }

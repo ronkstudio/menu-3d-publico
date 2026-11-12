@@ -495,3 +495,42 @@ a.event:hover { border-color: var(--accent); }
 .lang-note { margin: 0; padding: 12px 20px 18px; border-top: 1px solid var(--line); color: var(--ink-2); font-size: 13px; line-height: 1.45; }
 @media (min-width: 900px) { .lang-btn { margin-left: 8px; margin-right: 0; } }
 @media print { .lang-btn, .lang-dialog { display: none !important; } }
+
+/* ── Armá tu viaje (rediseño): pasos numerados, botones grandes y barra fija con el resumen ── */
+.wz { display: grid; gap: 12px; max-width: 680px; }
+.wz-step { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px; }
+.wz-step h2 { display: flex; align-items: center; gap: 10px; font-size: 17px; margin: 0 0 12px; }
+.wz-step h2 i { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--brand); color: #fff; font-style: normal; font-size: 14px; font-weight: 800; display: grid; place-items: center; }
+.wz-hint { color: var(--ink-3); font-size: 13.5px; margin: -6px 0 12px; }
+.wz-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.wz-grid.four { grid-template-columns: repeat(4, 1fr); }
+.wz-tile { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 84px; padding: 10px 6px; text-align: center; border: 1.5px solid var(--line); background: var(--surface); border-radius: 14px; color: var(--ink); }
+.wz-tile b { font-size: 13.5px; line-height: 1.2; font-weight: 700; }
+.wz-tile small { font-size: 11.5px; color: var(--ink-3); }
+.wz-ico { font-size: 24px; line-height: 1; }
+.wz-grid.four .wz-ico { font-size: 17px; font-weight: 800; color: var(--accent); }
+.wz-tile:hover { border-color: var(--ink-3); }
+.wz-tile.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--surface)); box-shadow: inset 0 0 0 1px var(--accent); }
+.wz-tile.on small { color: var(--ink-2); }
+.wz-stepper { display: flex; align-items: center; justify-content: center; gap: 22px; }
+.wz-pm { width: 52px; height: 52px; border-radius: 50%; border: 1.5px solid var(--line); background: var(--surface-2); font-size: 26px; font-weight: 700; line-height: 1; color: var(--ink); }
+.wz-pm:disabled { opacity: .35; }
+.wz-count { min-width: 84px; text-align: center; }
+.wz-count b { display: block; font-size: 40px; line-height: 1; }
+.wz-count span { color: var(--ink-3); font-size: 14px; }
+.wz-warn { max-width: 680px; margin: 12px 0 0; padding: 10px 14px; border-radius: 12px; background: var(--warn-bg); color: var(--warn-ink); font-size: 14px; font-weight: 600; }
+.wz-bar { position: sticky; bottom: calc(var(--nav-h) + env(safe-area-inset-bottom) + 8px); z-index: 20; max-width: 680px; margin-top: 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 10px 10px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 8px 24px rgba(0, 0, 0, .14); }
+.wz-sum { margin: 0; font-size: 14px; color: var(--ink-2); }
+.wz-bar .btn { flex: none; }
+@media (max-width: 420px) { .wz-grid.four { grid-template-columns: repeat(2, 1fr); } .wz-tile { min-height: 76px; } .wz-bar { flex-direction: column; align-items: stretch; padding: 10px; text-align: center; } }
+@media (min-width: 900px) { .wz-bar { bottom: 16px; } }
+
+/* ── Mi viaje: acciones ordenadas y botones para subir o bajar un lugar ── */
+.trip-main { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-width: 520px; margin: 4px 0 8px; }
+.trip-more { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0 0 14px; }
+.trip-more .link.danger { color: var(--no-ink); }
+.day-count { color: var(--ink-3); font-size: 13px; margin: -4px 0 8px; }
+.mv { flex: none; display: grid; gap: 2px; }
+.mv button { width: 28px; height: 22px; border: 1px solid var(--line); background: var(--surface-2); border-radius: 6px; font-size: 11px; line-height: 1; color: var(--ink-2); padding: 0; }
+.mv button:disabled { opacity: .3; }
+@media print { .wz-bar, .trip-main, .trip-more, .mv { display: none !important; } }
