@@ -976,6 +976,7 @@ window.I18N_FULL = {
 "Time Out: qué hacer esta semana": "Time Out : que faire cette semaine",
 "Alternativa Teatral: cartelera": "Alternativa Teatral : programme des théâtres",
 "Resident Advisor: fiestas electrónicas": "Resident Advisor : soirées électroniques",
+"Este mes": "Ce mois-ci",
 "El corazón político e histórico del país. Alrededor de la plaza están la Casa Rosada, la Catedral Metropolitana, el Cabildo y la Pirámide de Mayo.": "Le cœur politique et historique du pays. Autour de la place se trouvent la Casa Rosada, la cathédrale métropolitaine, le Cabildo et la Pyramide de Mai.",
 "El símbolo de la ciudad, en el cruce de la avenida más ancha con la calle que nunca duerme: teatros, librerías y pizzerías clásicas.": "Le symbole de la ville, au croisement de l'avenue la plus large et de la rue qui ne dort jamais : théâtres, librairies et pizzerias classiques.",
 "Uno de los teatros líricos con mejor acústica del mundo. Se puede conocer con visita guiada o asistiendo a una función de ópera, ballet o concierto.": "L'un des opéras à la meilleure acoustique du monde. On peut le découvrir en visite guidée ou en assistant à un opéra, un ballet ou un concert.",

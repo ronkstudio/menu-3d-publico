@@ -7,6 +7,8 @@
   const CITY_ID = "caba";
   const city = window.CITY_DATA[CITY_ID];
   const X = (window.CITY_EXTRA && window.CITY_EXTRA[CITY_ID]) || {};
+  const LOC = X.local || {};   // lo propio de la ciudad: aeropuertos, transporte, chips, aerolíneas, frases (data/<ciudad>-local.js)
+  const MAPA = LOC.mapa || city.name;   // se suma a las búsquedas de Google Maps
   const coords = (window.CITY_COORDS && window.CITY_COORDS[CITY_ID]) || {};
   const Z = (window.CITY_ZONES && window.CITY_ZONES[CITY_ID]) || null;
   const $ = (s, r) => (r || document).querySelector(s);
@@ -35,7 +37,7 @@
     return 12742 * Math.asin(Math.sqrt(s));
   };
   const fmtKm = d => d < 1 ? Math.max(50, Math.round(d * 20) * 50) + " m" : d.toFixed(1).replace(".", ",") + " km";
-  const cityNow = () => { try { return new Date(new Date().toLocaleString("en-US", { timeZone: X.tz || "America/Argentina/Buenos_Aires" })); } catch (e) { return new Date(); } };
+  const cityNow = () => { try { return new Date(new Date().toLocaleString("en-US", { timeZone: X.tz || city.tz || "UTC" })); } catch (e) { return new Date(); } };
   const listDays = a => a.map(d => DOWS[d]).join(a.length === 2 ? " y " : ", ");
   const photo = (ph, w) => {
     if (!ph) return "";
@@ -130,7 +132,7 @@
   const viewPassport = () => {
     const v = visitedPlaces(), stamps = X.stamps || [], got = earnedStamps();
     const barrios = new Set(v.filter(p => p.inCity && p.barrio !== "Varios").map(p => p.barrio)).size;
-    return '<p><a class="link" href="#/viaje">← Mi viaje</a></p><h1 class="page-title">🛂 Pasaporte porteño</h1>' +
+    return '<p><a class="link" href="#/viaje">← Mi viaje</a></p><h1 class="page-title">🛂 ' + esc(LOC.pasaporte || "Pasaporte") + '</h1>' +
       '<p class="page-sub">Marcá "Ya fui" en cada lugar que conozcas y ganá sellos. Queda guardado en este dispositivo.</p>' +
       '<div class="pass-top"><div><b>' + v.length + "</b><span>" + (v.length === 1 ? "lugar visitado" : "lugares visitados") + "</span></div><div><b>" + barrios + "</b><span>" + (barrios === 1 ? "barrio" : "barrios") + "</span></div><div><b>" + got.length + "/" + stamps.length + "</b><span>sellos</span></div></div>" +
       '<div class="stamps">' + stamps.map(s => {
@@ -145,8 +147,8 @@
   let fc = store.get("guia.fc." + CITY_ID, null);
   const loadForecast = () => {
     if (fc && Date.now() - fc.t < 3 * 3600e3) return;
-    const c = city.center || [-34.6037, -58.3816];
-    fetch("https://api.open-meteo.com/v1/forecast?latitude=" + c[0] + "&longitude=" + c[1] + "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&forecast_days=16&timezone=" + encodeURIComponent(X.tz || "America/Argentina/Buenos_Aires"))
+    const c = city.center || LOC.coordCentro || [0, 0];
+    fetch("https://api.open-meteo.com/v1/forecast?latitude=" + c[0] + "&longitude=" + c[1] + "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&forecast_days=16&timezone=" + encodeURIComponent(X.tz || city.tz || "UTC"))
       .then(r => r.json()).then(j => {
         const days = {};
         j.daily.time.forEach((d, i) => { days[d] = [j.daily.weather_code[i], Math.round(j.daily.temperature_2m_max[i]), Math.round(j.daily.temperature_2m_min[i]), j.daily.precipitation_probability_max[i] || 0]; });
@@ -276,8 +278,8 @@
   const isRain = () => wxFresh() && (wx.code >= 51 || wx.rain >= 70);
   const loadWeather = () => {
     if (wx && Date.now() - wx.t < 30 * 60e3) return;
-    const c = city.center || [-34.6037, -58.3816];
-    fetch("https://api.open-meteo.com/v1/forecast?latitude=" + c[0] + "&longitude=" + c[1] + "&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&forecast_days=1&timezone=" + encodeURIComponent(X.tz || "America/Argentina/Buenos_Aires"))
+    const c = city.center || LOC.coordCentro || [0, 0];
+    fetch("https://api.open-meteo.com/v1/forecast?latitude=" + c[0] + "&longitude=" + c[1] + "&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&forecast_days=1&timezone=" + encodeURIComponent(X.tz || city.tz || "UTC"))
       .then(r => r.json()).then(j => {
         const wasRain = isRain();
         wx = { t: Date.now(), temp: Math.round(j.current.temperature_2m), code: j.current.weather_code, max: Math.round(j.daily.temperature_2m_max[0]), min: Math.round(j.daily.temperature_2m_min[0]), rain: j.daily.precipitation_probability_max[0] || 0 };
@@ -298,21 +300,22 @@
   const loadFx = () => {
     if (fx && Date.now() - fx.t < 12 * 3600e3) return;
     fetch("https://open.er-api.com/v6/latest/USD").then(r => r.json()).then(j => {
-      if (!j.rates || !j.rates.ARS) return;
+      if (!j.rates || !j.rates[local]) return;
       fx = { t: Date.now(), rates: j.rates };
       store.set(K.fx, fx);
       paintConv();
     }).catch(() => { /* sin conexión */ });
   };
   const CURS = [["USD", "US$", "Dólar"], ["EUR", "€", "Euro"], ["BRL", "R$", "Real"], ["UYU", "$U", "Peso uruguayo"], ["CLP", "CLP$", "Peso chileno"], ["MXN", "MX$", "Peso mexicano"], ["COP", "COL$", "Peso colombiano"], ["GBP", "£", "Libra"]];
-  const local = city.currency || "ARS";
+  const MON = LOC.moneda || { codigo: city.currency || "ARS", nombre: "", plural: "", aria: "Monto en moneda local", formato: "es-AR" };
+  const local = MON.codigo;
   const rate = () => fx && fx.rates[local] && fx.rates[prefs.cur] ? fx.rates[local] / fx.rates[prefs.cur] : 0;
-  const money = (n, dec) => n.toLocaleString("es-AR", { maximumFractionDigits: dec, minimumFractionDigits: 0 });
+  const money = (n, dec) => n.toLocaleString(MON.formato || "es-AR", { maximumFractionDigits: dec, minimumFractionDigits: 0 });
   const convHtml = () => '<div class="conv" id="conv">' +
     '<div class="conv-row"><label><span>Tengo</span><input id="cv-a" inputmode="decimal" value="100" aria-label="Monto en tu moneda"></label>' +
     '<select id="cv-cur" aria-label="Tu moneda">' + CURS.map(c => '<option value="' + c[0] + '"' + (prefs.cur === c[0] ? " selected" : "") + ">" + c[0] + " · " + c[2] + "</option>").join("") + "</select></div>" +
     '<div class="conv-eq" aria-hidden="true">⇅</div>' +
-    '<div class="conv-row"><label><span>Son</span><input id="cv-b" inputmode="decimal" aria-label="Monto en pesos argentinos"></label><span class="conv-cur">ARS · Peso argentino</span></div>' +
+    '<div class="conv-row"><label><span>Son</span><input id="cv-b" inputmode="decimal" aria-label="' + esc(MON.aria) + '"></label><span class="conv-cur">' + esc(MON.codigo) + (MON.nombre ? " · " + esc(MON.nombre) : "") + '</span></div>' +
     '<p class="conv-note" id="cv-note"></p></div>';
   /* Acepta "1.500,50" (como en la Argentina) y también "10.50" (como escribe un turista): un solo punto
      seguido de 1, 2 o más de 3 cifras es decimal; si no, los puntos separan miles (tarjeta #52). */
@@ -330,7 +333,7 @@
     if (!r) { note.textContent = "Sin conexión: no pudimos traer la cotización."; return; }
     if (from === "b") a.value = money(parseNum(b.value) / r, 2); else b.value = money(parseNum(a.value) * r, 0);
     const cur = CURS.find(c => c[0] === prefs.cur);
-    note.textContent = "1 " + cur[0] + " ≈ " + money(r, r < 10 ? 2 : 0) + " pesos · cotización oficial de referencia del " + new Date(fx.t).toLocaleDateString("es-AR") + ". Lo que te cobren puede variar según cómo pagues.";
+    note.textContent = "1 " + cur[0] + " ≈ " + money(r, r < 10 ? 2 : 0) + " " + (MON.plural || MON.codigo) + " · cotización oficial de referencia del " + new Date(fx.t).toLocaleDateString(MON.formato || "es-AR") + ". Lo que te cobren puede variar según cómo pagues.";
   };
 
   /* ── Filtros de Explorar ── */
@@ -422,7 +425,7 @@
     else if (h >= 11 && h < 15) { title = "Para almorzar ahora"; test = meal; }
     else if (h >= 15 && h < 19) { title = "Para esta tarde"; test = p => p.cat === "ver" || /Café|Helad/.test(p.sub); }
     else if (h >= 19) { title = "Para esta noche"; test = p => (meal(p) && p.sub !== "Al paso") || p.cat === "noche"; }
-    else { title = "Trasnoche porteña"; test = p => p.cat === "noche" || p.sub === "Pizzería"; }
+    else { title = (LOC.trasnoche || "Trasnoche"); test = p => p.cat === "noche" || p.sub === "Pizzería"; }
     let items = places.filter(p => p.inCity && test(p) && openToday(p) && (!rain || p.cat !== "ver" || (p.tags || []).indexOf("lluvia") > -1) &&
       fitsMe(p) && (!profile.budget || p.cat !== "comer" || p.price == null || p.price <= profile.budget));
     const seed = t.getDate() + t.getMonth() * 31;
@@ -465,7 +468,7 @@
       const fin = e.fin ? new Date(e.fin).getTime() : ini.getTime() + (e.serie ? 3 : 1) * 3600e3;
       if (Date.now() > fin) return;   // ya empezó hace rato o ya terminó: no se muestra
       let local;
-      try { local = new Date(ini.toLocaleString("en-US", { timeZone: X.tz || "America/Argentina/Buenos_Aires" })); } catch (err) { local = ini; }
+      try { local = new Date(ini.toLocaleString("en-US", { timeZone: X.tz || city.tz || "UTC" })); } catch (err) { local = ini; }
       const lb = new Date(local);
       if (local.getHours() < 6) lb.setDate(lb.getDate() - 1);
       if (ymd(lb) !== ymd(base)) return;
@@ -501,13 +504,8 @@
       (it.lugares ? "<span>En muchos lugares</span> <span>(" + it.lugares + ")</span>" : esc(it.hora) + (e.lugar ? ' · <i data-notr>' + esc(e.lugar) + "</i>" : "") + (e.barrio ? " · " + esc(e.barrio) : "")) +
       (e.gratis ? " · Gratis" : "") + "</span></span></a>";
   };
-  /* Más agendas para buscar planes (revisadas el 12/11/2026). Instagram no se puede leer automáticamente; lo que se ve ahí se suma a mano en data/caba-hoy.js. */
-  const MAS_AGENDAS = [
-    ["🏛️", "Agenda de la Ciudad", "https://linda.buenosaires.gob.ar/agenda"],
-    ["📰", "Time Out: qué hacer esta semana", "https://www.timeout.com/es/buenos-aires/agenda-semana"],
-    ["🎭", "Alternativa Teatral: cartelera", "https://www.alternativateatral.com/cartelera.asp"],
-    ["🎧", "Resident Advisor: fiestas electrónicas", "https://ra.co/events/ar/buenosaires"]
-  ];
+  /* Otras agendas para buscar planes: están en data/<ciudad>-local.js (agendas). Instagram no se puede leer automáticamente; lo que se vea ahí se suma a mano en data/<ciudad>-hoy.js. */
+  const MAS_AGENDAS = LOC.agendas || [];
   const hoyHtml = () => {
     const items = hoyItems();
     const grp = (title, arr) => {
@@ -517,12 +515,13 @@
       return '<h3 class="hoy-h">' + title + '</h3><div class="events">' + first.map(hoyRow).join("") + "</div>" +
         (rest.length ? '<details class="hoy-mas"><summary>Ver más <span>(' + rest.length + ')</span></summary><div class="events">' + rest.map(hoyRow).join("") + "</div></details>" : "");
     };
-    return '<section class="section" id="hoy">' + head("Hoy en Buenos Aires") +
+    return '<section class="section" id="hoy">' + head("Hoy en " + esc(city.name)) +
       (items.length ? grp("De día", items.filter(i => i.franja === "dia")) + grp("A la noche", items.filter(i => i.franja === "noche")) : '<p class="hint">Por ahora no hay nada cargado para hoy. Mirá estas agendas.</p>') +
+      (() => { const m = cityNow().getMonth() + 1, ev = (X.events || []).filter(e => e.m.indexOf(m) > -1); return ev.length ? '<a class="hoy-mes" href="#/info/calendario"><em aria-hidden="true">🗓️</em><span><small>Este mes</small>' + ev.map(e => "<b>" + esc(e.name) + "</b>").join("") + '</span><i aria-hidden="true">→</i></a>' : ""; })() +
       (items.some(i => i.ev || i.dest) ? '<p class="hint hoy-nota">⭐ Destacados de la semana. 📅 Agenda oficial de la Ciudad. 🖼️ Muestras y ciclos. Confirmá en su página antes de ir.</p>' : "") +
-      '<details class="hoy-mas hoy-agendas"><summary>Buscar más planes</summary><div class="acts">' +
+      (MAS_AGENDAS.length ? '<details class="hoy-mas hoy-agendas"><summary>Buscar más planes</summary><div class="acts">' +
       MAS_AGENDAS.map(a => '<a class="act" href="' + a[2] + '" target="_blank" rel="noopener"><em aria-hidden="true">' + a[0] + "</em><span><b>" + a[1] + "</b></span></a>").join("") +
-      "</div></details></section>";
+      "</div></details>" : "") + "</section>";
   };
 
   /* ── Vistas ── */
@@ -530,7 +529,6 @@
     const t = cityNow(), dow = t.getDay(), month = t.getMonth() + 1;
     const now = nowPicks();
     const tops = places.filter(p => p.cat === "ver" && p.q === 3);
-    const events = (X.events || []).filter(e => e.m.indexOf(month) > -1);
     return '<section class="hero"><small>' + esc(city.country) + " · " + DOW[dow] + " " + t.getDate() + " de " + MONTHS[t.getMonth()] + "</small><h1>" + esc(city.name) + "</h1>" +
         '<p class="wx" id="wx"' + (wxFresh() ? "" : " hidden") + ">" + weatherHtml() + "</p>" +
         '<form class="search" id="home-search" role="search"><input type="search" name="q" placeholder="¿Qué buscás? Parrilla, tango, museo, Palermo…" aria-label="Buscar en la guía" autocomplete="off"><button>Buscar</button></form>' +
@@ -544,6 +542,8 @@
           '<button data-go="' + attr({ q: "tango" }) + '">Tango</button>' +
           '<button data-go="' + attr({ cat: "noche", sub: "Para bailar" }) + '">Boliches</button>' +
         "</div></section>" +
+      /* "Armá tu viaje" es lo más útil de la guía: si todavía no armaste nada, va arriba de todo (pedido de Bautista, 12/11/2026). */
+      (plan.length ? "" : '<section class="section armar-top"><a class="cta" href="#/armar"><span><b>✨ Armá tu viaje en 10 segundos</b><span>Decinos cuántos días venís y qué te gusta: te dejamos el recorrido listo, día por día.</span></span><i aria-hidden="true">→</i></a></section>') +
 
       (() => {   // hoy en tu viaje: lo agendado para hoy, o cuántos días faltan (tarjeta #37)
         const td = tripToday();
@@ -563,8 +563,8 @@
         linkCard("#/barrios", "#5b6b7c", "🏘️", "Barrios", "Qué tiene cada zona") +
       "</div></section>" +
 
-      '<section class="section"><a class="cta" href="#/armar"><span><b>✨ Armá tu viaje en 10 segundos</b><span>Decinos cuántos días venís y qué te gusta: te dejamos el recorrido listo, día por día.</span></span><i aria-hidden="true">→</i></a>' +
-      '<a class="cta pass" href="#/pasaporte"><span><b>🛂 Pasaporte porteño</b><span>' + (earnedStamps().length ? "Tenés " + earnedStamps().length + " de " + (X.stamps || []).length + " sellos. ¡Seguí sumando!" : "Marcá los lugares que conocés y ganá sellos: parrillero, tanguero, explorador de barrios…") + '</span></span><i aria-hidden="true">→</i></a></section>' +
+      '<section class="section">' + (plan.length ? '<a class="cta" href="#/armar"><span><b>✨ Armá tu viaje en 10 segundos</b><span>Decinos cuántos días venís y qué te gusta: te dejamos el recorrido listo, día por día.</span></span><i aria-hidden="true">→</i></a>' : "") +
+      '<a class="cta pass" href="#/pasaporte"><span><b>🛂 ' + esc(LOC.pasaporte || "Pasaporte") + '</b><span>' + (earnedStamps().length ? "Tenés " + earnedStamps().length + " de " + (X.stamps || []).length + " sellos. ¡Seguí sumando!" : "Marcá los lugares que conocés y ganá sellos: parrillero, tanguero, explorador de barrios…") + '</span></span><i aria-hidden="true">→</i></a></section>' +
 
       '<section class="section">' + head("No te lo podés perder", '<button class="link" data-go="' + attr({ cat: "ver" }) + '">Ver todo</button>') + '<div class="rail">' + tops.map(tile).join("") + "</div></section>" +
 
@@ -580,15 +580,13 @@
         city.itineraries.map(i => '<a class="itin" href="#/itinerario/' + i.id + '"><em aria-hidden="true">' + i.icon + "</em><b>" + esc(i.name) + "</b><span>" + esc(i.desc) + "</span></a>").join("") +
       "</div></section>" +
 
-      (events.length ? '<section class="section">' + head("Este mes en " + esc(city.name), '<a class="link" href="#/info/calendario">Todo el año</a>') + '<div class="events">' +
-        events.map(e => '<div class="event"><em aria-hidden="true">' + e.icon + "</em><span><b>" + esc(e.name) + "</b><span>" + esc(e.desc) + "</span></span></div>").join("") + "</div></section>" : "") +
 
       '<section class="section">' + head("¿Cuánto es en mi moneda?") + convHtml() + "</section>" +
 
       '<section class="section">' + head("Antes de salir") + '<div class="cats">' +
         linkCard("#/info/llegada", "#2f5d4f", "🛬", "Recién llegado", "Tus primeras horas, paso a paso") +
         linkCard("#/info/ayuda", "#e03131", "🆘", "Dónde pedir ayuda", "Turismo, policía, hospitales") +
-        linkCard("#/info/moverse", "#1c7ed6", "🚇", "Cómo moverte", "SUBE, subte, aeropuertos") +
+        linkCard("#/info/moverse", "#1c7ed6", "🚇", "Cómo moverte", LOC.moverseSub || "Transporte y aeropuertos") +
         linkCard("#/info/seguridad", "#e8590c", "⚠️", "Qué evitar", "Estafas y cuidados") +
         linkCard("#/info/practica", "#0c8599", "💵", "Info práctica", "Dinero, horarios, checklist") +
         linkCard("#/info/vuelo", "#5f3dc4", "✈️", "Hacé tu check-in", "Elegí tu aerolínea y listo") +
@@ -671,7 +669,7 @@
 
   const checklistHtml = () => !X.checklist ? "" : '<div class="checklist">' + X.checklist.map((g, gi) => '<div class="check-group"><b>' + esc(g.title) + "</b>" +
     g.items.map((it, i) => { const k = gi + "-" + i; return '<label><input type="checkbox" data-check="' + k + '"' + (prefs.checks[k] ? " checked" : "") + "><span>" + esc(it) + "</span></label>"; }).join("") + "</div>").join("") + "</div>";
-  const helpDir = h => "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(h.name.split(" · ")[0] + ", " + h.address + (h.far ? "" : ", Buenos Aires")) + "&travelmode=transit";
+  const helpDir = h => "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(h.name.split(" · ")[0] + ", " + h.address + (h.far ? "" : ", " + MAPA)) + "&travelmode=transit";
   const helpHtml = () => {
     if (!Z) return "";
     const near = '<div class="nearby">' + Z.nearby.map(n => '<a href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(n[2]) + '" target="_blank" rel="noopener"><em aria-hidden="true">' + n[0] + "</em>" + esc(n[1]) + "</a>").join("") + "</div>";
@@ -690,29 +688,7 @@
      Un botón grande abre un buscador de aerolíneas; al elegir una, se abre directo la pantalla de check-in de esa aerolínea
      (donde se pone el código de reserva y el apellido). Cada dirección se abrió y se revisó el 12/11/2026.
      Si la aerolínea no está en la lista, se busca su check-in en Google. */
-  const AEROLINEAS = [
-    ["Aerolíneas Argentinas", "https://www.aerolineas.com.ar/?activeTab=checkIn"],
-    ["Flybondi", "https://reserva.flybondi.com/booking/widget?carrier=fo&module=webcheckin"],
-    ["JetSMART", "https://jetsmart.com/ar/es/minisitios/checkin"],
-    ["LATAM", "https://www.latamairlines.com/ar/es/check-in"],
-    ["GOL", "https://b2c.voegol.com.br/check-in/"],
-    ["Sky Airline", "https://www.skyairline.com/argentina/check-in"],
-    ["Copa Airlines", "https://checkin.copaair.com/"],
-    ["Avianca", "https://www.avianca.com/es/mi-reserva/servicios/check-in-online"],
-    ["American Airlines", "https://www.aa.com/check-in"],
-    ["United", "https://www.united.com/es/ar/checkin"],
-    ["Delta", "https://oci.delta.com/index.html"],
-    ["Iberia", "https://www.iberia.com/ar/autocheckin-online/"],
-    ["Air Europa", "https://www.aireuropa.com/ar/es/check-in"],
-    ["Air France", "https://wwws.airfrance.com.ar/check-in"],
-    ["KLM", "https://www.klm.com.ar/check-in"],
-    ["Lufthansa", "https://www.lufthansa.com/ar/es/online-check-in"],
-    ["ITA Airways", "https://www.ita-airways.com/ar/es/manage-my-bookings/manage/check-in"],
-    ["British Airways", "https://www.britishairways.com/travel/olcilandingpageauthreq/public/es_ar"],
-    ["Turkish Airlines", "https://www.turkishairlines.com/es-ar/flights/manage-booking/"],
-    ["Emirates", "https://www.emirates.com/ar/spanish/manage-booking/online-check-in/"],
-    ["Qatar Airways", "https://cki.qatarairways.com/cki-web/pages/autocheckin.xhtml"]
-  ];
+  const AEROLINEAS = LOC.aerolineas || [];   // en data/<ciudad>-local.js
   const sinTilde = s => s.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
   const ciLista = q => {
     const n = sinTilde(q.trim());
@@ -729,13 +705,13 @@
     '<div class="blocks" style="margin-top:20px">' + blockHtml({ icon: "🧳", title: "Consejos para el vuelo", items: [
       { t: "Cuándo hacerlo", d: "Suele abrir uno o dos días antes del vuelo. Hacelo apenas abra: elegís mejor asiento." },
       { t: "Tarjeta de embarque", d: "Guardala en el celular o sacale una captura, por si no tenés internet en el aeropuerto." },
-      { t: "Aeropuertos", d: "Ezeiza es para casi todos los vuelos internacionales; Aeroparque, para los de cabotaje y algunos a países vecinos. Fijate bien cuál es el tuyo." }
-    ] }, true) + "</div>";
+      LOC.vueloAeropuertos ? { t: "Aeropuertos", d: LOC.vueloAeropuertos } : null
+    ].filter(Boolean) }, true) + "</div>";
 
   /* Recién llegado (tarjetas #77 y #79): las primeras horas en la ciudad, paso a paso.
      Cada paso se abre y se cierra, se puede marcar como hecho (queda guardado en el celular) y trae botones que resuelven
      esa necesidad: cómo llegar desde el aeropuerto a tu alojamiento, comprar chip, cajeros cerca, dónde cargar la SUBE, llamar a emergencias.
-     Las direcciones de las webs (SUBE, Personal, Claro, Movistar, Uber, Cabify, DiDi, Tienda León) se revisaron el 12/11/2026. */
+     Las direcciones de las webs están en data/<ciudad>-local.js. */
   const LLEG_KEY = "guia.llegada";
   const llegEstado = () => store.get(LLEG_KEY, { hecho: [], aloja: "" });
   const gmDir = (from, to, mode) => "https://www.google.com/maps/dir/?api=1" + (from ? "&origin=" + encodeURIComponent(from) : "") + "&destination=" + encodeURIComponent(to) + "&travelmode=" + (mode || "driving");
@@ -746,54 +722,36 @@
   };
   const tips = arr => '<ul class="lleg-tips">' + arr.map(t => "<li>" + t + "</li>").join("") + "</ul>";
   const llegPasos = st => {
-    const destino = st.aloja ? st.aloja + ", Buenos Aires" : "Obelisco, Buenos Aires";
-    const aDonde = st.aloja ? "Hasta tu alojamiento" : "Hasta el centro (Obelisco)";
+    const destino = st.aloja ? st.aloja + ", " + MAPA : (LOC.centro ? LOC.centro.q : MAPA);
+    const aDonde = st.aloja ? "Hasta tu alojamiento" : (LOC.centro ? LOC.centro.label : "");
     const uber = "https://m.uber.com/ul/?action=setPickup&pickup=my_location" + (st.aloja ? "&dropoff[formatted_address]=" + encodeURIComponent(destino) : "");
     const alojaForm = '<label class="lleg-aloja"><span>¿Dónde te alojás?</span><input id="lleg-aloja" type="text" autocomplete="street-address" placeholder="Dirección o nombre del hotel" value="' + esc(st.aloja) + '"></label>';
+    const acts = arr => (arr || []).map(a => act(a[0], a[1], a[2], a[3])).join("");
+    const T = LOC.transporte || {};
+    const uno = (city.itineraries || []).find(i => i.id === "1-dia");
     return [
       { id: "aeropuerto", icon: "🛬", t: "Salí del aeropuerto", s: "Llegá a tu alojamiento sin vueltas",
         body: alojaForm +
           '<div class="acts">' +
-          act("🗺️", "Desde Ezeiza", gmDir("Aeropuerto Internacional Ezeiza", destino), aDonde) +
-          act("🗺️", "Desde Aeroparque", gmDir("Aeroparque Jorge Newbery", destino), aDonde) +
-          act("🚗", "Pedir un Uber", uber, st.aloja ? "Con tu alojamiento ya cargado" : "") +
-          act("🚕", "Cabify", "https://cabify.com/ar") +
-          act("🚖", "DiDi", "https://web.didiglobal.com/ar/") +
-          act("🚌", "Micro al centro", "https://www.tiendaleon.com/", "Tienda León, desde Ezeiza") +
-          "</div>" +
-          tips(["Taxis y remises: contratalos en los mostradores oficiales de adentro del aeropuerto.",
-            "No aceptes ofertas de gente que se te acerque en el hall.",
-            "Ezeiza queda lejos del centro: contá con un buen rato de viaje."]) },
+          (LOC.aeropuertos || []).map(a => act("🗺️", a.label, gmDir(a.q, destino), aDonde)).join("") +
+          (LOC.uber ? act("🚗", "Pedir un Uber", uber, st.aloja ? "Con tu alojamiento ya cargado" : "") : "") +
+          acts(LOC.traslados) +
+          "</div>" + tips(LOC.aeropuertoTips || []) },
       { id: "internet", icon: "📶", t: "Conseguí internet", s: "Chip prepago o eSIM",
-        body: '<div class="acts">' +
-          act("📱", "Personal", "https://www.personal.com.ar/prepago", "Chip prepago") +
-          act("📱", "Claro", "https://www.claro.com.ar/personas/elegi-prepago", "Chip prepago") +
-          act("✨", "Claro eSIM", "https://simple.claro.com.ar/esimple", "Sin chip físico") +
-          act("📱", "Movistar", "https://www.movistar.com.ar/prepago", "Chip prepago") +
-          act("📍", "Tiendas cerca", gmBuscar("tienda Personal Claro Movistar"), "En el mapa") +
-          "</div>" +
-          tips(["Para comprar un chip te pueden pedir el pasaporte.",
-            "Si tu celular acepta eSIM, podés activarla antes de viajar.",
-            "Muchos bares y cafés tienen Wi-Fi gratis: pedí la clave."]) },
+        body: '<div class="acts">' + acts(LOC.chips) +
+          (LOC.chipsBuscar ? act("📍", "Tiendas cerca", gmBuscar(LOC.chipsBuscar), "En el mapa") : "") +
+          "</div>" + tips(LOC.internetTips || []) },
       { id: "plata", icon: "💳", t: "Resolvé la plata", s: "Cambio, cajeros y cómo pagar",
         body: convHtml() +
           '<div class="acts">' +
           act("🏧", "Cajeros cerca", gmBuscar("cajero automático"), "En el mapa") +
           act("💱", "Casas de cambio", gmBuscar("casa de cambio"), "Oficiales, en el mapa") +
           act("💵", "Más sobre pagos", "#/info/practica", "Tarjetas, propina y cubierto") +
-          "</div>" +
-          tips(["Pagar con tarjeta extranjera suele convenir.",
-            "Tené algo de efectivo en billetes chicos para propinas y kioscos.",
-            "No cambies dinero con gente en la calle."]) },
-      { id: "sube", icon: "🚇", t: "Prepará el transporte", s: "Tarjeta SUBE y cómo moverte",
-        body: '<div class="acts">' +
-          act("📍", "Dónde comprar y cargar", "https://tarjetasube.sube.gob.ar/SubeWeb/WebForms/admin/views/mapa-sube.aspx?id=1", "Mapa oficial de puntos SUBE") +
-          act("📲", "App SUBE", "https://www.argentina.gob.ar/sube/nuestras-apps", "Mirá tu saldo") +
-          act("🚇", "Líneas de subte", "#/info/moverse", "Recorridos y consejos") +
-          "</div>" +
+          "</div>" + tips(LOC.plataTips || []) },
+      { id: "sube", icon: "🚇", t: T.t || "Prepará el transporte", s: T.s || "",
+        body: '<div class="acts">' + acts(T.acts) + "</div>" +
           '<form class="route" id="route-form"><label for="route-to">¿A dónde querés ir?</label><div class="search"><input id="route-to" name="to" required placeholder="Ej.: Teatro Colón, Caminito…" autocomplete="off"><button>Cómo llegar</button></div></form>' +
-          tips(["La SUBE se compra en kioscos, estaciones de subte y puntos SUBE.",
-            "En el subte y en muchos colectivos también podés pagar con tu tarjeta sin contacto."]) },
+          tips(T.tips || []) },
       { id: "ayuda", icon: "🆘", t: "Guardá los teléfonos útiles", s: "Tocá un número para llamar",
         body: sosHtml() +
           '<div class="acts">' +
@@ -805,7 +763,7 @@
       { id: "dia", icon: "🧭", t: "Armá tu primer día", s: "Ideas para arrancar",
         body: '<div class="acts">' +
           act("✨", "Armar mi viaje", "#/armar", "Elegí qué te gusta") +
-          act("⚡", "Buenos Aires en 1 día", "#/itinerario/1-dia", "Lo imperdible") +
+          (uno ? act("⚡", uno.name, "#/itinerario/1-dia", "Lo imperdible") : "") +
           act("📅", "Qué hay hoy", "#/", "Eventos y ferias del día") +
           act("🗺️", "Ver el mapa", "#/mapa", "Lugares cerca tuyo") +
           "</div>" }
@@ -815,9 +773,9 @@
     const st = llegEstado(), pasos = llegPasos(st);
     const n = pasos.filter(p => st.hecho.indexOf(p.id) > -1).length;
     const abierto = (pasos.find(p => st.hecho.indexOf(p.id) < 0) || {}).id;
-    return '<div class="lleg-head"><div><b>Tus primeras horas en Buenos Aires</b><span>Abrí cada paso y marcalo cuando lo tengas listo.</span></div>' +
+    return '<div class="lleg-head"><div><b>Tus primeras horas en ' + esc(city.name) + '</b><span>Abrí cada paso y marcalo cuando lo tengas listo.</span></div>' +
       '<div class="lleg-prog" role="progressbar" aria-valuemin="0" aria-valuemax="' + pasos.length + '" aria-valuenow="' + n + '"><i style="width:' + Math.round(n / pasos.length * 100) + '%"></i></div>' +
-      '<small class="lleg-cuenta">' + (n === pasos.length ? "¡Todo listo! Disfrutá Buenos Aires." : "<span>Pasos listos</span> <b>" + n + "/" + pasos.length + "</b>") + "</small></div>" +
+      '<small class="lleg-cuenta">' + (n === pasos.length ? "¡Todo listo! Disfrutá " + esc(city.name) + "." : "<span>Pasos listos</span> <b>" + n + "/" + pasos.length + "</b>") + "</small></div>" +
       '<div class="lleg">' + pasos.map((p, i) => {
         const ok = st.hecho.indexOf(p.id) > -1;
         return '<details class="lleg-paso' + (ok ? " ok" : "") + '" name="lleg"' + (p.id === abierto ? " open" : "") + ">" +
@@ -828,21 +786,8 @@
   };
 
   /* Frases para decir (tarjeta #77). La frase queda en castellano (data-notr) y abajo se explica para qué sirve, en el idioma elegido. */
-  const FRASES = [
-    ["Hola, ¿cómo andás?", "Saludo amistoso, para cualquier momento"],
-    ["¿Me traés la cuenta, por favor?", "Para pedir la cuenta en un bar o restaurante"],
-    ["¿Puedo pagar con tarjeta?", "Antes de pedir, por si solo aceptan efectivo"],
-    ["¿Cuánto sale?", "Para preguntar el precio"],
-    ["¿Cómo llego a…?", "Para pedir indicaciones en la calle"],
-    ["¿Dónde está el baño?", "Para encontrar el baño"],
-    ["Una mesa para dos, por favor.", "Al llegar a un restaurante"],
-    ["¿Qué me recomendás?", "Para pedir una sugerencia al mozo"],
-    ["Soy celíaco: ¿tienen algo sin TACC?", "Para pedir comida sin gluten"],
-    ["Perdón, no hablo bien castellano.", "Para que te hablen más despacio"],
-    ["Necesito un médico.", "En una urgencia"],
-    ["¡Gracias, muy amable!", "Para agradecer"]
-  ];
-  const frasesHtml = () => '<div class="phrases">' + FRASES.map(f => '<div class="phrase"><b data-notr lang="es">' + esc(f[0]) + "</b><span>" + esc(f[1]) + "</span></div>").join("") + "</div>";
+  const FRASES = LOC.frases || [];   // en data/<ciudad>-local.js
+  const frasesHtml = () => '<div class="phrases">' + FRASES.map(f => '<div class="phrase"><b data-notr lang="' + (LOC.idioma || "es") + '">' + esc(f[0]) + "</b><span>" + esc(f[1]) + "</span></div>").join("") + "</div>";
 
   const INFO_TABS = [["llegada", "🛬 Recién llegado"], ["moverse", "🚇 Moverse"], ["seguridad", "⚠️ Seguridad"], ["ayuda", "🆘 Ayuda"], ["practica", "💵 Práctica"], ["calendario", "📅 Calendario"], ["vuelo", "✈️ Tu vuelo"]];
   const viewInfo = tab => {
@@ -893,7 +838,7 @@
   const routeUrl = items => {
     /* Se manda nombre y dirección, no coordenadas: con coordenadas Google pone el nombre del lugar más cercano que conoce
        y aparecían paradas que no eran (por ejemplo, una obra social en vez del lugar elegido). */
-    const pt = p => encodeURIComponent(p.mapq || [p.name, p.address, p.inCity ? "Buenos Aires" : ""].filter(Boolean).join(", "));
+    const pt = p => encodeURIComponent(p.mapq || [p.name, p.address, p.inCity ? MAPA : ""].filter(Boolean).join(", "));
     if (items.length === 1) return "https://www.google.com/maps/dir/?api=1&destination=" + pt(items[0]);
     const mid = items.slice(1, -1).slice(0, 9).map(pt).join("%7C");
     return "https://www.google.com/maps/dir/?api=1&origin=" + pt(items[0]) + "&destination=" + pt(items[items.length - 1]) + (mid ? "&waypoints=" + mid : "");
@@ -1042,10 +987,10 @@
   /* ── Mapa (Leaflet + OpenStreetMap) ── */
   let map = null, markerLayer = null, zoneLayer = null, helpLayer = null, meMarker = null, focusId = null, barrioLL = null;
   const NOANIM = { animate: false };   // los movimientos automáticos van sin animación: más rápido y sin estados a medio dibujar
-  const CITY_BOUNDS = [[-34.705, -58.531], [-34.527, -58.335]];
+  const CITY_BOUNDS = LOC.limitesMapa || null;   // en data/<ciudad>-local.js
   const destroyMap = () => { if (map) { map.remove(); map = null; markerLayer = null; zoneLayer = null; helpLayer = null; meMarker = null; } };
   const createMap = () => {
-    map = L.map("map").setView(city.center || [-34.6037, -58.3816], 13);
+    map = L.map("map").setView(city.center || LOC.coordCentro || [0, 0], 13);
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>' }).addTo(map);
     zoneLayer = L.layerGroup().addTo(map);
     markerLayer = L.layerGroup().addTo(map);
@@ -1053,7 +998,9 @@
     if (userLL) showMe();
   };
   /* Capa de zonas: pinta cada barrio según el nivel que tiene en la capa elegida. */
-  const decode = s => s.split(" ").filter(g => g.length === 8).map(g => [-(34 + g.slice(0, 4) / 1e4), -(58 + g.slice(4) / 1e4)]);
+  const ZB = LOC.zonasBase || [-34, -58];   // grados enteros de la ciudad: cada punto de data/<ciudad>-zones.js suma 4 decimales
+  const zc = (b, d) => Math.sign(b) * (Math.abs(b) + d / 1e4);
+  const decode = s => s.split(" ").filter(g => g.length === 8).map(g => [zc(ZB[0], +g.slice(0, 4)), zc(ZB[1], +g.slice(4))]);
   const drawZones = () => {
     if (!map || !Z) return;
     zoneLayer.clearLayers();
@@ -1125,7 +1072,7 @@
     else if (focusHelp) { /* drawHelp centra el mapa en el punto de ayuda */ }
     else if (fit.length === 1) map.setView(fit[0], 15, NOANIM);
     else if (fit.length) map.fitBounds(fit, { padding: [30, 30], maxZoom: 16, animate: false });
-    else map.fitBounds(CITY_BOUNDS, NOANIM);
+    else if (CITY_BOUNDS) map.fitBounds(CITY_BOUNDS, NOANIM);
     focusId = null;
     const missing = items.length - withLl.length;
     $("#count").outerHTML = f.cat === "ninguno" && f.planDay === null
@@ -1179,10 +1126,10 @@
   const paintSheetPlan = id => { const el = $("#sheet-plan"); if (el) el.innerHTML = sheetPlanHtml(id); };
   const showSheet = id => {
     const p = byId[id], c = cats[p.cat];
-    const q = p.mapq || (p.name + ", " + p.address + ", Buenos Aires");
+    const q = p.mapq || (p.name + ", " + p.address + ", " + MAPA);
     const fixed = p.ll || !p.inCity;
     const dirUrl = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(q) + (p.inCity ? "&travelmode=transit" : "");
-    const mapsUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(fixed ? q : p.name + ", Buenos Aires");
+    const mapsUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(fixed ? q : p.name + ", " + MAPA);
     const st = todayStatus(p), ns = nearestStation(p), d = distTxt(p);
     const near = p.ll && p.inCity ? places.filter(o => o.id !== p.id && o.ll && o.inCity && (o.cat === "comer" || o.cat === "ver") && km(p.ll, o.ll) < 1.2)
       .sort((a, b) => km(p.ll, a.ll) - km(p.ll, b.ll)) : [];
@@ -1206,8 +1153,8 @@
           '<button class="btn visit" data-visit="' + p.id + '" aria-pressed="' + !!prefs.visited[p.id] + '">' + visitLabel(p.id) + "</button>" +
           '<a class="btn" href="' + mapsUrl + '" target="_blank" rel="noopener">⭐ Opiniones y horarios</a>' +
           (p.ll && hasMap ? '<button class="btn" data-showmap="' + p.id + '">🗺️ Ver en el mapa</button>' : "") +
-          (p.ll && p.inCity ? '<a class="btn" href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff%5Blatitude%5D=' + p.ll[0] + "&dropoff%5Blongitude%5D=" + p.ll[1] + "&dropoff%5Bnickname%5D=" + encodeURIComponent(p.name) + '" target="_blank" rel="noopener">🚕 Ir en Uber</a>' : "") +
-          (p.cat === "dormir" && p.sub !== "Departamento" ? '<a class="btn" href="https://www.booking.com/searchresults.html?ss=' + encodeURIComponent(p.name + " Buenos Aires") + '" target="_blank" rel="noopener">🛏️ Ver disponibilidad</a>' : "") +
+          (LOC.uber && p.ll && p.inCity ? '<a class="btn" href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff%5Blatitude%5D=' + p.ll[0] + "&dropoff%5Blongitude%5D=" + p.ll[1] + "&dropoff%5Bnickname%5D=" + encodeURIComponent(p.name) + '" target="_blank" rel="noopener">🚕 Ir en Uber</a>' : "") +
+          (p.cat === "dormir" && p.sub !== "Departamento" ? '<a class="btn" href="https://www.booking.com/searchresults.html?ss=' + encodeURIComponent(p.name + " " + MAPA) + '" target="_blank" rel="noopener">🛏️ Ver disponibilidad</a>' : "") +
           '<button class="btn" data-share="' + p.id + '">↗ Compartir</button>' +
         "</div>" +
         '<div id="sheet-plan">' + sheetPlanHtml(p.id) + "</div>" +
@@ -1305,8 +1252,8 @@
   /* Eventos del día de la agenda oficial de la Ciudad (tarjeta #65). Un paso automático los baja una vez por día a data/hoy.json.
      Si el archivo no está, no carga o es viejo (más de 3 días), la sección "Hoy" sigue solo con la agenda fija. */
   const loadHoy = () => {
-    if (location.protocol === "file:" || !window.fetch) return;
-    fetch("data/hoy.json", { cache: "no-cache" }).then(r => (r.ok ? r.json() : null)).then(d => {
+    if (location.protocol === "file:" || !window.fetch || !LOC.hoy) return;
+    fetch(LOC.hoy, { cache: "no-cache" }).then(r => (r.ok ? r.json() : null)).then(d => {
       if (!d || !Array.isArray(d.eventos)) return;
       const edad = Date.now() - new Date(d.actualizado).getTime();
       if (!(edad < 3 * 86400e3)) return;
@@ -1326,9 +1273,9 @@
     w.innerHTML = '<div class="aviso" role="dialog" aria-modal="true" aria-labelledby="aviso-t">' +
       '<button type="button" class="aviso-x" data-aviso="no" aria-label="Cerrar">✕</button>' +
       '<div class="aviso-ico" aria-hidden="true">🧭</div>' +
-      '<h2 id="aviso-t">¡Bienvenido a Buenos Aires!</h2>' +
+      '<h2 id="aviso-t">¡Bienvenido a ' + esc(city.name) + '!</h2>' +
       "<p>Antes de salir a recorrer, tomate 5 minutos para leer Info. Ahí está lo que te ahorra problemas.</p>" +
-      '<ul><li>🛬 Cómo salir del aeropuerto y llegar a tu alojamiento</li><li>💳 Cómo pagar y dónde cambiar plata</li><li>🚇 La tarjeta SUBE y cómo moverte</li><li>⚠️ Las estafas más comunes y cómo evitarlas</li><li>🆘 Teléfonos de emergencia, para tocar y llamar</li></ul>' +
+      '<ul>' + (LOC.aviso || []).map(t => "<li>" + esc(t) + "</li>").join("") + "</ul>" +
       '<div class="aviso-bot"><a class="btn aviso-si" href="#/info/llegada" data-aviso="si">Ir a Info</a><button type="button" class="aviso-no" data-aviso="no">Ahora no</button></div>' +
       '<small>Lo encontrás siempre en el botón Info de abajo.</small></div>';
     const cerrar = () => { store.set(AVISO_KEY, 1); w.remove(); document.removeEventListener("keydown", esc_); };
@@ -1482,7 +1429,7 @@
     if (e.target.id === "route-form") {
       e.preventDefault();
       const to = e.target.to.value.trim();
-      if (to) window.open("https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(to + ", Buenos Aires") + "&travelmode=transit", "_blank", "noopener");
+      if (to) window.open("https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(to + ", " + MAPA) + "&travelmode=transit", "_blank", "noopener");
     }
   });
   document.addEventListener("input", e => {
