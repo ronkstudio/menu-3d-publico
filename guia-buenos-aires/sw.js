@@ -1,7 +1,7 @@
 /* Service worker: deja la guía disponible sin conexión.
    Estrategia: primero la red (para tener siempre la última versión) y, si no hay conexión, la copia guardada.
    Las fotos y los mapas se guardan a medida que se ven. */
-var CACHE = "guia-v16";
+var CACHE = "guia-v17";
 var SHELL = ["index.html", "css/styles.css", "js/app.js", "i18n/i18n.js", "i18n/traductor.js", "i18n/es.js", "i18n/en.js", "i18n/pt.js", "i18n/fr.js", "i18n/it.js", "i18n/de.js", "i18n/zh.js", "i18n/ja.js", "data/caba.js", "data/caba-coords.js", "data/caba-extra.js", "data/caba-zones.js", "data/caba-mas.js", "data/caba-boliches.js", "data/caba-hoy.js", "config.js", "icon.svg", "manifest.webmanifest"];
 
 /* Se guarda archivo por archivo: si uno falla, los demás igual quedan guardados.
@@ -23,7 +23,8 @@ self.addEventListener("fetch", function (e) {
   var cacheable = url.origin === location.origin || /wikimedia\.org|cdnjs\.cloudflare\.com|tile\.openstreetmap\.org/.test(url.hostname);
   if (!cacheable) return; // clima y cotización: la app guarda su propia copia
   e.respondWith(
-    fetch(req).then(function (res) {
+    /* "no-cache": siempre le pregunta al servidor si hay algo nuevo, así un cambio publicado se ve enseguida. */
+    (url.origin === location.origin ? fetch(req.mode === "navigate" ? url.href : req, { cache: "no-cache" }) : fetch(req)).then(function (res) {
       if (res && (res.ok || res.type === "opaque")) {
         var copy = res.clone();
         caches.open(CACHE).then(function (c) { c.put(req, copy); });

@@ -1301,5 +1301,20 @@
   loadFx();
   loadForecast();
   startAccounts();
-  if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register("sw.js").catch(() => {});
+  /* La guía se actualiza sola: cada vez que se abre o se vuelve a ella, busca si hay una versión nueva;
+     si la hay, recarga la página una vez para mostrarla. */
+  if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) {
+    const habia = !!navigator.serviceWorker.controller;
+    let recargo = false;
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      if (!habia || recargo) return;
+      recargo = true;
+      location.reload();
+    });
+    navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).then(reg => {
+      const buscar = () => reg.update().catch(() => {});
+      document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") buscar(); });
+      setInterval(buscar, 30 * 60 * 1000);
+    }).catch(() => {});
+  }
 })();
