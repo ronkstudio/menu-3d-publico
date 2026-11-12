@@ -571,6 +571,7 @@
         linkCard("#/info/moverse", "#1c7ed6", "🚇", "Cómo moverte", "SUBE, subte, aeropuertos") +
         linkCard("#/info/seguridad", "#e8590c", "⚠️", "Qué evitar", "Estafas y cuidados") +
         linkCard("#/info/practica", "#0c8599", "💵", "Info práctica", "Dinero, horarios, checklist") +
+        linkCard("#/info/vuelo", "#5f3dc4", "✈️", "Check-in del vuelo", "Tu aerolínea en un toque") +
         linkCard("#/viaje", "#d6336c", "♥", "Mi viaje", "Tus lugares, día por día") +
       "</div></section>" +
 
@@ -665,7 +666,29 @@
       '<section class="section">' + head("Ayuda a distancia") + channels + "</section>" +
       '<section class="section">' + head("Dónde pedir ayuda en persona", hasMap ? '<button class="link" data-go="' + attr({ cat: "ninguno", help: true, mode: "mapa" }) + '">Ver en el mapa</button>' : "") + '<div class="help-groups">' + groups + "</div></section>";
   };
-  const INFO_TABS = [["moverse", "🚇 Moverse"], ["seguridad", "⚠️ Seguridad"], ["ayuda", "🆘 Ayuda"], ["practica", "💵 Práctica"], ["calendario", "📅 Calendario"]];
+  /* Check-in del vuelo (tarjeta #73). La guía no puede hacer el check-in: cada aerolínea lo hace solo en su web o app.
+     Por eso hay un botón por aerolínea (va a su página de check-in, o a su inicio si esa página cambia seguido) y un buscador para las demás. */
+  const AEROLINEAS = [
+    ["Aerolíneas Argentinas", "https://www.aerolineas.com.ar/"], ["Flybondi", "https://flybondi.com/"], ["JetSMART", "https://jetsmart.com/ar/es/"],
+    ["LATAM", "https://www.latamairlines.com/"], ["GOL", "https://www.gol.com.br/"], ["Sky", "https://www.skyairline.com/argentina/check-in"],
+    ["Copa", "https://www.copaair.com/"], ["Avianca", "https://www.avianca.com/"], ["American Airlines", "https://www.aa.com/check-in"],
+    ["United", "https://www.united.com/"], ["Delta", "https://www.delta.com/"], ["Iberia", "https://www.iberia.com/"],
+    ["Air Europa", "https://www.aireuropa.com/ar/es/check-in"], ["Air France", "https://www.airfrance.com/"], ["KLM", "https://www.klm.com/"],
+    ["Lufthansa", "https://www.lufthansa.com/"], ["ITA Airways", "https://www.ita-airways.com/"], ["British Airways", "https://www.britishairways.com/"],
+    ["Turkish Airlines", "https://www.turkishairlines.com/"], ["Emirates", "https://www.emirates.com/ar/spanish/manage-booking/online-check-in/"],
+    ["Qatar Airways", "https://www.qatarairways.com/"]
+  ];
+  const vueloHtml = () =>
+    '<p class="hint">El check-in se hace en la web o la app de tu aerolínea. Tocá la tuya y buscá "Check-in". Vas a necesitar el código de reserva y tu apellido.</p>' +
+    '<div class="chips" style="flex-wrap:wrap">' + AEROLINEAS.map(a => '<a class="chip" data-notr href="' + a[1] + '" target="_blank" rel="noopener">✈️ ' + esc(a[0]) + "</a>").join("") + "</div>" +
+    '<form class="route" id="checkin-form" style="margin-top:16px"><label for="checkin-al">¿Tu aerolínea no está?</label><div class="search"><input id="checkin-al" name="al" required placeholder="Nombre de la aerolínea" autocomplete="off"><button>Buscar check-in</button></div></form>' +
+    '<div class="blocks" style="margin-top:16px">' + blockHtml({ icon: "🧳", title: "Consejos para el vuelo", items: [
+      { t: "Cuándo hacerlo", d: "Suele abrir uno o dos días antes del vuelo. Hacelo apenas abra: elegís mejor asiento." },
+      { t: "Tarjeta de embarque", d: "Guardala en el celular o sacale una captura, por si no tenés internet en el aeropuerto." },
+      { t: "Aeropuertos", d: "Ezeiza es para casi todos los vuelos internacionales; Aeroparque, para los de cabotaje y algunos a países vecinos. Fijate bien cuál es el tuyo." }
+    ] }, true) + "</div>";
+
+  const INFO_TABS = [["moverse", "🚇 Moverse"], ["seguridad", "⚠️ Seguridad"], ["ayuda", "🆘 Ayuda"], ["practica", "💵 Práctica"], ["calendario", "📅 Calendario"], ["vuelo", "✈️ Tu vuelo"]];
   const viewInfo = tab => {
     if (!INFO_TABS.some(t => t[0] === tab)) tab = "moverse";
     const month = cityNow().getMonth() + 1;
@@ -674,6 +697,8 @@
       const lines = '<div class="lines">' + city.subte.map(l => '<div class="line"><span class="line-dot" style="--c:' + l.color + '">' + l.line + "</span><span><b>" + esc(l.route) + "</b><span>" + esc(l.useful) + "</span></span></div>").join("") + "</div>";
       body = '<form class="route" id="route-form"><label for="route-to">¿A dónde querés ir?</label><div class="search"><input id="route-to" name="to" required placeholder="Ej.: Teatro Colón, Caminito, Aeroparque…" autocomplete="off"><button>Cómo llegar</button></div><p class="hint">Abre Google Maps con el recorrido en transporte público desde donde estás.</p></form>' +
         '<div class="blocks">' + city.transport.map((b, i) => blockHtml({ icon: b.icon, title: b.title, items: b.items, extra: b.title === "Subte" ? lines : "" }, i < 2)).join("") + "</div>";
+    } else if (tab === "vuelo") {
+      body = vueloHtml();
     } else if (tab === "ayuda") {
       body = helpHtml();
     } else if (tab === "practica") {
@@ -1256,6 +1281,11 @@
         authMsg = r.error ? "No pudimos enviar el enlace: " + r.error.message : "Listo: revisá tu mail y tocá el enlace para entrar.";
         rerender();
       });
+    }
+    if (e.target.id === "checkin-form") {
+      e.preventDefault();
+      const al = e.target.al.value.trim();
+      if (al) window.open("https://www.google.com/search?q=" + encodeURIComponent(al + " web check-in"), "_blank", "noopener");
     }
     if (e.target.id === "route-form") {
       e.preventDefault();
