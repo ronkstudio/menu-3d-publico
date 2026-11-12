@@ -1,0 +1,14 @@
+{
+  "name": "Guía de Buenos Aires",
+  "short_name": "Guía BA",
+  "description": "Qué ver, dónde comer, cómo moverte y qué evitar en Buenos Aires.",
+  "lang": "es",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f4ef",
+  "theme_color": "#0f2742",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
