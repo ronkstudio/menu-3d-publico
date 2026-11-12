@@ -1,0 +1,32 @@
+# Paso automático que actualiza la agenda de "Hoy en Buenos Aires" todos los días (tarjeta #65).
+#
+# TODAVÍA NO ESTÁ ACTIVADO. Para que funcione, Bautista tiene que decidir activarlo en el repositorio
+# PÚBLICO donde está publicada la guía (ronkstudio/menu-3d-publico), copiando:
+#   - este archivo a  .github/workflows/actualizar-hoy.yml
+#   - herramientas/armar-hoy.ps1  a  herramientas/armar-hoy.ps1
+# No necesita claves: usa el permiso que GitHub le da a cada repositorio para escribir en sí mismo.
+#
+# Qué hace: dos veces por día baja la agenda oficial de la Ciudad y, si cambió, sube guia-buenos-aires/data/hoy.json.
+# Ojo: GitHub apaga los pasos programados de un repositorio que pasa 60 días sin cambios hechos por una persona.
+name: Actualizar agenda de hoy (guía)
+on:
+  schedule:
+    - cron: "0 9 * * *"    # 6 de la mañana en Buenos Aires
+    - cron: "0 18 * * *"   # 3 de la tarde en Buenos Aires
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  hoy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bajar la agenda de la Ciudad
+        shell: pwsh
+        run: ./herramientas/armar-hoy.ps1 -out guia-buenos-aires/data/hoy.json
+      - name: Subir si cambió
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add guia-buenos-aires/data/hoy.json
+          git diff --cached --quiet || (git commit -m "Agenda de hoy" && git push)
