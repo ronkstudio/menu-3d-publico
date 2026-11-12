@@ -167,21 +167,6 @@
     return Math.round((today - start) / 864e5) + 1;
   };
 
-  /* ── Calculadora de propina y cuenta dividida (tarjeta #37) ── */
-  let tipPct = 10;
-  const tipHtml = () => '<div class="conv" id="tip"><div class="conv-row"><label><span>Cuenta</span><input id="tp-total" inputmode="decimal" placeholder="Total en pesos" aria-label="Total de la cuenta en pesos"></label>' +
-    '<label style="flex:0 0 36%"><span>Somos</span><input id="tp-n" inputmode="numeric" value="2" aria-label="Cantidad de personas"></label></div>' +
-    '<div class="chips wrap" style="margin-top:10px">' + [0, 10, 15].map(n => '<button class="chip sm' + (tipPct === n ? " on" : "") + '" data-tip="' + n + '">' + (n ? "Propina " + n + " %" : "Sin propina") + "</button>").join("") + "</div>" +
-    '<p class="conv-note" id="tp-out">Escribí el total y te decimos cuánto pone cada uno. En la Argentina se suele dejar un 10 %, en efectivo.</p></div>';
-  const paintTip = () => {
-    const out = $("#tp-out");
-    if (!out) return;
-    const total = parseNum($("#tp-total").value), n = Math.max(1, Math.round(parseNum($("#tp-n").value)) || 1);
-    if (!total) { out.textContent = "Escribí el total y te decimos cuánto pone cada uno. En la Argentina se suele dejar un 10 %, en efectivo."; return; }
-    const tip = total * tipPct / 100, each = (total + tip) / n, r = rate();
-    const cur = CURS.find(c => c[0] === prefs.cur);
-    out.innerHTML = "Propina: <b>$ " + money(tip, 0) + "</b> · Total: <b>$ " + money(total + tip, 0) + "</b><br>Cada uno pone <b>$ " + money(each, 0) + "</b>" + (r ? " (unos " + cur[1] + " " + money(each / r, 2) + ")" : "");
-  };
 
   /* ── Perfil de viaje (tarjeta #35): la guía se acomoda a cómo viaja cada persona. Funciona sin cuenta. ── */
   const profile = prefs.profile;
@@ -842,7 +827,6 @@
       body = helpHtml();
     } else if (tab === "practica") {
       body = '<section class="section" style="margin-top:0">' + head("¿Cuánto es en mi moneda?") + convHtml() + "</section>" +
-        '<section class="section">' + head("Propina y cuenta dividida") + tipHtml() + "</section>" +
         '<section class="section">' + head("Frases para defenderte") + frasesHtml() + "</section>" +
         '<section class="section">' + head("Lista para no olvidarte de nada") + checklistHtml() + "</section>" +
         '<div class="blocks" style="margin-top:24px">' + city.practical.concat(X.practicalMore || []).map((b, i) => blockHtml(b, i === 0)).join("") + "</div>";
@@ -1398,7 +1382,6 @@
     }
     if (t.closest("[data-print]")) { window.print(); return; }
     if ((el = t.closest("[data-visit]"))) { toggleVisit(el.getAttribute("data-visit")); return; }
-    if ((el = t.closest("[data-tip]"))) { tipPct = +el.getAttribute("data-tip"); $$("[data-tip]").forEach(b => b.classList.toggle("on", +b.getAttribute("data-tip") === tipPct)); paintTip(); return; }
     if ((el = t.closest("[data-pdiet]"))) { const d = el.getAttribute("data-pdiet"), i = profile.diets.indexOf(d); if (i > -1) profile.diets.splice(i, 1); else profile.diets.push(d); savePrefs(); rerender(); return; }
     if ((el = t.closest("[data-pbudget]"))) { profile.budget = +el.getAttribute("data-pbudget"); wiz.budget = profile.budget || 2; savePrefs(); rerender(); return; }
     if ((el = t.closest("[data-pkids]"))) {
@@ -1449,7 +1432,6 @@
     if (e.target.id === "ci-q") document.getElementById("ci-list").innerHTML = ciLista(e.target.value);
     if (e.target.id === "cv-a") paintConv("a");
     if (e.target.id === "cv-b") paintConv("b");
-    if (e.target.id === "tp-total" || e.target.id === "tp-n") paintTip();
   });
   document.addEventListener("change", e => {
     if (e.target.id === "lleg-aloja") {
