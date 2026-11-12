@@ -1,0 +1,43 @@
+max $1° / min $2°
+$1 places
+1 place
+$1 places on the map
+$1 without a fixed location
+$1 visits a day
+Tip $1%
+$1 of $2
+See $1 places
+Day $1
+1 star
+$1 stars
+$1 km away
+Done: $1 places in 1 day
+Done: $1 places in $2 days
+rain $1%
+1 day to go until your trip.
+$1 days to go until your trip.
+1 $1 ≈ $2 pesos
+official reference rate from $1. What you are charged may vary depending on how you pay.
+Save $1 to My trip
+Remove $1
+Day for $1
+Scheduled for day $1
+$1 places saved to My trip
+Clear My trip? The $1 saved places will be removed.
+Usually closed on {1}
+Only runs on {1}
+{1} only
+Not today: {2} only.
+$1 $2 away
+(about $1)
+New stamp: {1}
+My trip to $1
+View $1
+You have $1 of $2 stamps. Keep going!
+$1 h $2 min by train
+$1 min by train
+$1 h $2 min by ferry
+$1 h $2 min by direct ferry
+$1 hours by boat from Tigre
+$1 h $2 min by boat from Tigre
+$1 min by boat

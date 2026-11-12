@@ -1,0 +1,43 @@
+^máx (-?\d+)° / mín (-?\d+)°$
+^(\d+) lugares$
+^1 lugar$
+^(\d+) lugares en el mapa$
+^(\d+) sin ubicación fija$
+^(\d+) visitas por día$
+^Propina (\d+) %$
+^(\d+) de (\d+)$
+^Ver (\d+) lugares$
+^Día (\d+)$
+^1 estrella$
+^(\d+) estrellas$
+^A (\d+) km$
+^Listo: (\d+) lugares en 1 día$
+^Listo: (\d+) lugares en (\d+) días$
+^lluvia (\d+) %$
+^Faltan? 1 día para tu viaje\.$
+^Faltan (\d+) días para tu viaje\.$
+^1 ([A-Z]{3}) ≈ ([\d.,]+) pesos$
+^cotización oficial de referencia del (\S+)\. Lo que te cobren puede variar según cómo pagues\.$
+^Guardar (.+) en Mi viaje$
+^Quitar (.+)$
+^Día para (.+)$
+^Agendado para el día (\d+)$
+^(\d+) lugares guardados en Mi viaje$
+^¿Vaciar Mi viaje\? Se quitan los (\d+) lugares guardados\.$
+^Suele cerrar los (.+)$
+^Funciona solo los (.+)$
+^Solo los (.+)$
+^Hoy \((.+)\) no: solo los (.+)\.$
+^a ([\d.,]+) (m|km)$
+^\(unos (.+)\)$
+^Nuevo sello: (.+)$
+^Mi viaje a (.+)$
+^Ver (.+)$
+^Tenés (\d+) de (\d+) sellos\. ¡Seguí sumando!$
+^(\d+) h (\d+) min en tren$
+^(\d+) min en tren$
+^A (\d+) h (\d+) min en ferry$
+^(\d+) h (\d+) min en ferry directo$
+^(\d+) horas en lancha desde Tigre$
+^(\d+) h (\d+) min en lancha desde Tigre$
+^(\d+) min en lancha$
