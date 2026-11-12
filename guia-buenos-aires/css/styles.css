@@ -1,15 +1,15 @@
 :root {
-  --bg: #f6f4ef;
-  --surface: #ffffff;
-  --surface-2: #edeae2;
-  --ink: #13202e;
-  --ink-2: #485766;
-  --ink-3: #74808d;
-  --line: #e0dcd2;
-  --brand: #0f2742;
-  --accent: #1a73c8;
+  --bg: #faf4ea;
+  --surface: #fffcf6;
+  --surface-2: #f2e8d8;
+  --ink: #2b2118;
+  --ink-2: #5d4c3b;
+  --ink-3: #8a7864;
+  --line: #eadcc6;
+  --brand: #1f3d36;
+  --accent: #b5472f;
   --accent-ink: #ffffff;
-  --sun: #f4b400;
+  --sun: #f2a93b;
   --warn-bg: #fff4e0;
   --warn-ink: #8a5300;
   --ok-bg: #e6f5ea;
@@ -17,23 +17,25 @@
   --no-bg: #fde8ec;
   --no-ink: #a61e4d;
   --danger: #d6336c;
-  --radius: 16px;
-  --shadow: 0 1px 2px rgba(19, 32, 46, .05), 0 4px 16px rgba(19, 32, 46, .06);
+  --radius: 18px;
+  --shadow: 0 1px 2px rgba(74, 46, 20, .06), 0 6px 18px rgba(74, 46, 20, .08);
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --forest: #2f5d4f;
   --nav-h: 62px;
   --top-h: 52px;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0d141c;
-    --surface: #17212c;
-    --surface-2: #202d3a;
-    --ink: #eef2f6;
-    --ink-2: #b6c1cc;
-    --ink-3: #8795a3;
-    --line: #2a3947;
-    --brand: #0a1826;
-    --accent: #58aef5;
-    --accent-ink: #06121f;
+    --bg: #16120d;
+    --surface: #221c15;
+    --surface-2: #2d251c;
+    --ink: #f6eee2;
+    --ink-2: #d2c3ae;
+    --ink-3: #a3927c;
+    --line: #3b3127;
+    --brand: #13261f;
+    --accent: #f0906f;
+    --accent-ink: #2a1009;
     --warn-bg: #3a2c10;
     --warn-ink: #ffd58a;
     --ok-bg: #143021;
@@ -96,7 +98,8 @@ main:focus { outline: none; }
 .hint { color: var(--ink-3); font-size: 13.5px; margin: -6px 0 10px; }
 
 /* ── Hero ── */
-.hero { background: linear-gradient(135deg, #0f2742 0%, #1b5a94 62%, #3b90cc 100%); color: #fff; border-radius: 22px; padding: 24px 20px 20px; }
+.hero { position: relative; overflow: hidden; isolation: isolate; color: #fff; border-radius: 26px; padding: 26px 20px 22px;
+  background: linear-gradient(160deg, #1f3d36 0%, #2f5d4f 42%, #8c4a32 82%, #c8603f 100%); box-shadow: 0 10px 30px rgba(74, 46, 20, .18); }
 .hero small { text-transform: uppercase; letter-spacing: .07em; font-weight: 700; font-size: 12px; opacity: .85; }
 .hero h1 { font-size: clamp(30px, 7vw, 44px); margin: 4px 0 8px; }
 .wx { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 14.5px; opacity: .95; }
@@ -547,9 +550,9 @@ a.event:hover { border-color: var(--accent); }
 
 /* Check-in del vuelo */
 .ci-big { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin-top: 6px; padding: 18px 20px; border: 0; border-radius: 16px;
-  background: linear-gradient(135deg, #5f3dc4, #1a73c8); color: #fff; font-size: 19px; font-weight: 800; letter-spacing: .01em;
-  box-shadow: 0 8px 22px color-mix(in srgb, #5f3dc4 35%, transparent); cursor: pointer; transition: transform .12s ease, box-shadow .12s ease; }
-.ci-big:hover { transform: translateY(-1px); box-shadow: 0 10px 26px color-mix(in srgb, #5f3dc4 45%, transparent); }
+  background: linear-gradient(135deg, #b5472f, #e08a3c); color: #fff; font-size: 19px; font-weight: 800; letter-spacing: .01em;
+  box-shadow: 0 8px 22px color-mix(in srgb, #b5472f 35%, transparent); cursor: pointer; transition: transform .12s ease, box-shadow .12s ease; }
+.ci-big:hover { transform: translateY(-1px); box-shadow: 0 10px 26px color-mix(in srgb, #b5472f 45%, transparent); }
 .ci-big:active { transform: translateY(1px); }
 .ci-panel { margin-top: 12px; padding: 14px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
 .ci-panel label { display: block; font-weight: 700; margin-bottom: 8px; }
@@ -559,3 +562,58 @@ a.event:hover { border-color: var(--accent); }
 .ci-item b { color: var(--accent); font-size: 13.5px; white-space: nowrap; }
 .ci-item:hover { border-color: var(--accent); }
 .ci-otra { justify-content: flex-start; gap: 4px; }
+
+/* ── Estilo cálido y aventurero (tarjeta #77) ──
+   Colores de atardecer (terracota, verde bosque, crema), títulos con letra Fraunces
+   y líneas de mapa topográfico en la portada. Si la letra no carga (sin internet), se usa Georgia. */
+body { background:
+  radial-gradient(1200px 420px at 50% -120px, color-mix(in srgb, var(--sun) 16%, transparent), transparent 70%),
+  var(--bg); background-attachment: fixed; }
+h1, h2, .page-title, .section-head h2, .hero h1, .sheet h2 { font-family: var(--serif); font-weight: 700; letter-spacing: -.01em; }
+.page-title { font-size: 30px; }
+.section-head h2 { font-size: 22px; }
+.topbar { background: var(--brand); box-shadow: 0 2px 12px rgba(20, 30, 25, .18); }
+.brand-text b { font-family: var(--serif); font-weight: 700; letter-spacing: -.005em; }
+.brand-mark { background: radial-gradient(circle at 35% 35%, #ffd27a, var(--sun)); color: #6b3a10; box-shadow: 0 0 0 3px rgba(242, 169, 59, .25); }
+
+/* Portada: líneas de mapa topográfico y un sol de atardecer */
+.hero::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .16;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240' fill='none' stroke='%23fff' stroke-width='1.2'%3E%3Cpath d='M-10 60c40-25 80 25 120 0s80-25 140 5'/%3E%3Cpath d='M-10 90c40-25 80 25 120 0s80-25 140 5'/%3E%3Cpath d='M-10 130c50-30 90 30 130 0s70-30 130 0'/%3E%3Cpath d='M-10 170c50-30 90 30 130 0s70-30 130 0'/%3E%3Cpath d='M-10 210c40-20 90 20 130 0s80-20 130 0'/%3E%3Cellipse cx='175' cy='45' rx='28' ry='16'/%3E%3Cellipse cx='175' cy='45' rx='14' ry='7'/%3E%3C/svg%3E");
+  background-size: 240px 240px; }
+.hero::after { content: ""; position: absolute; z-index: -1; width: 220px; height: 220px; right: -60px; top: -70px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 205, 120, .55), rgba(255, 170, 80, 0) 68%); }
+.hero h1 { font-size: clamp(34px, 8vw, 50px); }
+.search { border-radius: 16px; box-shadow: 0 6px 18px rgba(0, 0, 0, .15); }
+.search button { background: var(--sun); color: #4a2a05; }
+
+/* Tarjetas y botones más suaves */
+.cat, .card, .block, .event, .ci-panel { border-radius: var(--radius); }
+.cat:hover, .card:hover { transform: translateY(-2px); }
+.chip { border-radius: 999px; }
+.chip.on, .chip.sm.on, .chip.sel.on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.link { color: var(--accent); }
+
+/* Barra de abajo: la sección elegida con una pastilla cálida */
+.nav { background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.nav a.on .nav-ico { background: color-mix(in srgb, var(--accent) 14%, transparent); border-radius: 999px; padding: 3px 14px; }
+@media (min-width: 900px) {
+  .nav { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .nav a.on .nav-ico { background: none; padding: 0; }
+  .nav a.on { color: #fff; background: rgba(242, 169, 59, .22); }
+}
+
+/* Recién llegado: pasos con una línea que los une, como un sendero */
+.arrive { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 0; }
+.arrive-step { position: relative; display: flex; gap: 14px; padding-bottom: 18px; }
+.arrive-step:not(:last-child)::before { content: ""; position: absolute; left: 21px; top: 46px; bottom: 2px; border-left: 2px dashed color-mix(in srgb, var(--accent) 45%, transparent); }
+.arrive-n { flex: none; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; font-size: 21px;
+  background: color-mix(in srgb, var(--sun) 22%, var(--surface)); border: 1px solid color-mix(in srgb, var(--sun) 50%, var(--line)); }
+.arrive-step > div { flex: 1; min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; box-shadow: var(--shadow); }
+.arrive-step b { display: block; font-family: var(--serif); font-size: 17px; }
+.arrive-step p { color: var(--ink-2); font-size: 14.5px; margin: 4px 0 8px; }
+
+/* Frases para defenderte */
+.phrases { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px; }
+.phrase { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 14px; padding: 10px 12px; }
+.phrase b { display: block; font-size: 15.5px; }
+.phrase span { display: block; font-size: 13px; color: var(--ink-3); margin-top: 2px; }

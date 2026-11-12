@@ -496,9 +496,9 @@
     const grp = (title, arr) => {
       if (!arr.length) return "";
       arr.sort((a, b) => (a.ev ? 1 : 0) - (b.ev ? 1 : 0) || (a.orden || 0) - (b.orden || 0));
-      const first = arr.slice(0, 8), rest = arr.slice(8);
+      const first = arr.slice(0, 3), rest = arr.slice(3);
       return '<h3 class="hoy-h">' + title + '</h3><div class="events">' + first.map(hoyRow).join("") + "</div>" +
-        (rest.length ? '<details class="hoy-mas"><summary>Ver más</summary><div class="events">' + rest.map(hoyRow).join("") + "</div></details>" : "");
+        (rest.length ? '<details class="hoy-mas"><summary>Ver más <span>(' + rest.length + ')</span></summary><div class="events">' + rest.map(hoyRow).join("") + "</div></details>" : "");
     };
     return '<section class="section" id="hoy">' + head("Hoy en Buenos Aires") +
       grp("De día", items.filter(i => i.franja === "dia")) + grp("A la noche", items.filter(i => i.franja === "noche")) +
@@ -567,6 +567,7 @@
       '<section class="section">' + head("¿Cuánto es en mi moneda?") + convHtml() + "</section>" +
 
       '<section class="section">' + head("Antes de salir") + '<div class="cats">' +
+        linkCard("#/info/llegada", "#2f5d4f", "🛬", "Recién llegado", "Tus primeras horas, paso a paso") +
         linkCard("#/info/ayuda", "#e03131", "🆘", "Dónde pedir ayuda", "Turismo, policía, hospitales") +
         linkCard("#/info/moverse", "#1c7ed6", "🚇", "Cómo moverte", "SUBE, subte, aeropuertos") +
         linkCard("#/info/seguridad", "#e8590c", "⚠️", "Qué evitar", "Estafas y cuidados") +
@@ -712,7 +713,37 @@
       { t: "Aeropuertos", d: "Ezeiza es para casi todos los vuelos internacionales; Aeroparque, para los de cabotaje y algunos a países vecinos. Fijate bien cuál es el tuyo." }
     ] }, true) + "</div>";
 
-  const INFO_TABS = [["moverse", "🚇 Moverse"], ["seguridad", "⚠️ Seguridad"], ["ayuda", "🆘 Ayuda"], ["practica", "💵 Práctica"], ["calendario", "📅 Calendario"], ["vuelo", "✈️ Tu vuelo"]];
+  /* Recién llegado (tarjeta #77): las primeras horas en la ciudad, paso a paso. Cada paso lleva a la parte de la guía que lo explica. */
+  const LLEGADA = [
+    ["🚕", "Salí del aeropuerto", "Tomá un taxi o remís en los mostradores oficiales de adentro del aeropuerto, o pedí un auto por app. No aceptes ofertas de gente que se te acerque en el hall.", "#/info/moverse", "Cómo llegar al centro"],
+    ["📶", "Conseguí internet", "Comprá un chip prepago de Personal, Claro o Movistar, o activá una eSIM antes de viajar. Con eso tenés mapas y apps desde el primer minuto.", "#/info/practica", "Ver datos útiles"],
+    ["💳", "Resolvé la plata", "Pagar con tarjeta extranjera suele convenir. No cambies dinero con gente en la calle.", "#/info/practica", "Ver dinero y pagos"],
+    ["🚇", "Prepará el transporte", "Comprá y cargá una tarjeta SUBE. En el subte y en muchos colectivos también podés pagar acercando tu tarjeta sin contacto.", "#/info/moverse", "Ver cómo moverte"],
+    ["🆘", "Guardá los teléfonos útiles", "Anotá los de emergencia y la dirección de tu alojamiento, por si te quedás sin batería.", "#/info/ayuda", "Ver dónde pedir ayuda"],
+    ["🧭", "Armá tu primer día", "Elegí qué te gusta y la guía te arma un recorrido.", "#/armar", "Armar mi viaje"]
+  ];
+  const llegadaHtml = () =>
+    '<p class="hint">Lo que conviene hacer en tus primeras horas en Buenos Aires.</p><ol class="arrive">' +
+    LLEGADA.map(s => '<li class="arrive-step"><span class="arrive-n" aria-hidden="true">' + s[0] + "</span><div><b>" + s[1] + "</b><p>" + s[2] + '</p><a class="link" href="' + s[3] + '">' + s[4] + " →</a></div></li>").join("") + "</ol>";
+
+  /* Frases para decir (tarjeta #77). La frase queda en castellano (data-notr) y abajo se explica para qué sirve, en el idioma elegido. */
+  const FRASES = [
+    ["Hola, ¿cómo andás?", "Saludo amistoso, para cualquier momento"],
+    ["¿Me traés la cuenta, por favor?", "Para pedir la cuenta en un bar o restaurante"],
+    ["¿Puedo pagar con tarjeta?", "Antes de pedir, por si solo aceptan efectivo"],
+    ["¿Cuánto sale?", "Para preguntar el precio"],
+    ["¿Cómo llego a…?", "Para pedir indicaciones en la calle"],
+    ["¿Dónde está el baño?", "Para encontrar el baño"],
+    ["Una mesa para dos, por favor.", "Al llegar a un restaurante"],
+    ["¿Qué me recomendás?", "Para pedir una sugerencia al mozo"],
+    ["Soy celíaco: ¿tienen algo sin TACC?", "Para pedir comida sin gluten"],
+    ["Perdón, no hablo bien castellano.", "Para que te hablen más despacio"],
+    ["Necesito un médico.", "En una urgencia"],
+    ["¡Gracias, muy amable!", "Para agradecer"]
+  ];
+  const frasesHtml = () => '<div class="phrases">' + FRASES.map(f => '<div class="phrase"><b data-notr lang="es">' + esc(f[0]) + "</b><span>" + esc(f[1]) + "</span></div>").join("") + "</div>";
+
+  const INFO_TABS = [["llegada", "🛬 Recién llegado"], ["moverse", "🚇 Moverse"], ["seguridad", "⚠️ Seguridad"], ["ayuda", "🆘 Ayuda"], ["practica", "💵 Práctica"], ["calendario", "📅 Calendario"], ["vuelo", "✈️ Tu vuelo"]];
   const viewInfo = tab => {
     if (!INFO_TABS.some(t => t[0] === tab)) tab = "moverse";
     const month = cityNow().getMonth() + 1;
@@ -721,6 +752,8 @@
       const lines = '<div class="lines">' + city.subte.map(l => '<div class="line"><span class="line-dot" style="--c:' + l.color + '">' + l.line + "</span><span><b>" + esc(l.route) + "</b><span>" + esc(l.useful) + "</span></span></div>").join("") + "</div>";
       body = '<form class="route" id="route-form"><label for="route-to">¿A dónde querés ir?</label><div class="search"><input id="route-to" name="to" required placeholder="Ej.: Teatro Colón, Caminito, Aeroparque…" autocomplete="off"><button>Cómo llegar</button></div><p class="hint">Abre Google Maps con el recorrido en transporte público desde donde estás.</p></form>' +
         '<div class="blocks">' + city.transport.map((b, i) => blockHtml({ icon: b.icon, title: b.title, items: b.items, extra: b.title === "Subte" ? lines : "" }, i < 2)).join("") + "</div>";
+    } else if (tab === "llegada") {
+      body = llegadaHtml();
     } else if (tab === "vuelo") {
       body = vueloHtml();
     } else if (tab === "ayuda") {
@@ -728,6 +761,7 @@
     } else if (tab === "practica") {
       body = '<section class="section" style="margin-top:0">' + head("¿Cuánto es en mi moneda?") + convHtml() + "</section>" +
         '<section class="section">' + head("Propina y cuenta dividida") + tipHtml() + "</section>" +
+        '<section class="section">' + head("Frases para defenderte") + frasesHtml() + "</section>" +
         '<section class="section">' + head("Lista para no olvidarte de nada") + checklistHtml() + "</section>" +
         '<div class="blocks" style="margin-top:24px">' + city.practical.concat(X.practicalMore || []).map((b, i) => blockHtml(b, i === 0)).join("") + "</div>";
     } else if (tab === "calendario") {
