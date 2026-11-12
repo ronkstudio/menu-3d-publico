@@ -11,6 +11,6 @@
   "pie.aviso": "For guidance only: prices, opening hours and days change. Check before you go.",
   "pie.creditos": "Photos: Wikimedia Commons · Maps and subway: © OpenStreetMap · Weather: Open-Meteo · Exchange rate: open.er-api.com",
   "idioma.titulo": "Language",
-  "idioma.abrir": "Change language"
+  "idioma.abrir": "Change language",
   "idioma.cerrar": "Close"
 };
