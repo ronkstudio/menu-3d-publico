@@ -1,8 +1,10 @@
 /* Service worker: deja la guía disponible sin conexión.
    Estrategia: primero la red (para tener siempre la última versión) y, si no hay conexión, la copia guardada.
    Las fotos y los mapas se guardan a medida que se ven. */
-var CACHE = "guia-v27";
-var SHELL = ["index.html", "css/styles.css", "js/app.js", "i18n/i18n.js", "i18n/traductor.js", "i18n/es.js", "i18n/en.js", "i18n/pt.js", "i18n/fr.js", "i18n/it.js", "i18n/de.js", "i18n/zh.js", "i18n/ja.js", "data/caba.js", "data/caba-coords.js", "data/caba-extra.js", "data/caba-zones.js", "data/caba-mas.js", "data/caba-boliches.js", "data/caba-hoy.js", "data/caba-local.js", "config.js", "icon.svg", "manifest.webmanifest"];
+var CACHE = "guia-v29";
+/* Datos de ciudad: acá van solo los de Buenos Aires, que es la que se abre por defecto. Los de las demás ciudades
+   se guardan solos la primera vez que alguien las elige (así nadie baja ciudades que no usa). */
+var SHELL = ["index.html", "css/styles.css", "js/app.js", "js/ciudad.js", "data/ciudades.js", "i18n/i18n.js", "i18n/traductor.js", "i18n/es.js", "i18n/en.js", "i18n/pt.js", "i18n/fr.js", "i18n/it.js", "i18n/de.js", "i18n/zh.js", "i18n/ja.js", "data/caba.js", "data/caba-coords.js", "data/caba-extra.js", "data/caba-zones.js", "data/caba-mas.js", "data/caba-boliches.js", "data/caba-hoy.js", "data/caba-local.js", "config.js", "icon.svg", "manifest.webmanifest"];
 
 /* Se guarda archivo por archivo: si uno falla, los demás igual quedan guardados.
    (Antes se pedía también la carpeta "./", que en algunos servidores daba error 404 y frenaba todo.) */

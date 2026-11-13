@@ -98,9 +98,11 @@
   };
 
   document.documentElement.lang = lang;
-  document.title = t("titulo");
+  /* El título fijo de cada idioma es el de Buenos Aires. En las demás ciudades lo arma app.js ("Guía de …") y lo traduce traductor.js (tarjeta #98). */
+  const tituloFijo = !window.GUIA_CIUDAD || window.GUIA_CIUDAD.id === "caba";
+  if (tituloFijo) document.title = t("titulo");
   /* app.js vuelve a escribir el título en español al arrancar: lo corregimos cuando termina de cargar. */
-  if (lang !== "es") window.addEventListener("load", () => { document.title = t("titulo"); });
+  if (lang !== "es" && tituloFijo) window.addEventListener("load", () => { document.title = t("titulo"); });
   aplicar();
   ponerBoton();
 

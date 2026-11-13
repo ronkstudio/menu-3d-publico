@@ -677,3 +677,19 @@ h1, h2, .page-title, .section-head h2, .hero h1, .sheet h2 { font-family: var(--
 .hoy-mes small { width: 100%; font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-3); }
 .hoy-mes b + b::before { content: "·"; margin-right: 10px; color: var(--ink-3); font-weight: 400; }
 .armar-top { margin-top: 18px; }
+
+/* ── Selector de ciudad (tarjeta #98): el nombre de la ciudad en la barra de arriba es un botón que abre la lista ── */
+.brand { min-width: 0; gap: 6px; }
+.brand-home { display: flex; align-items: center; gap: 10px; flex: none; }
+.city-btn { min-width: 0; height: 36px; padding: 0 10px 0 8px; border: 0; border-radius: 18px; background: rgba(255, 255, 255, .14); color: #fff; font: inherit; font-size: 17px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.city-btn:hover { background: rgba(255, 255, 255, .24); }
+.city-btn b { font-family: var(--serif); font-weight: 700; letter-spacing: -.005em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.city-btn i { font-style: normal; font-size: 12px; opacity: .85; }
+.city-dialog { width: min(92vw, 380px); max-height: 86dvh; padding: 0; border: 1px solid var(--line); border-radius: 22px; background: var(--surface); color: var(--ink); box-shadow: 0 20px 60px rgba(0, 0, 0, .3); }
+.city-dialog::backdrop { background: rgba(10, 20, 30, .5); }
+.city-list { display: grid; gap: 8px; padding: 4px 16px 16px; }
+.city-opt { min-height: 58px; justify-content: flex-start; gap: 12px; }
+.city-opt em { font-style: normal; font-size: 26px; line-height: 1; }
+.city-opt span { flex: 1; display: grid; }
+.city-opt small { font-weight: 400; font-size: 13px; color: var(--ink-2); }
+@media print { .city-btn i, .city-dialog { display: none !important; } }
